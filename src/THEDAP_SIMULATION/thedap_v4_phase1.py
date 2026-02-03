@@ -40,7 +40,7 @@ class getPhase1_v4(getMixClean_v4):
                     GRPs = e_imp / population * 100
                     GRPs_weighted = eimp_weighted / population * 100''').fillna(0). \
                 assign(line=str(i + 1)). \
-                merge(self.parameter_DB[self.parameter_DB['product'] == 'subtotal'].drop(['date', 'year'], axis=1).rename(
+                merge(self.parameter_DB[self.parameter_DB['product'] == 'overall'].drop(['date', 'year'], axis=1).rename(
                 columns={'a': 'a_ovr', 'b': 'b_ovr', 'c': 'c_ovr'}),
                     how="left", on=['platform', 'gender', 'age_min', 'age_max']). \
                 assign(platform=mix_cleaned['platform'][i])

@@ -2,7 +2,6 @@
 import mysql.connector
 import pandas as pd
 import CONFIG.config as CONFIG
-from datetime import datetime, date
 
 # 데이터베이스 연결
 def getConnection():
@@ -11,10 +10,7 @@ def getConnection():
     
 class getDATA():
 
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d")):
-        # 'YYYY-MM-DD' -> 'YYYYMMDD'
-        self.inputModelDate = datetime.strftime(datetime.strptime(inputModelDate, "%Y-%m-%d"), '%Y%m%d')
-        
+    def __init__(self):
         self.population_DB = self.getPopulation()
         self.parameter_DB = self.getParameter()
         self.distribution_DB = self.getDistribution()
@@ -32,16 +28,10 @@ class getDATA():
         
     # 인구모수 DB
     def getPopulation(self):
+        print('query_read')
         cnx = getConnection()
         # 쿼리문
-        query = f'''
-        WITH BASE AS (
-            SELECT
-                *
-            FROM DAP_POPULATION
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
-        
+        query = '''
         SELECT
             STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
             SUBSTR(BASIS_DT, 1, 4) as year,
@@ -50,14 +40,13 @@ class getDATA():
             AGE_MIN as age_min,
             AGE_MAX as age_max,
             POPULATION as population
-        FROM BASE
+        FROM DAP_POPULATION
         WHERE (BASIS_DT, GENDER, AGE_MIN, AGE_MAX) IN (
         SELECT
             MAX(BASIS_DT) DATE, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
-        GROUP BY GENDER, AGE_MIN, AGE_MAX)
-        )
-        '''
+        FROM DAP_POPULATION
+        GROUP BY GENDER, AGE_MIN, AGE_MAX
+        )'''
 
         # 쿼리 실행 및 결과를 DataFrame으로 변환
         df = pd.read_sql(query, cnx)
@@ -71,14 +60,7 @@ class getDATA():
     def getDistribution(self):
         cnx = getConnection()
         # 쿼리문
-        query = f'''
-        WITH BASE AS (
-            SELECT
-                *
-            FROM DAP_DISTRIBUTION
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
-        
+        query = '''
         SELECT
             STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
             SUBSTR(BASIS_DT, 1, 4) as year,
@@ -88,11 +70,11 @@ class getDATA():
             AGE_MIN as age_min,
             AGE_MAX as age_max,
             DISTRIBUTION as distribution
-        FROM BASE
+        FROM DAP_DISTRIBUTION
         WHERE (BASIS_DT, PLATFORM, GENDER, AGE_MIN, AGE_MAX) IN (
         SELECT
             MAX(BASIS_DT) DATE, PLATFORM, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
+        FROM DAP_DISTRIBUTION
         GROUP BY PLATFORM, GENDER, AGE_MIN, AGE_MAX
         )'''
 
@@ -108,14 +90,7 @@ class getDATA():
     def getParameter(self):
         cnx = getConnection()
         # 쿼리문
-        query = f'''
-        WITH BASE AS (
-            SELECT
-                *
-            FROM DAP_PARAMETER
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
-        
+        query = '''
         SELECT
             STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
             SUBSTR(BASIS_DT, 1, 4) as year,
@@ -127,11 +102,11 @@ class getDATA():
             A_VAL as a,
             B_VAL as b,
             C_VAL as c
-        FROM BASE
+        FROM DAP_PARAMETER
         WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
         SELECT
             MAX(BASIS_DT) DATE, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
+        FROM DAP_PARAMETER
         GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
         )'''
 
@@ -140,21 +115,15 @@ class getDATA():
 
         # 연결 종료
         cnx.close()
-                    
+            
+        
         return pd.concat([df], ignore_index=True)
 
     # NPlus계수 DB
     def getNPlusParameter(self):
         cnx = getConnection()
         # 쿼리문
-        query = f'''
-        WITH BASE AS (
-            SELECT
-                *
-            FROM DAP_NPLUS_PARAMETER
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
-        
+        query = '''
         SELECT
             STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
             SUBSTR(BASIS_DT, 1, 4) as year,
@@ -172,11 +141,11 @@ class getDATA():
             RATIO8_A as ratio8_a, RATIO8_AF as ratio8_af, RATIO8_GRPS as ratio8_grps,
             RATIO9_A as ratio9_a, RATIO9_AF as ratio9_af, RATIO9_GRPS as ratio9_grps,
             RATIO10_A as ratio10_a, RATIO10_AF as ratio10_af, RATIO10_GRPS as ratio10_grps
-        FROM BASE
+        FROM DAP_NPLUS_PARAMETER
         WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
         SELECT
             MAX(BASIS_DT) DATE, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
+        FROM DAP_NPLUS_PARAMETER
         GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
         )'''
 
