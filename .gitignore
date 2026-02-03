@@ -1,0 +1,6 @@
+*.xlsx
+__pycache__
+config.py
+*.png
+*.ipynb
+*.json
