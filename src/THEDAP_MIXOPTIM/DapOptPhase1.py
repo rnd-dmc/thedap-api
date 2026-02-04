@@ -1,6 +1,6 @@
 import warnings
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, date
 import numpy as np
 warnings.filterwarnings(action='ignore')
 from dateutil.relativedelta import relativedelta
@@ -9,8 +9,8 @@ from THEDAP_SIMULATION.DapPhase5_v5 import DapPhase5_v5
 
 class DapOptPhase1(DapPhase5_v5):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
 
     def opt_tidy(self, opt_mix, input_age, input_gender):
         age = pd.read_json(self.trans_age(input_age))

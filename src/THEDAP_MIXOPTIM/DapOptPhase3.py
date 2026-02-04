@@ -1,13 +1,13 @@
 import pandas as pd
 import numpy as np
-
+from datetime import datetime, date
 from THEDAP_MIXOPTIM.DapOptPhase2 import DapOptPhase2
 
 
 class DapOptPhase3(DapOptPhase2):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
 
     def opt_phase3(self, opt_mix, input_age, input_gender, input_weight, opt_target, start_point=1.0, margin=.01):
         opt_mix_cleaned = self.opt_tidy(opt_mix, input_age, input_gender)

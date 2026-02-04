@@ -1,14 +1,14 @@
 import pandas as pd
 import numpy as np
-from datetime import datetime
+from datetime import datetime, date
 import json
 from collections import OrderedDict
 from THEDAP_SIMULATION.DapPhase1_v5 import DapPhase1_v5
 
 class DapPhase2_v5(DapPhase1_v5):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
     
 
     ## 캠페인-매체별 결과
@@ -53,7 +53,11 @@ class DapPhase2_v5(DapPhase1_v5):
         df['isDemo'] = np.where(df['e_imp'] > 0., 1, 0)
         df['isTarget'] = np.where(df['target_impression'] > 0., 1, 0)
         df['e_reach_p'] = df['c_ovr'] / (1 + np.exp(-(df['a_ovr'] + df['b_ovr'] * np.log(df['agrps']))))
-        df['e_reach_p'] = np.where(df['retargeting_cnt'] == df['line_cnt'], df['retargeting'] / df['population'] * .9999, df['e_reach_p'])
+        df['e_reach_p'] = np.where(
+            (df['retargeting_cnt'] == df['line_cnt']) & ((df['e_reach_p'] * df['population']) > (df['retargeting'])), 
+            df['retargeting'] / df['population'] * .9999,
+            df['e_reach_p']
+        )
         df['e_reach_n'] = df['e_reach_p'] * df['population']
         df['e_reach_n'] = np.where(df['e_reach_n'] > df['reach_sum'], df['reach_sum'], df['e_reach_n'])
         df['e_reach_p'] = np.where(df['agrps'] > 0, df['e_reach_n'] / df['population'], 0)

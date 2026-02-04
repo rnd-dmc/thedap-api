@@ -1,5 +1,5 @@
 # pip install flask
-from flask import Flask, request
+from flask import Flask, request, jsonify
 import warnings
 import json
 warnings.filterwarnings(action='ignore')
@@ -12,8 +12,8 @@ from THEDAP_REACHCURVE.DapCurve_v4 import DapCurve_v4
 
 from THEDAP_SIMULATION.DapOutput_v5 import DapOutput_v5
 from THEDAP_REACHCURVE.DapCurve_v5 import DapCurve_v5
-
 from THEDAP_MIXOPTIM.DapMixOptimizer import DapMixOptimizer
+from THEDAP_UTILS.DapCustomModel import DapCustomModel
 
 # import CONFIG.thedap_db as db
 
@@ -53,7 +53,6 @@ def target_info():
     age_max = data["input_age_max"]
 
     obj_ = DapUtils_v5() 
-    # thedap_v4.py 파라미터 정보에 맞춰 변경
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
     
@@ -318,6 +317,41 @@ def reach_spectrum():
     result = thedap_output.get_result()
     return result
 
+# 모델 커스텀
+@app.route("/reach_custom/", methods=["POST"])
+def reach_custom():
+    data = request.json
+
+    uploadData = data.get('uploadData')
+    if not uploadData:
+        return jsonify({
+            "status": "fail",
+            "message": "NoDataError"
+        }), 400
+
+    DCM = DapCustomModel(uploadData=uploadData)
+    
+    # 전달받은 데이터의 행 수가 20 미만일 때 -> RowNumError
+    if len(DCM.uploadData) < 20:
+        return jsonify({
+            "status": "fail",
+            "message": f"RowNumError", 
+        }), 422 
+	
+    # 분석 성공
+    try:
+        result = DCM.getResult()
+        return jsonify({
+            "status": "success",
+            "message": "Complete",
+            **result
+        }), 200
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"{str(e)}"
+        }), 500
 
 
 # 매체, 상품 조회 (get_media_product)

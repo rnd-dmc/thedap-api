@@ -2,12 +2,13 @@ import pandas as pd
 import numpy as np
 import json
 from collections import OrderedDict
+from datetime import datetime, date
 from THEDAP_SIMULATION.DapOutput_v5 import DapPhase5_v5
 
 class DapCurve_v5(DapPhase5_v5):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
             
     def reach_curve(self, input_mix_selected, input_age, input_gender, input_weight, input_seq, input_maxbudget):
         seq = self.get_seq(input_seq)

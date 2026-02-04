@@ -2,13 +2,13 @@ import pandas as pd
 import numpy as np
 import json
 from collections import OrderedDict
-from datetime import datetime
+from datetime import datetime, date
 from THEDAP_UTILS.DapUtils_v5 import DapUtils_v5
 
 class DapMixClean_v5(DapUtils_v5):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
         self.tv_list = self.get_TV_list()
 
     ### 믹스안 정제 & 기대 노출량

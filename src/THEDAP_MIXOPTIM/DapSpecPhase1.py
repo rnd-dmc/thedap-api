@@ -1,7 +1,7 @@
 import warnings
 import pandas as pd
 import numpy as np
-from datetime import datetime
+from datetime import datetime, date
 
 warnings.filterwarnings(action='ignore')
 from dateutil.relativedelta import relativedelta
@@ -10,8 +10,8 @@ from THEDAP_SIMULATION.DapPhase5_v5 import DapPhase5_v5
 
 class DapSpecPhase1(DapPhase5_v5):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
 
     def spec_tidy(self, spec_mixpair, input_age, input_gender, spec_seq, spec_maxbudget):
         mix_a = pd.DataFrame(pd.DataFrame(spec_mixpair).loc[0, 'mix_a']).assign(campaign='mix_a')

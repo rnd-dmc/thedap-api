@@ -11,9 +11,13 @@ def getConnection():
     
 class DapData():
 
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d")):
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
         # 'YYYY-MM-DD' -> 'YYYYMMDD'
         self.inputModelDate = datetime.strftime(datetime.strptime(inputModelDate, "%Y-%m-%d"), '%Y%m%d')
+        self.inputModelYear = self.inputModelDate[:4]
+        self.inputModelMonth = self.inputModelDate[4:6]
+        self.inputModelDay = self.inputModelDate[6:8]
+        self.userName = None if userName == '' else userName
         
         self.population_DB = self.getPopulation()
         self.parameter_DB = self.getParameter()
@@ -32,114 +36,163 @@ class DapData():
         
     # 인구모수 DB
     def getPopulation(self):
-        cnx = getConnection()
-        # 쿼리문
-        query = f'''
-        WITH BASE AS (
-            SELECT
-                *
-            FROM DAP_POPULATION
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
         
-        SELECT
-            STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
-            SUBSTR(BASIS_DT, 1, 4) as year,
-            SUBSTR(BASIS_DT, 5, 2) as month,
-            GENDER as gender,
-            AGE_MIN as age_min,
-            AGE_MAX as age_max,
-            POPULATION as population
-        FROM BASE
-        WHERE (BASIS_DT, GENDER, AGE_MIN, AGE_MAX) IN (
-        SELECT
-            MAX(BASIS_DT) DATE, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
-        GROUP BY GENDER, AGE_MIN, AGE_MAX)
-        )
-        '''
+        with getConnection() as cnx:
+            # 쿼리문
+            query = f'''
+            WITH BASE AS (
+                SELECT
+                    *
+                FROM DAP_POPULATION
+                WHERE BASIS_DT <= '{self.inputModelDate}'
+            )
+            
+            SELECT
+                STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
+                SUBSTR(BASIS_DT, 1, 4) as year,
+                SUBSTR(BASIS_DT, 5, 2) as month,
+                GENDER as gender,
+                AGE_MIN as age_min,
+                AGE_MAX as age_max,
+                POPULATION as population
+            FROM BASE
+            WHERE (BASIS_DT, GENDER, AGE_MIN, AGE_MAX) IN (
+            SELECT
+                MAX(BASIS_DT) DATE, GENDER, AGE_MIN, AGE_MAX
+            FROM BASE
+            GROUP BY GENDER, AGE_MIN, AGE_MAX
+            )
+            '''
+            # 쿼리 실행 및 결과를 DataFrame으로 변환
+            df = pd.read_sql(query, cnx)
 
-        # 쿼리 실행 및 결과를 DataFrame으로 변환
-        df = pd.read_sql(query, cnx)
-
-        # 연결 종료
-        cnx.close()
+            # 연결 종료
+            # cnx.close()
         
         return df
 
     # 인구분포 DB
     def getDistribution(self):
-        cnx = getConnection()
-        # 쿼리문
-        query = f'''
-        WITH BASE AS (
-            SELECT
-                *
-            FROM DAP_DISTRIBUTION
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
         
-        SELECT
-            STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
-            SUBSTR(BASIS_DT, 1, 4) as year,
-            SUBSTR(BASIS_DT, 5, 2) as month,
-            PLATFORM as platform,
-            GENDER as gender,
-            AGE_MIN as age_min,
-            AGE_MAX as age_max,
-            DISTRIBUTION as distribution
-        FROM BASE
-        WHERE (BASIS_DT, PLATFORM, GENDER, AGE_MIN, AGE_MAX) IN (
-        SELECT
-            MAX(BASIS_DT) DATE, PLATFORM, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
-        GROUP BY PLATFORM, GENDER, AGE_MIN, AGE_MAX
-        )'''
-
-        # 쿼리 실행 및 결과를 DataFrame으로 변환
-        df = pd.read_sql(query, cnx)
-
-        # 연결 종료
-        cnx.close()
+        with getConnection() as cnx:
+            # 쿼리문
+            query = f'''
+            WITH BASE AS (
+                SELECT
+                    *
+                FROM DAP_DISTRIBUTION
+                WHERE BASIS_DT <= '{self.inputModelDate}'
+            )
             
+            SELECT
+                STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
+                SUBSTR(BASIS_DT, 1, 4) as year,
+                SUBSTR(BASIS_DT, 5, 2) as month,
+                PLATFORM as platform,
+                GENDER as gender,
+                AGE_MIN as age_min,
+                AGE_MAX as age_max,
+                DISTRIBUTION as distribution
+            FROM BASE
+            WHERE (BASIS_DT, PLATFORM, GENDER, AGE_MIN, AGE_MAX) IN (
+            SELECT
+                MAX(BASIS_DT) DATE, PLATFORM, GENDER, AGE_MIN, AGE_MAX
+            FROM BASE
+            GROUP BY PLATFORM, GENDER, AGE_MIN, AGE_MAX
+            )
+            '''
+
+            # 쿼리 실행 및 결과를 DataFrame으로 변환
+            df = pd.read_sql(query, cnx)
+
+            # 연결 종료
+            # cnx.close()
+            
+        if self.userName:
+            with getConnection() as cnx:
+                
+                query = f'''
+                SELECT
+                    '{self.inputModelYear}-{self.inputModelMonth}-{self.inputModelDay}' as date,
+                    '{self.inputModelYear}' as year,
+                    '{self.inputModelMonth}' as month,
+                    PLATFORM AS platform,
+                    GENDER AS gender,
+                    AGE_MIN AS age_min,
+                    AGE_MAX AS age_max,
+                    DISTRIBUTION AS distribution
+                FROM DAP_CUSTOM_DISTRIBUTION
+                WHERE USER_NAME == '{self.userName}'
+                '''
+                
+                custom_dist_df = pd.read_sql(query, cnx)
+                
+                df = pd.concat([df, custom_dist_df], ignore_index=True, axis=0)        
+                
         return df
 
     # 계수 DB
     def getParameter(self):
-        cnx = getConnection()
-        # 쿼리문
-        query = f'''
-        WITH BASE AS (
+
+        with getConnection() as cnx:
+            # 쿼리문
+            query = f'''
+            WITH BASE AS (
+                SELECT
+                    *
+                FROM DAP_PARAMETER
+                WHERE BASIS_DT <= '{self.inputModelDate}'
+            )
+            
             SELECT
-                *
-            FROM DAP_PARAMETER
-            WHERE BASIS_DT <= '{self.inputModelDate}'
-        )
+                STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
+                SUBSTR(BASIS_DT, 1, 4) as year,
+                PLATFORM as platform,
+                PRODUCT as product,
+                GENDER as gender,
+                AGE_MIN as age_min,
+                AGE_MAX as age_max,
+                A_VAL as a,
+                B_VAL as b,
+                C_VAL as c
+            FROM BASE
+            WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
+            SELECT
+                MAX(BASIS_DT) DATE, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
+            FROM BASE
+            GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
+            )
+            '''
+
+            # 쿼리 실행 및 결과를 DataFrame으로 변환
+            df = pd.read_sql(query, cnx)
+
+            # 연결 종료
+            # cnx.close()
         
-        SELECT
-            STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
-            SUBSTR(BASIS_DT, 1, 4) as year,
-            PLATFORM as platform,
-            PRODUCT as product,
-            GENDER as gender,
-            AGE_MIN as age_min,
-            AGE_MAX as age_max,
-            A_VAL as a,
-            B_VAL as b,
-            C_VAL as c
-        FROM BASE
-        WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
-        SELECT
-            MAX(BASIS_DT) DATE, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-        FROM BASE
-        GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-        )'''
-
-        # 쿼리 실행 및 결과를 DataFrame으로 변환
-        df = pd.read_sql(query, cnx)
-
-        # 연결 종료
-        cnx.close()
+        if self.userName:
+            with getConnection() as cnx:
+                query = f'''
+                SELECT
+                    '{self.inputModelYear}-{self.inputModelMonth}-{self.inputModelDay}' as date,
+                    '{self.inputModelYear}' as year,
+                    '{self.inputModelMonth}' as month,
+                    PLATFORM AS platform,
+                    PRODUCT AS product,
+                    GENDER AS gender,
+                    AGE_MIN AS age_min,
+                    AGE_MAX AS age_max,
+                    A_VAL as a,
+                    B_VAL as b,
+                    C_VAL as c
+                FROM DAP_CUSTOM_PARAMETER
+                WHERE USER_NAME == '{self.userName}'
+                '''
+                
+                custom_param_df = pd.read_sql(query, cnx)
+                
+                df = pd.concat([df, custom_param_df], ignore_index=True, axis=0)
+        
                     
         return pd.concat([df], ignore_index=True)
 
@@ -178,7 +231,8 @@ class DapData():
             MAX(BASIS_DT) DATE, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
         FROM BASE
         GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-        )'''
+        )
+        '''
 
         # 쿼리 실행 및 결과를 DataFrame으로 변환
         df = pd.read_sql(query, cnx)

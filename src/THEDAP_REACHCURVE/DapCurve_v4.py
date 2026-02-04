@@ -3,8 +3,6 @@ import numpy as np
 import json
 from collections import OrderedDict
 from THEDAP_SIMULATION.DapPhase3_v4 import DapPhase3_v4
-# from THEDAP_SIMULATION.thedap_v4_output import THEDAP_OUTPUT
-# from THEDAP_UTILS.thedap_v4_mixclean import *
 
 class DapCurve_v4(DapPhase3_v4):
     

@@ -1,6 +1,7 @@
 import warnings
 import pandas as pd
 import numpy as np
+from datetime import datetime, date
 
 warnings.filterwarnings(action='ignore')
 from THEDAP_MIXOPTIM.DapSpecPhase1 import DapSpecPhase1
@@ -9,31 +10,37 @@ from THEDAP_MIXOPTIM.DapOptPhase3 import DapOptPhase3
 
 class DapMixOptimizer():
 
-    def __init__(self, opt_type, opt_mix, input_age, input_gender, input_weight, **kwargs):
+    def __init__(self, 
+            opt_type, opt_mix, input_age, input_gender, input_weight, 
+            inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', **kwargs
+        ):
         self.opt_type = pd.read_json(opt_type).iloc[0, 0]
         self.input_age = input_age
         self.input_gender = input_gender
         self.input_weight = input_weight
         self.opt_mix = opt_mix
+        
+        self.modelDate = inputModelDate,
+        self.userName = userName
 
         self.opt_maxbudget = kwargs.get('opt_maxbudget', "[{\"opt_maxbudget\": \"1000\"}]")
         self.opt_seq = kwargs.get('opt_seq', "[{\"opt_seq\": \"1\"}]")
         self.opt_target = kwargs.get('opt_target', "[{\"opt_target\": \"0.1\"}]")
 
         if self.opt_type == 'reach_max':
-            optimizer_ = DapOptPhase3()
+            optimizer_ = DapOptPhase3(inputModelDate=self.modelDate, userName=self.userName)
             self.op, self.fr = optimizer_.opt_phase2(self.opt_mix, self.input_age, self.input_gender, self.input_weight,
                                           self.opt_seq, self.opt_maxbudget)
             self.spec, self.viz = None, None
 
         elif self.opt_type == 'reach_target':
-            optimizer_ = DapOptPhase3()
+            optimizer_ = DapOptPhase3(inputModelDate=self.modelDate, userName=self.userName)
             self.op, self.fr = optimizer_.opt_phase3(self.opt_mix, self.input_age, self.input_gender, self.input_weight,
                                           self.opt_target)
             self.spec, self.viz = None, None
 
         elif self.opt_type == 'reach_spectrum':
-            optimizer_ = DapSpecPhase1()
+            optimizer_ = DapSpecPhase1(inputModelDate=self.modelDate, userName=self.userName)
             self.plot, self.spec = optimizer_.spec_phase1(self.opt_mix,  self.input_age, self.input_gender, self.input_weight, self.opt_seq,  self.opt_maxbudget)
             self.viz, self.op, self.fr = None, None, None
 

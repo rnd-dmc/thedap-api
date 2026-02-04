@@ -3,13 +3,13 @@ import numpy as np
 import json
 from CONFIG.DapData import DapData
 from collections import OrderedDict
-from datetime import datetime
+from datetime import datetime, date
 import re
 
 class DapUtils_v5(DapData):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
 
     # 입력 가중치 변환
     def get_weight(self, input_weight, grps=None, reach=None, channel=None):

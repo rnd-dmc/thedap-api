@@ -1,14 +1,14 @@
 import pandas as pd
 import numpy as np
-from datetime import datetime
+from datetime import datetime, date
 import json
 from collections import OrderedDict
 from THEDAP_SIMULATION.DapPhase4_v5 import DapPhase4_v5
 
 class DapPhase5_v5(DapPhase4_v5):
     
-    def __init__(self):
-        super().__init__()
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+        super().__init__(inputModelDate=inputModelDate, userName=userName)
 
     # 전체 결과
     def phase5(self, input_mix, input_age, input_gender, input_weight):
@@ -65,7 +65,11 @@ class DapPhase5_v5(DapPhase4_v5):
             trans_list[0].append(self.trans_duplicate(reach_p, weight))
             
         ovr['e_reach_p'] = trans_list[0]
-        ovr['e_reach_p'] = np.where(ovr['retargeting_cnt'] == ovr['line_cnt'], ovr['retargeting'] / ovr['population'] * .9999, ovr['e_reach_p'])
+        ovr['e_reach_p'] = np.where(
+            (ovr['retargeting_cnt'] == ovr['line_cnt']) & ((ovr['e_reach_p'] * ovr['population']) > (ovr['retargeting'])), 
+            ovr['retargeting'] / ovr['population'] * .9999,
+            ovr['e_reach_p']
+        )
         ovr['isTarget'] = np.where(ovr['target_impression'] > 0, 1, 0)
         ovr['e_reach_n'] = ovr['e_reach_p'] * ovr['population']
         ovr['e_reach_n'] = np.where(ovr['e_reach_n'] > ovr['reach_sum'], ovr['reach_sum'], ovr['e_reach_n'])
