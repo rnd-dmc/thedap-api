@@ -1,10 +1,12 @@
 import pandas as pd
 import numpy as np
 import json
-from CONFIG.thedap_db import getDATA
+from CONFIG.DapData import DapData
 from collections import OrderedDict
+from datetime import datetime
+import re
 
-class getUTIL_v4(getDATA):
+class DapUtils_v5(DapData):
     
     def __init__(self):
         super().__init__()
@@ -23,18 +25,25 @@ class getUTIL_v4(getDATA):
             get_weight = (
                 1.25 if (weight == "basic") else (1.0 if (weight == "low") else 1.5))
         
+        # print(f"weight : {weight} / get_weight : {get_weight}")
+        
         return (get_weight)
 
 
+    # TV 리스트
+    def get_TV_list(self):
+        tv_platforms = self.parameter_DB.loc[
+            self.parameter_DB['platform'].str.startswith('TV', na=False), 
+            'platform'
+        ].unique().tolist()
+        return tv_platforms
+        
     # 중복 가중치
-    def trans_duplicate(self, list, weight):
-        trans_duplicate = 0
-
-        for i in range(len(list)):
-            trans_duplicate = trans_duplicate + list[i] - weight * trans_duplicate * list[i]
-        trans_duplicate = (max(list) if (trans_duplicate < max(list)) else trans_duplicate)
-
-        return (trans_duplicate)
+    def trans_duplicate(self, arr, weight):
+        td = 0.0
+        for x in arr:
+            td += x - weight * td * x
+        return max(td, np.max(arr))
 
 
     # 입력 연령값 조정
@@ -91,9 +100,11 @@ class getUTIL_v4(getDATA):
     def get_age_range(self, gender, trans_min, trans_max):
 
         gender_list = (['M', 'F'] if gender == 'P' else [gender])
-        filt = self.population_DB[(self.population_DB.gender).isin(gender_list) & (self.population_DB.age_min >= trans_min) & (
-                    self.population_DB.age_max <= trans_max)]. \
-            drop(['date', 'year', 'month'], axis=1)
+        filt = self.population_DB[
+            (self.population_DB.gender).isin(gender_list) & 
+            (self.population_DB.age_min >= trans_min) & 
+            (self.population_DB.age_max <= trans_max)
+        ].drop(['date', 'year', 'month'], axis=1)
 
         return (filt)
 
@@ -121,7 +132,7 @@ class getUTIL_v4(getDATA):
 
     # 리치커브 간격
     def get_seq(self, input_seq):
-        seq = pd.read_json(input_seq)['input_seq'][0]
+        seq = pd.read_json(input_seq).iloc[0, 0]
         seq = np.where(seq == "", 10, seq)
 
         if (seq < 1):
@@ -134,16 +145,74 @@ class getUTIL_v4(getDATA):
 
     # 리치커브 최대금액
     def get_maxbudget(self, input_maxbudget):
-        maxbudget = pd.read_json(input_maxbudget)['input_maxbudget'][0]
+        maxbudget = pd.read_json(input_maxbudget).iloc[0, 0]
         maxbudget = np.where(maxbudget == "", 10, maxbudget)
 
         if (maxbudget == 0):
             m = 10
         else:
-            m = np.round(maxbudget)
+            m = np.round(maxbudget, 6)
 
         return m
+
+
+    # 커버리지 확인
+    def check_coverage(self, opt_mix, opt_target, input_age, input_gender):
+        def weighted_mean(series, weights):
+            return np.floor(((series * weights).sum() / weights.sum()) * 100) / 100
+
+        mix_df = pd.read_json(opt_mix)
+        age = pd.read_json(self.trans_age(input_age))
+        trans_min = age['trans_min'][0]
+        trans_max = age['trans_max'][0]
+        gender_list = (['M', 'F'] if pd.read_json(self.get_gender(input_gender))['gender'][0] == 'P' else [
+            pd.read_json(self.get_gender(input_gender))['gender'][0]])
+        target_reach = pd.read_json(opt_target).iloc[0, 0]
+
+        mix_df = self.parameter_DB.merge(pd.read_json(opt_mix)[['platform', 'product']]). \
+            query('age_min >= {} & age_max <= {}'.format(trans_min, trans_max))
+        mix_df = mix_df[mix_df['gender'].apply(lambda x: x in gender_list)].reset_index(drop=True)
+
+        mix_df = mix_df.merge(self.distribution_DB[['platform', 'gender', 'age_min', 'age_max', 'distribution']]). \
+            groupby(['platform', 'product']).apply(
+            lambda x: pd.Series({
+                'c': weighted_mean(x['c'], x['distribution'])
+            })
+        ).reset_index()
+
+        if np.sum(mix_df['c'] > target_reach) > .0:
+            return True
+        else:
+            return False
     
+    ###
+    def safe_date(self, date_str):
+        if not isinstance(date_str, str):
+            return None
+            
+        date_str = date_str.strip()
+
+        try:
+            if not re.match(r"^\d{4}-\d{2}-\d{2}$", date_str):
+                return None
+            
+            datetime.strptime(date_str, "%Y-%m-%d").date()
+            return date_str
+            
+        except:
+            return None
+        
+    def calc_period(self, end, start):
+        try:
+            if not isinstance(end, str) or not isinstance(start, str):
+                return 30 
+            # 날짜가 없으면 기본값 30일 설정
+            d1 = datetime.strptime(end, '%Y-%m-%d')
+            d2 = datetime.strptime(start, '%Y-%m-%d')
+            return (d1 - d2).days + 1
+        except:
+            return 30
+
     def round_float(self, df: pd.DataFrame):
         df = df.copy()
         fcols = df.select_dtypes(include=['float', 'float64', 'float32']).columns

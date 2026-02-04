@@ -2,10 +2,9 @@ import pandas as pd
 import numpy as np
 import json
 from collections import OrderedDict
-from THEDAP_SIMULATION.thedap_v5_output import getPhase5_v5
-# from THEDAP_UTILS.thedap_v5_mixclean import *
+from THEDAP_SIMULATION.DapOutput_v5 import DapPhase5_v5
 
-class getCurve_v5(getPhase5_v5):
+class DapCurve_v5(DapPhase5_v5):
     
     def __init__(self):
         super().__init__()

@@ -3,9 +3,9 @@ import pandas as pd
 import numpy as np
 
 warnings.filterwarnings(action='ignore')
-from THEDAP_MIXOPTIM.thedap_v5_opt_phase1 import getOPTPhase1
+from THEDAP_MIXOPTIM.DapOptPhase1 import DapOptPhase1
 
-class getOPTPhase2(getOPTPhase1):
+class DapOptPhase2(DapOptPhase1):
     
     def __init__(self):
         super().__init__()

@@ -6,9 +6,9 @@ from datetime import datetime
 warnings.filterwarnings(action='ignore')
 from dateutil.relativedelta import relativedelta
 
-from THEDAP_SIMULATION.thedap_v5_phase5 import getPhase5_v5
+from THEDAP_SIMULATION.DapPhase5_v5 import DapPhase5_v5
 
-class getOPTSpec(getPhase5_v5):
+class DapSpecPhase1(DapPhase5_v5):
     
     def __init__(self):
         super().__init__()

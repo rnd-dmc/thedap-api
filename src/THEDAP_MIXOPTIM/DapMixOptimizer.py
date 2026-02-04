@@ -3,11 +3,11 @@ import pandas as pd
 import numpy as np
 
 warnings.filterwarnings(action='ignore')
-from THEDAP_MIXOPTIM.thedap_v5_spec_phase1 import getOPTSpec
-from THEDAP_MIXOPTIM.thedap_v5_opt_phase3 import getOPTPhase3
+from THEDAP_MIXOPTIM.DapSpecPhase1 import DapSpecPhase1
+from THEDAP_MIXOPTIM.DapOptPhase3 import DapOptPhase3
 
 
-class OPTIM_OUTPUT():
+class DapMixOptimizer():
 
     def __init__(self, opt_type, opt_mix, input_age, input_gender, input_weight, **kwargs):
         self.opt_type = pd.read_json(opt_type).iloc[0, 0]
@@ -21,19 +21,19 @@ class OPTIM_OUTPUT():
         self.opt_target = kwargs.get('opt_target', "[{\"opt_target\": \"0.1\"}]")
 
         if self.opt_type == 'reach_max':
-            optimizer_ = getOPTPhase3()
+            optimizer_ = DapOptPhase3()
             self.op, self.fr = optimizer_.opt_phase2(self.opt_mix, self.input_age, self.input_gender, self.input_weight,
                                           self.opt_seq, self.opt_maxbudget)
             self.spec, self.viz = None, None
 
         elif self.opt_type == 'reach_target':
-            optimizer_ = getOPTPhase3()
+            optimizer_ = DapOptPhase3()
             self.op, self.fr = optimizer_.opt_phase3(self.opt_mix, self.input_age, self.input_gender, self.input_weight,
                                           self.opt_target)
             self.spec, self.viz = None, None
 
         elif self.opt_type == 'reach_spectrum':
-            optimizer_ = getOPTSpec()
+            optimizer_ = DapSpecPhase1()
             self.plot, self.spec = optimizer_.spec_phase1(self.opt_mix,  self.input_age, self.input_gender, self.input_weight, self.opt_seq,  self.opt_maxbudget)
             self.viz, self.op, self.fr = None, None, None
 

@@ -5,9 +5,9 @@ import numpy as np
 warnings.filterwarnings(action='ignore')
 from dateutil.relativedelta import relativedelta
 from scipy.optimize import minimize
-from THEDAP_SIMULATION.thedap_v5_phase5 import getPhase5_v5
+from THEDAP_SIMULATION.DapPhase5_v5 import DapPhase5_v5
 
-class getOPTPhase1(getPhase5_v5):
+class DapOptPhase1(DapPhase5_v5):
     
     def __init__(self):
         super().__init__()

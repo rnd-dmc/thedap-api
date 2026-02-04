@@ -2,9 +2,9 @@ import pandas as pd
 import numpy as np
 import json
 from collections import OrderedDict
-from THEDAP_UTILS.thedap_v4_utils import getUTIL_v4
+from THEDAP_UTILS.DapUtils_v4 import DapUtils_v4
 
-class getMixClean_v4(getUTIL_v4):
+class DapMixClean_v4(DapUtils_v4):
     
     def __init__(self):
         super().__init__()

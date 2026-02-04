@@ -1,9 +1,9 @@
 from datetime import datetime
 import pandas as pd
 import numpy as np 
-from THEDAP_UTILS.thedap_v5_mixclean import getMixClean_v5
+from THEDAP_UTILS.DapMixClean_v5 import DapMixClean_v5
 
-class getPhase1_v5(getMixClean_v5):
+class DapPhase1_v5(DapMixClean_v5):
     
     def __init__(self):
         super().__init__()

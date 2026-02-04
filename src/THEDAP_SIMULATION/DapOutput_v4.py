@@ -2,11 +2,11 @@ import pandas as pd
 import numpy as np
 import json
 from collections import OrderedDict
-from THEDAP_SIMULATION.thedap_v4_phase3 import getPhase3_v4
+from THEDAP_SIMULATION.DapPhase3_v4 import DapPhase3_v4
 # from THEDAP_UTILS.thedap_v4_mixclean import *
 
 
-class THEDAP_OUTPUT_v4(getPhase3_v4):
+class DapOutput_v4(DapPhase3_v4):
     
     def __init__(self, input_mix, input_age, input_gender, input_weight):
         super().__init__()

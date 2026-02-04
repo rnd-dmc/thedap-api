@@ -3,9 +3,9 @@ import numpy as np
 import json
 from collections import OrderedDict
 from datetime import datetime
-from THEDAP_UTILS.thedap_v5_utils import getUTIL_v5
+from THEDAP_UTILS.DapUtils_v5 import DapUtils_v5
 
-class getMixClean_v5(getUTIL_v5):
+class DapMixClean_v5(DapUtils_v5):
     
     def __init__(self):
         super().__init__()

@@ -1,10 +1,10 @@
 import pandas as pd
 import numpy as np
 
-from THEDAP_MIXOPTIM.thedap_v5_opt_phase2 import getOPTPhase2
+from THEDAP_MIXOPTIM.DapOptPhase2 import DapOptPhase2
 
 
-class getOPTPhase3(getOPTPhase2):
+class DapOptPhase3(DapOptPhase2):
     
     def __init__(self):
         super().__init__()

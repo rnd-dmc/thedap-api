@@ -1,9 +1,9 @@
 
 import pandas as pd
 import numpy as np
-from THEDAP_UTILS.thedap_v4_mixclean import getMixClean_v4
+from THEDAP_UTILS.DapMixClean_v4 import DapMixClean_v4
 
-class getPhase1_v4(getMixClean_v4):
+class DapPhase1_v4(DapMixClean_v4):
     
     def __init__(self):
         super().__init__()

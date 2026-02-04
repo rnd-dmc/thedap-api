@@ -4,16 +4,16 @@ import warnings
 import json
 warnings.filterwarnings(action='ignore')
 
-from CONFIG.thedap_db import getDATA
-from THEDAP_UTILS.thedap_v5_utils import getUTIL_v5
+from CONFIG.DapData import DapData
+from THEDAP_UTILS.DapUtils_v5 import DapUtils_v5
 
-from THEDAP_SIMULATION.thedap_v4_output import THEDAP_OUTPUT_v4
-from THEDAP_REACHCURVE.thedap_v4_reachcurve import getCurve_v4
+from THEDAP_SIMULATION.DapOutput_v4 import DapOutput_v4
+from THEDAP_REACHCURVE.DapCurve_v4 import DapCurve_v4
 
-from THEDAP_SIMULATION.thedap_v5_output import THEDAP_OUTPUT_v5
-from THEDAP_REACHCURVE.thedap_v5_reachcurve import getCurve_v5
+from THEDAP_SIMULATION.DapOutput_v5 import DapOutput_v5
+from THEDAP_REACHCURVE.DapCurve_v5 import DapCurve_v5
 
-from THEDAP_MIXOPTIM.thedap_v5_mixoptim import OPTIM_OUTPUT
+from THEDAP_MIXOPTIM.DapMixOptimizer import DapMixOptimizer
 
 # import CONFIG.thedap_db as db
 
@@ -52,7 +52,7 @@ def target_info():
     age_min = data["input_age_min"]
     age_max = data["input_age_max"]
 
-    obj_ = getUTIL_v5()
+    obj_ = DapUtils_v5() 
     # thedap_v4.py 파라미터 정보에 맞춰 변경
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
@@ -83,9 +83,9 @@ def result_summary():
     buf = io.StringIO()
     with redirect_stdout(buf):
         if userGrade == 'B':
-            thedap_output = THEDAP_OUTPUT_v4(input_mix, input_age, input_gender, input_weight)
+            thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
         else:
-            thedap_output = THEDAP_OUTPUT_v5(input_mix, input_age, input_gender, input_weight)
+            thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
 
         result = thedap_output.result_summary()
 
@@ -110,9 +110,9 @@ def heatmap():
     input_weight = json.dumps([{"input_weight": weight}])
 
     if userGrade == 'B':
-        thedap_output = THEDAP_OUTPUT_v4(input_mix, input_age, input_gender, input_weight)
+        thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
     else:
-        thedap_output = THEDAP_OUTPUT_v5(input_mix, input_age, input_gender, input_weight)
+        thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
 
     
     result = thedap_output.heatmap()
@@ -138,9 +138,9 @@ def reach_freq():
     input_weight = json.dumps([{"input_weight": weight}])
 
     if userGrade == 'B':
-        thedap_output = THEDAP_OUTPUT_v4(input_mix, input_age, input_gender, input_weight)
+        thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
     else:
-        thedap_output = THEDAP_OUTPUT_v5(input_mix, input_age, input_gender, input_weight)
+        thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
 
 
     result = thedap_output.reach_freq()
@@ -166,9 +166,9 @@ def result_overall():
     input_weight = json.dumps([{"input_weight": weight}])
 
     if userGrade == 'B':
-        thedap_output = THEDAP_OUTPUT_v4(input_mix, input_age, input_gender, input_weight)
+        thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
     else :
-        thedap_output = THEDAP_OUTPUT_v5(input_mix, input_age, input_gender, input_weight)
+        thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
     
     result = thedap_output.result_overall()
     return result
@@ -197,9 +197,9 @@ def reach_curve():
     input_seq = json.dumps([{"input_seq": seq}])
 
     if userGrade == 'B':
-        rc = getCurve_v4()
+        rc = DapCurve_v4()
     else:
-        rc = getCurve_v5()
+        rc = DapCurve_v5()
 
     result = rc.reach_curve(input_mix, input_age, input_gender, input_weight, input_seq, input_maxbudget)
     
@@ -229,7 +229,7 @@ def reach_max():
     opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
     opt_seq = json.dumps([{"opt_seq": seq}])
 
-    thedap_output = OPTIM_OUTPUT(
+    thedap_output = DapMixOptimizer(
         opt_type,
         opt_mix,
         input_age,
@@ -261,11 +261,11 @@ def reach_target():
     input_weight = json.dumps([{"input_weight": weight}])
     opt_target = json.dumps([{"opt_target": target}])
 
-    checker = getUTIL_v5()
+    checker = DapUtils_v5()
     chkFlag = checker.check_coverage(opt_mix, opt_target, input_age, input_gender)
     if chkFlag :
 
-        thedap_output = OPTIM_OUTPUT(
+        thedap_output = DapMixOptimizer(
             opt_type,
             opt_mix,
             input_age,
@@ -305,7 +305,7 @@ def reach_spectrum():
     opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
     opt_seq = json.dumps([{"opt_seq": seq}])
 
-    thedap_output = OPTIM_OUTPUT(
+    thedap_output = DapMixOptimizer(
         opt_type,
         opt_mix,
         input_age,
@@ -323,7 +323,7 @@ def reach_spectrum():
 # 매체, 상품 조회 (get_media_product)
 @app.route("/get_media_product/", methods=["GET"])
 def get_media_product():
-    obj_ = getDATA()
+    obj_ = DapData()
     result = obj_.getMediaProduct()
     result_json = result.to_json(orient="records")
     return result_json
