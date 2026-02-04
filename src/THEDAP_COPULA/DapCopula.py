@@ -12,7 +12,7 @@ class DapCopula:
         self.marginal_obs = marginal_probs
         self.union_obs = union_obs
     
-    def get_copula_union(self, p_list, rho):
+    def getCopulaUnion(self, p_list, rho):
         d = len(p_list)
         Sigma = np.full((d, d), rho)
         np.fill_diagonal(Sigma, 1.0)
@@ -38,7 +38,7 @@ class DapCopula:
         upper = 0.99
 
         def objective(rho):
-            union_hat = self.get_copula_union(p_list, rho)
+            union_hat = self.getCopulaUnion(p_list, rho)
             eps = 1e-6
             logit_hat = np.log((union_hat + eps)/(1 - union_hat + eps))
             logit_obs = np.log((union_obs + eps)/(1 - union_obs + eps))
@@ -52,10 +52,10 @@ class DapCopula:
         )
 
         rho_hat = res.x
-        union_hat = self.get_copula_union(p_list, rho_hat)
+        union_hat = self.getCopulaUnion(p_list, rho_hat)
         return np.round(rho_hat, 4), np.round(union_hat, 4)
     
-    def get_copula_probs(self, marginal_probs, union_obs):
+    def getCopulaProbs(self, marginal_probs, union_obs):
         
         rho, _ = self.estimate_rho(marginal_probs, union_obs)
 

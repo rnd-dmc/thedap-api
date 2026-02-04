@@ -73,6 +73,8 @@ def reach_result():
     age_min = data["input_age_min"]
     age_max = data["input_age_max"]
     weight = data["input_weight"]
+    
+    # 사용자 정보 & 모델버전
     userGrade = data["userGrade"]
     userName = data.get("userName", "")
     modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
@@ -122,7 +124,7 @@ def reach_copula():
     union_obs = data.get("reach_union")
     
     DC = DapCopula(marginal_probs, union_obs)
-    u, i = DC.get_copula_probs(marginal_probs, union_obs)
+    u, i = DC.getCopulaProbs(marginal_probs, union_obs)
 
     result = {
         'copula_union': u,
@@ -144,6 +146,8 @@ def reach_curve():
     weight = data["input_weight"]
     maxbudget = data["input_maxbudget"]
     seq = data["input_seq"]
+
+    # 사용자 정보 & 모델버전
     userGrade = data["userGrade"]
     userName = data.get("userName", "")
     modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
@@ -166,7 +170,6 @@ def reach_curve():
 
 
 # 분석결과 요약 (result_overall)
-
 @app.route("/reach_max/", methods=["POST"])
 def reach_max():
     data = request.json
@@ -179,6 +182,8 @@ def reach_max():
     weight = data["input_weight"]
     maxbudget = data["opt_maxbudget"]
     seq = data["opt_seq"]
+
+    # 사용자 정보 & 모델버전
     userName = data.get("userName", "")
     modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
     
@@ -214,6 +219,8 @@ def reach_target():
     gender = data["input_gender"]
     weight = data["input_weight"]
     target = data["opt_target"]
+
+    # 사용자 정보 & 모델버전
     userName = data.get("userName", "")
     modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
     
@@ -242,8 +249,6 @@ def reach_target():
     else:
         result = {"isSuc":False}
 
-
-
     return result
 
 @app.route("/reach_spectrum/", methods=["POST"])
@@ -259,6 +264,8 @@ def reach_spectrum():
     weight = data["input_weight"]
     maxbudget = data["opt_maxbudget"]
     seq = data["opt_seq"]
+
+    # 사용자 정보 & 모델버전
     userName = data.get("userName", "")
     modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
     
