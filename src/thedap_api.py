@@ -2,6 +2,7 @@
 from flask import Flask, request, jsonify
 import warnings
 import json
+from datetime import datetime, date
 warnings.filterwarnings(action='ignore')
 
 from CONFIG.DapData import DapData
@@ -12,6 +13,7 @@ from THEDAP_REACHCURVE.DapCurve_v4 import DapCurve_v4
 
 from THEDAP_SIMULATION.DapOutput_v5 import DapOutput_v5
 from THEDAP_REACHCURVE.DapCurve_v5 import DapCurve_v5
+from THEDAP_COPULA.DapCopula import DapCopula
 from THEDAP_MIXOPTIM.DapMixOptimizer import DapMixOptimizer
 from THEDAP_UTILS.DapCustomModel import DapCustomModel
 
@@ -44,15 +46,16 @@ sys.stderr = PrintLogger()
 
 app = Flask(__name__)
 
-# 타겟정보
+# 타겟정보(target_info)
 @app.route("/target_info/", methods=["POST"])
 def target_info():
     data = request.json
     gender = data["input_gender"]
     age_min = data["input_age_min"]
     age_max = data["input_age_max"]
+    modelDate = data["inputModelDate"]
 
-    obj_ = DapUtils_v5() 
+    obj_ = DapUtils_v5(inputModelDate=modelDate)
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
     
@@ -60,9 +63,9 @@ def target_info():
     return result
 
 
-# 결과계산
-@app.route("/result_summary/", methods=["POST"])
-def result_summary():
+# 결과계산(reach_result)
+@app.route("/reach_result/", methods=["POST"])
+def reach_result():
     data = request.json
 
     mix = data["input_mix"]
@@ -71,8 +74,9 @@ def result_summary():
     age_max = data["input_age_max"]
     weight = data["input_weight"]
     userGrade = data["userGrade"]
+    userName = data.get("userName", "")
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
     
-    # thedap_v4_output.py 파라미터 정보에 맞춰 변경
     input_mix = json.dumps(mix)
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
@@ -82,98 +86,53 @@ def result_summary():
     buf = io.StringIO()
     with redirect_stdout(buf):
         if userGrade == 'B':
-            thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
+            thedap_output = DapOutput_v4(
+                input_mix, input_age, input_gender, input_weight
+            )
+            
+            summary_ = thedap_output.result_summary()
+            result = {
+                "result_overall": thedap_output.result_overall(),
+                "result_summary": summary_,
+                "reach_freq": thedap_output.reach_freq()
+            }
+            
         else:
-            thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
-
-        result = thedap_output.result_summary()
+            thedap_output = DapOutput_v5(
+                input_mix, input_age, input_gender, input_weight, userName=userName, inputModelDate=modelDate
+            )
+            
+            summary_ = thedap_output.result_summary()
+            result = {
+                "result_overall": thedap_output.result_overall(),
+                "result_summary": summary_,
+                "reach_freq": thedap_output.reach_freq(),
+                "reach_marginal": {line['platform']:line['target_reach_p'] for line in summary_ if line['line'] == "Platform Total"},
+                "reach_union": [line['target_reach_p'] for line in summary_ if line['line'] == "Total"][0]
+            }
 
     return result
 
-# 히트맵
-@app.route("/heatmap/", methods=["POST"])
-def heatmap():
+# 매체간 중복/도달 (reach_copula)
+@app.route("/reach_copula", methods=["POST"])
+def reach_copula():
     data = request.json
-
-    mix = data["input_mix"]
-    gender = data["input_gender"]
-    age_min = data["input_age_min"]
-    age_max = data["input_age_max"]
-    weight = data["input_weight"]
-    userGrade = data["userGrade"]
-
-    # thedap_v4_output.py 파라미터 정보에 맞춰 변경
-    input_mix = json.dumps(mix)
-    input_gender = json.dumps([{"input_gender": gender}])
-    input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
-    input_weight = json.dumps([{"input_weight": weight}])
-
-    if userGrade == 'B':
-        thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
-    else:
-        thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
-
     
-    result = thedap_output.heatmap()
-    return result
-
-
-# 도달 빈도분포 (reach_freq)
-@app.route("/reach_freq/", methods=["POST"])
-def reach_freq():
-    data = request.json
-
-    mix = data["input_mix"]
-    gender = data["input_gender"]
-    age_min = data["input_age_min"]
-    age_max = data["input_age_max"]
-    weight = data["input_weight"]
-    userGrade = data["userGrade"]
-
-    # thedap_v4_output.py 파라미터 정보에 맞춰 변경
-    input_mix = json.dumps(mix)
-    input_gender = json.dumps([{"input_gender": gender}])
-    input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
-    input_weight = json.dumps([{"input_weight": weight}])
-
-    if userGrade == 'B':
-        thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
-    else:
-        thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
-
-
-    result = thedap_output.reach_freq()
-    return result
-
-
-# 분석결과 요약 (result_overall)
-@app.route("/result_overall/", methods=["POST"])
-def result_overall():
-    data = request.json
-
-    mix = data["input_mix"]
-    gender = data["input_gender"]
-    age_min = data["input_age_min"]
-    age_max = data["input_age_max"]
-    weight = data["input_weight"]
-    userGrade = data["userGrade"]
-
-    # thedap_v4_output.py 파라미터 정보에 맞춰 변경
-    input_mix = json.dumps(mix)
-    input_gender = json.dumps([{"input_gender": gender}])
-    input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
-    input_weight = json.dumps([{"input_weight": weight}])
-
-    if userGrade == 'B':
-        thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
-    else :
-        thedap_output = DapOutput_v5(input_mix, input_age, input_gender, input_weight)
+    marginal_probs = data.get("reach_marginal")
+    union_obs = data.get("reach_union")
     
-    result = thedap_output.result_overall()
+    DC = DapCopula(marginal_probs, union_obs)
+    u, i = DC.get_copula_probs(marginal_probs, union_obs)
+
+    result = {
+        'copula_union': u,
+        'copula_inter': i
+    }
+    
     return result
+    
 
-
-# 리치커버 분석 (reach_curve)
+# 리치커브 분석 (reach_curve)
 @app.route("/reach_curve/", methods=["POST"])
 def reach_curve():
     data = request.json
@@ -186,8 +145,9 @@ def reach_curve():
     maxbudget = data["input_maxbudget"]
     seq = data["input_seq"]
     userGrade = data["userGrade"]
+    userName = data.get("userName", "")
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
 
-    # thedap_v4_output.py 파라미터 정보에 맞춰 변경
     input_mix = json.dumps(mix)
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
@@ -198,7 +158,7 @@ def reach_curve():
     if userGrade == 'B':
         rc = DapCurve_v4()
     else:
-        rc = DapCurve_v5()
+        rc = DapCurve_v5(userName=userName, inputModelDate=modelDate)
 
     result = rc.reach_curve(input_mix, input_age, input_gender, input_weight, input_seq, input_maxbudget)
     
@@ -219,7 +179,9 @@ def reach_max():
     weight = data["input_weight"]
     maxbudget = data["opt_maxbudget"]
     seq = data["opt_seq"]
-
+    userName = data.get("userName", "")
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+    
     opt_type = json.dumps([{"opt_type": type}])
     opt_mix = json.dumps(mix)
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
@@ -252,7 +214,9 @@ def reach_target():
     gender = data["input_gender"]
     weight = data["input_weight"]
     target = data["opt_target"]
-
+    userName = data.get("userName", "")
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+    
     opt_type = json.dumps([{"opt_type": type}])
     opt_mix = json.dumps(mix)
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
@@ -295,7 +259,9 @@ def reach_spectrum():
     weight = data["input_weight"]
     maxbudget = data["opt_maxbudget"]
     seq = data["opt_seq"]
-
+    userName = data.get("userName", "")
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+    
     opt_type = json.dumps([{"opt_type": type}])
     opt_mix = json.loads(json.dumps([{"mix_a": mixA, "mix_b":mixB}]))
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
