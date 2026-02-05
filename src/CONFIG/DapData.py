@@ -76,14 +76,25 @@ class DapData():
         
         with getConnection() as cnx:
             # 쿼리문
+            # inputModelDate 이전에도 존재한 PLATFORM들은 inputModelDate 기준의 최신
+            # inputModelDate 이후에 추가된 PLATFORM들은 현재 날짜의 최신
             query = f'''
-            WITH BASE AS (
-                SELECT
-                    *
-                FROM DAP_DISTRIBUTION
+            WITH OLD_PLATFORMS AS (
+                SELECT 
+                    * 
+                FROM DAP_DISTRIBUTION 
                 WHERE BASIS_DT <= '{self.inputModelDate}'
-            )
+            ),
             
+            NEW_PLATFORMS AS (
+                SELECT
+                    * 
+                FROM DAP_DISTRIBUTION 
+                WHERE PLATFORM NOT IN (
+                    SELECT DISTINCT PLATFORM FROM OLD_PLATFORMS
+                )
+            )
+
             SELECT
                 STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
                 SUBSTR(BASIS_DT, 1, 4) as year,
@@ -93,13 +104,24 @@ class DapData():
                 AGE_MIN as age_min,
                 AGE_MAX as age_max,
                 DISTRIBUTION as distribution
-            FROM BASE
-            WHERE (BASIS_DT, PLATFORM, GENDER, AGE_MIN, AGE_MAX) IN (
-            SELECT
-                MAX(BASIS_DT) DATE, PLATFORM, GENDER, AGE_MIN, AGE_MAX
-            FROM BASE
-            GROUP BY PLATFORM, GENDER, AGE_MIN, AGE_MAX
-            )
+            FROM (
+                SELECT 
+                    * 
+                FROM OLD_PLATFORMS WHERE (BASIS_DT, PLATFORM, GENDER, AGE_MIN, AGE_MAX) IN (
+                    SELECT 
+                        MAX(BASIS_DT), PLATFORM, GENDER, AGE_MIN, AGE_MAX 
+                    FROM OLD_PLATFORMS 
+                    GROUP BY PLATFORM, GENDER, AGE_MIN, AGE_MAX
+                )
+                UNION ALL
+                SELECT 
+                    * 
+                FROM NEW_PLATFORMS WHERE (BASIS_DT, PLATFORM, GENDER, AGE_MIN, AGE_MAX) IN (
+                    SELECT 
+                        MAX(BASIS_DT), PLATFORM, GENDER, AGE_MIN, AGE_MAX 
+                    FROM NEW_PLATFORMS GROUP BY PLATFORM, GENDER, AGE_MIN, AGE_MAX
+                )
+            ) AS COMBINED;
             '''
 
             # 쿼리 실행 및 결과를 DataFrame으로 변환
@@ -136,14 +158,26 @@ class DapData():
 
         with getConnection() as cnx:
             # 쿼리문
+            # inputModelDate 이전에도 존재한 PLATFORM - PRODUCT들은 inputModelDate 기준의 최신
+            # inputModelDate 이후에 추가된 PLATFORM - PRODUCT들은 현재 날짜의 최신
             query = f'''
-            WITH BASE AS (
-                SELECT
-                    *
+            WITH OLD_PARAMS AS (
+                SELECT 
+                    * 
                 FROM DAP_PARAMETER
                 WHERE BASIS_DT <= '{self.inputModelDate}'
+            ),
+
+            NEW_PARAMS AS (
+                SELECT
+                    * FROM DAP_PARAMETER 
+                WHERE (PLATFORM, PRODUCT) NOT IN (
+                    SELECT 
+                        DISTINCT PLATFORM, PRODUCT
+                    FROM OLD_PARAMS
+                )
             )
-            
+
             SELECT
                 STR_TO_DATE(BASIS_DT, '%Y%m%d') as date,
                 SUBSTR(BASIS_DT, 1, 4) as year,
@@ -155,13 +189,28 @@ class DapData():
                 A_VAL as a,
                 B_VAL as b,
                 C_VAL as c
-            FROM BASE
-            WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
-            SELECT
-                MAX(BASIS_DT) DATE, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-            FROM BASE
-            GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
-            )
+            FROM (
+                SELECT 
+                    * 
+                FROM OLD_PARAMS 
+                WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
+                    SELECT 
+                        MAX(BASIS_DT), PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX 
+                    FROM OLD_PARAMS 
+                    GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
+                )
+                
+                UNION ALL
+                SELECT 
+                    * 
+                FROM NEW_PARAMS 
+                WHERE (BASIS_DT, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX) IN (
+                    SELECT 
+                        MAX(BASIS_DT), PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX 
+                    FROM NEW_PARAMS 
+                    GROUP BY PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX
+                )
+            ) AS COMBINED;
             '''
 
             # 쿼리 실행 및 결과를 DataFrame으로 변환
