@@ -175,6 +175,9 @@ def reach_optimize():
     data = request.json
     
     type = data.get("opt_type")
+    # 사용자 정보 & 모델버전
+    userName = data.get("userName", "")
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
     
     try:
         # REACH MAX
@@ -186,11 +189,7 @@ def reach_optimize():
             weight = data["input_weight"]
             maxbudget = data["opt_maxbudget"]
             seq = data["opt_seq"]
-            
-            # 사용자 정보 & 모델버전
-            userName = data.get("userName", "")
-            modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
-            
+                        
             opt_type = json.dumps([{"opt_type": type}])
             opt_mix = json.dumps(mix)
             input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
@@ -221,11 +220,7 @@ def reach_optimize():
             gender = data["input_gender"]
             weight = data["input_weight"]
             target = data["opt_target"]
-
-            # 사용자 정보 & 모델버전
-            userName = data.get("userName", "")
-            modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
-            
+             
             opt_type = json.dumps([{"opt_type": type}])
             opt_mix = json.dumps(mix)
             input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
@@ -261,10 +256,6 @@ def reach_optimize():
             weight = data["input_weight"]
             maxbudget = data["opt_maxbudget"]
             seq = data["opt_seq"]
-
-            # 사용자 정보 & 모델버전
-            userName = data.get("userName", "")
-            modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
             
             opt_type = json.dumps([{"opt_type": type}])
             opt_mix = [{"mix_a": mixA, "mix_b": mixB}]
