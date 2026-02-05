@@ -1,8 +1,10 @@
 # pip install flask
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 import warnings
 import json
-from datetime import datetime, date
+from urllib.parse import quote
+from datetime import datetime, date, timedelta
+from io import BytesIO
 warnings.filterwarnings(action='ignore')
 
 from CONFIG.DapData import DapData
@@ -16,6 +18,7 @@ from THEDAP_REACHCURVE.DapCurve_v5 import DapCurve_v5
 from THEDAP_COPULA.DapCopula import DapCopula
 from THEDAP_MIXOPTIM.DapMixOptimizer import DapMixOptimizer
 from THEDAP_UTILS.DapCustomModel import DapCustomModel
+from THEDAP_REPORT import *
 
 # import CONFIG.thedap_db as db
 
@@ -45,6 +48,48 @@ sys.stderr = PrintLogger()
 
 
 app = Flask(__name__)
+
+# 믹스 샘플 다운로드
+@app.route("/get_mixsample/", methods=["POST"])
+def get_mixsample():
+    data = request.json
+    userGrade = data.get("userGrade")
+    userName = data.get("userName", "")
+
+    try:
+        channelVehicleList = data.get("list")
+        channelVehicleDf = pd.DataFrame(channelVehicleList).groupby('platform').\
+            agg(vehicle = ('product', lambda x: list(x))).reset_index()
+        channelVehicleMap = {row['platform']:row['vehicle'] for _, row in channelVehicleDf.iterrows()}
+
+        # 사용자 등급에 따른 미디어믹스 양식 파일 생성
+        mix_wb = DapMixSample(channelVehicleMap, userGrade=userGrade)
+        output = BytesIO()
+        mix_wb.save(output)
+        output.seek(0)
+        
+        utc_now = datetime.utcnow()
+        kst_now = utc_now + timedelta(hours=9)
+        reg_date = kst_now.strftime('%y%m%d') 
+        filename = f"미디어믹스_샘플_({reg_date}).xlsx"
+        quoted_filename = quote(filename)
+        
+        response = send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
+        response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{quoted_filename}"
+        
+        return response
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"{str(e)}"
+        }), 500
+
 
 # 타겟정보(target_info)
 @app.route("/target_info/", methods=["POST"])
