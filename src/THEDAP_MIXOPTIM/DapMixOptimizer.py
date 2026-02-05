@@ -20,7 +20,7 @@ class DapMixOptimizer():
         self.input_weight = input_weight
         self.opt_mix = opt_mix
         
-        self.modelDate = inputModelDate,
+        self.modelDate = inputModelDate
         self.userName = userName
 
         self.opt_maxbudget = kwargs.get('opt_maxbudget', "[{\"opt_maxbudget\": \"1000\"}]")

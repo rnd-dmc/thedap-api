@@ -169,126 +169,142 @@ def reach_curve():
     return result
 
 
-# 분석결과 요약 (result_overall)
-@app.route("/reach_max/", methods=["POST"])
-def reach_max():
+# 미디어믹스 최적화 (reach_optimize)
+@app.route("reach_optimize", methods=["POST"])
+def reach_optimize():
     data = request.json
-
-    type = data["opt_type"]
-    mix = data["input_mix"]
-    age_min = data["input_age_min"]
-    age_max = data["input_age_max"]
-    gender = data["input_gender"]
-    weight = data["input_weight"]
-    maxbudget = data["opt_maxbudget"]
-    seq = data["opt_seq"]
-
-    # 사용자 정보 & 모델버전
-    userName = data.get("userName", "")
-    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
     
-    opt_type = json.dumps([{"opt_type": type}])
-    opt_mix = json.dumps(mix)
-    input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
-    input_gender = json.dumps([{"input_gender": gender}])
-    input_weight = json.dumps([{"input_weight": weight}])
-    opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
-    opt_seq = json.dumps([{"opt_seq": seq}])
-
-    thedap_output = DapMixOptimizer(
-        opt_type,
-        opt_mix,
-        input_age,
-        input_gender,
-        input_weight,
-        opt_seq=opt_seq,
-        opt_maxbudget=opt_maxbudget
-    )
-
-    result = thedap_output.get_result()
-    return result
-
-@app.route("/reach_target/", methods=["POST"])
-def reach_target():
-    data = request.json
-
-    type = data["opt_type"]
-    mix = data["input_mix"]
-    age_min = data["input_age_min"]
-    age_max = data["input_age_max"]
-    gender = data["input_gender"]
-    weight = data["input_weight"]
-    target = data["opt_target"]
-
-    # 사용자 정보 & 모델버전
-    userName = data.get("userName", "")
-    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+    type = data.get("opt_type")
     
-    opt_type = json.dumps([{"opt_type": type}])
-    opt_mix = json.dumps(mix)
-    input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
-    input_gender = json.dumps([{"input_gender": gender}])
-    input_weight = json.dumps([{"input_weight": weight}])
-    opt_target = json.dumps([{"opt_target": target}])
+    try:
+        # REACH MAX
+        if type == "reach_max":
+            mix = data["input_mix"]
+            age_min = data["input_age_min"]
+            age_max = data["input_age_max"]
+            gender = data["input_gender"]
+            weight = data["input_weight"]
+            maxbudget = data["opt_maxbudget"]
+            seq = data["opt_seq"]
+            
+            # 사용자 정보 & 모델버전
+            userName = data.get("userName", "")
+            modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+            
+            opt_type = json.dumps([{"opt_type": type}])
+            opt_mix = json.dumps(mix)
+            input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
+            input_gender = json.dumps([{"input_gender": gender}])
+            input_weight = json.dumps([{"input_weight": weight}])
+            opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
+            opt_seq = json.dumps([{"opt_seq": seq}])
 
-    checker = DapUtils_v5()
-    chkFlag = checker.check_coverage(opt_mix, opt_target, input_age, input_gender)
-    if chkFlag :
+            optimizer = DapMixOptimizer(
+                opt_type=opt_type,
+                opt_mix=opt_mix,
+                input_age=input_age,
+                input_gender=input_gender,
+                input_weight=input_weight,
+                opt_maxbudget=opt_maxbudget,
+                opt_seq=opt_seq,
+                userName=userName,
+                inputModelDate=modelDate
+            )
 
-        thedap_output = DapMixOptimizer(
-            opt_type,
-            opt_mix,
-            input_age,
-            input_gender,
-            input_weight,
-            opt_target=opt_target,
-        )
+            result = optimizer.get_result()
 
-        result = thedap_output.get_result()
-        result['isSuc'] = True
-    else:
-        result = {"isSuc":False}
+        # REACH TARGET
+        elif type == "reach_target":
+            mix = data["input_mix"]
+            age_min = data["input_age_min"]
+            age_max = data["input_age_max"]
+            gender = data["input_gender"]
+            weight = data["input_weight"]
+            target = data["opt_target"]
 
-    return result
+            # 사용자 정보 & 모델버전
+            userName = data.get("userName", "")
+            modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+            
+            opt_type = json.dumps([{"opt_type": type}])
+            opt_mix = json.dumps(mix)
+            input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
+            input_gender = json.dumps([{"input_gender": gender}])
+            input_weight = json.dumps([{"input_weight": weight}])
+            opt_target = json.dumps([{"opt_target": target}])
 
-@app.route("/reach_spectrum/", methods=["POST"])
-def reach_spectrum():
-    data = request.json
+            checker = DapUtils_v5()
+            chkFlag = checker.check_coverage(opt_mix, opt_target, input_age, input_gender)
+            if chkFlag :
+                optimizer = DapMixOptimizer(
+                    opt_type=opt_type,
+                    opt_mix=opt_mix,
+                    input_age=input_age,
+                    input_gender=input_gender,
+                    input_weight=input_weight,
+                    opt_target=opt_target,
+                    userName=userName,
+                    inputModelDate=modelDate
+                )
 
-    type = data["opt_type"]
-    mixA = data["input_mixA"]
-    mixB = data["input_mixB"]
-    age_min = data["input_age_min"]
-    age_max = data["input_age_max"]
-    gender = data["input_gender"]
-    weight = data["input_weight"]
-    maxbudget = data["opt_maxbudget"]
-    seq = data["opt_seq"]
+                result = optimizer.get_result()
+                result['isSuc'] = True
+            else:
+                result = {"isSuc":False}
+        
+        elif type == "reach_spectrum":
+            mixA = data["input_mixA"]
+            mixB = data["input_mixB"]
+            age_min = data["input_age_min"]
+            age_max = data["input_age_max"]
+            gender = data["input_gender"]
+            weight = data["input_weight"]
+            maxbudget = data["opt_maxbudget"]
+            seq = data["opt_seq"]
 
-    # 사용자 정보 & 모델버전
-    userName = data.get("userName", "")
-    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+            # 사용자 정보 & 모델버전
+            userName = data.get("userName", "")
+            modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+            
+            opt_type = json.dumps([{"opt_type": type}])
+            opt_mix = [{"mix_a": mixA, "mix_b": mixB}]
+            input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
+            input_gender = json.dumps([{"input_gender": gender}])
+            input_weight = json.dumps([{"input_weight": weight}])
+            opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
+            opt_seq = json.dumps([{"opt_seq": seq}])
+
+            optimizer = DapMixOptimizer(
+                opt_type=opt_type,
+                opt_mix=opt_mix,
+                input_age=input_age,
+                input_gender=input_gender,
+                input_weight=input_weight,
+                opt_maxbudget=opt_maxbudget,
+                opt_seq=opt_seq,
+                userName=userName,
+                inputModelDate=modelDate
+            )
+
+            result = optimizer.get_result()
+        
+        else:
+            return jsonify({
+                "status": "error", 
+                "message": "Invalid opt_type"
+            }), 400
+        
+        return jsonify({
+            "status": "success",
+            "message": "Optimization Complete",
+            **result
+        }), 200
     
-    opt_type = json.dumps([{"opt_type": type}])
-    opt_mix = json.loads(json.dumps([{"mix_a": mixA, "mix_b":mixB}]))
-    input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}])
-    input_gender = json.dumps([{"input_gender": gender}])
-    input_weight = json.dumps([{"input_weight": weight}])
-    opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
-    opt_seq = json.dumps([{"opt_seq": seq}])
-
-    thedap_output = DapMixOptimizer(
-        opt_type,
-        opt_mix,
-        input_age,
-        input_gender,
-        input_weight,
-        opt_maxbudget=opt_maxbudget,
-        opt_seq=opt_seq
-    )
-
-    result = thedap_output.get_result()
-    return result
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"Server Error: {str(e)}"
+        }), 500
 
 # 모델 커스텀
 @app.route("/reach_custom/", methods=["POST"])
