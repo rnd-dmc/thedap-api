@@ -7,7 +7,7 @@ import pandas as pd
 
 from THEDAP_REPORT.DapReportStyler import *
 
-def makeReportSpectrum(result_json):
+def DapReportReachSpectrum(result_json):
 
     wb = Workbook()
 
@@ -34,7 +34,7 @@ def makeReportSpectrum(result_json):
     ws.cell(row=5, column=2, value="타겟 모수").style = index_style
     ws.cell(row=5, column=3, value=result_json['population']).style = title_style
     
-    ws.cell(row=6, column=2, value="데이터 기준").style = index_style
+    ws.cell(row=6, column=2, value="분석 모델 버전").style = index_style
     ws.cell(row=6, column=3, value=option_spectrum['maxdate']).style = title_style
         
     ##

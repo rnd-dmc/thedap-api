@@ -12,7 +12,8 @@ class DapMixOptimizer():
 
     def __init__(self, 
             opt_type, opt_mix, input_age, input_gender, input_weight, 
-            inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', **kwargs
+            inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list= [],
+            **kwargs
         ):
         self.opt_type = pd.read_json(opt_type).iloc[0, 0]
         self.input_age = input_age
@@ -22,25 +23,26 @@ class DapMixOptimizer():
         
         self.modelDate = inputModelDate
         self.userName = userName
+        self.platform_list = platform_list
 
         self.opt_maxbudget = kwargs.get('opt_maxbudget', "[{\"opt_maxbudget\": \"1000\"}]")
         self.opt_seq = kwargs.get('opt_seq', "[{\"opt_seq\": \"1\"}]")
         self.opt_target = kwargs.get('opt_target', "[{\"opt_target\": \"0.1\"}]")
 
         if self.opt_type == 'reach_max':
-            optimizer_ = DapOptPhase3(inputModelDate=self.modelDate, userName=self.userName)
+            optimizer_ = DapOptPhase3(inputModelDate=self.modelDate, userName=self.userName, platform_list=self.platform_list)
             self.op, self.fr = optimizer_.opt_phase2(self.opt_mix, self.input_age, self.input_gender, self.input_weight,
                                           self.opt_seq, self.opt_maxbudget)
             self.spec, self.viz = None, None
 
         elif self.opt_type == 'reach_target':
-            optimizer_ = DapOptPhase3(inputModelDate=self.modelDate, userName=self.userName)
+            optimizer_ = DapOptPhase3(inputModelDate=self.modelDate, userName=self.userName, platform_list=self.platform_list)
             self.op, self.fr = optimizer_.opt_phase3(self.opt_mix, self.input_age, self.input_gender, self.input_weight,
                                           self.opt_target)
             self.spec, self.viz = None, None
 
         elif self.opt_type == 'reach_spectrum':
-            optimizer_ = DapSpecPhase1(inputModelDate=self.modelDate, userName=self.userName)
+            optimizer_ = DapSpecPhase1(inputModelDate=self.modelDate, userName=self.userName, platform_list=self.platform_list)
             self.plot, self.spec = optimizer_.spec_phase1(self.opt_mix,  self.input_age, self.input_gender, self.input_weight, self.opt_seq,  self.opt_maxbudget)
             self.viz, self.op, self.fr = None, None, None
 

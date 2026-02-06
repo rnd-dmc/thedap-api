@@ -8,8 +8,8 @@ import re
 
 class DapUtils_v5(DapData):
     
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
-        super().__init__(inputModelDate=inputModelDate, userName=userName)
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list=[], pop_only=False):
+        super().__init__(inputModelDate=inputModelDate, userName=userName, platform_list=platform_list, pop_only=pop_only)
 
     # 입력 가중치 변환
     def get_weight(self, input_weight, grps=None, reach=None, channel=None):

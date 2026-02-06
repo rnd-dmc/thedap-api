@@ -101,15 +101,15 @@ def target_info():
     age_max = data["input_age_max"]
     modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
 
-    obj_ = DapUtils_v5(inputModelDate=modelDate)
+    thedap_utils = DapUtils_v5(inputModelDate=modelDate, pop_only=True)
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
     
-    result = obj_.get_target_info(input_gender, input_age)
+    result = thedap_utils.get_target_info(input_gender, input_age)
     return result
 
 
-# 결과계산(reach_result)
+# 통합 Reach 분석 (reach_result)
 @app.route("/reach_result/", methods=["POST"])
 def reach_result():
     data = request.json
@@ -129,6 +129,7 @@ def reach_result():
     input_gender = json.dumps([{"input_gender": gender}])
     input_age = json.dumps([{"input_age_min": age_min, "input_age_max":age_max}])
     input_weight = json.dumps([{"input_weight": weight}])
+    platform_list=list(set(pd.read_json(input_mix)['platform']))
     
     # 로깅
     buf = io.StringIO()
@@ -146,9 +147,11 @@ def reach_result():
                 "reach_freq": thedap_output.reach_freq()
             }
             
-        else:
+        else:            
             thedap_output = DapOutput_v5(
-                input_mix, input_age, input_gender, input_weight, userName=userName, inputModelDate=modelDate
+                input_mix, input_age, input_gender, input_weight, 
+                userName=userName, inputModelDate=modelDate,
+                platform_list=platform_list
             )
             
             summary_ = thedap_output.result_summary()
@@ -303,11 +306,15 @@ def reach_curve():
     input_weight = json.dumps([{"input_weight": weight}])
     input_maxbudget = json.dumps([{"input_maxbudget": maxbudget}])
     input_seq = json.dumps([{"input_seq": seq}])
-
+    platform_list=list(set(pd.read_json(input_mix)['platform']))
+    
     if userGrade == 'B':
         rc = DapCurve_v4()
     else:
-        rc = DapCurve_v5(userName=userName, inputModelDate=modelDate)
+        rc = DapCurve_v5(
+            userName=userName, inputModelDate=modelDate, 
+            platform_list=platform_list
+        )
 
     result = rc.reach_curve(input_mix, input_age, input_gender, input_weight, input_seq, input_maxbudget)
     
@@ -376,6 +383,7 @@ def reach_optimize():
             input_weight = json.dumps([{"input_weight": weight}])
             opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
             opt_seq = json.dumps([{"opt_seq": seq}])
+            platform_list = list(set(pd.read_json(opt_mix)['platform']))
 
             optimizer = DapMixOptimizer(
                 opt_type=opt_type,
@@ -386,7 +394,8 @@ def reach_optimize():
                 opt_maxbudget=opt_maxbudget,
                 opt_seq=opt_seq,
                 userName=userName,
-                inputModelDate=modelDate
+                inputModelDate=modelDate,
+                platform_list=platform_list
             )
 
             result = optimizer.get_result()
@@ -406,7 +415,8 @@ def reach_optimize():
             input_gender = json.dumps([{"input_gender": gender}])
             input_weight = json.dumps([{"input_weight": weight}])
             opt_target = json.dumps([{"opt_target": target}])
-
+            platform_list = list(set(pd.read_json(opt_mix)['platform']))
+            
             checker = DapUtils_v5()
             chkFlag = checker.check_coverage(opt_mix, opt_target, input_age, input_gender)
             if chkFlag :
@@ -418,7 +428,8 @@ def reach_optimize():
                     input_weight=input_weight,
                     opt_target=opt_target,
                     userName=userName,
-                    inputModelDate=modelDate
+                    inputModelDate=modelDate,
+                    platform_list=platform_list
                 )
 
                 result = optimizer.get_result()
@@ -443,6 +454,7 @@ def reach_optimize():
             input_weight = json.dumps([{"input_weight": weight}])
             opt_maxbudget = json.dumps([{"opt_maxbudget": maxbudget}])
             opt_seq = json.dumps([{"opt_seq": seq}])
+            platform_list = list(set([l['platform'] for l in mixA] + [l['platform'] for l in mixB]))
 
             optimizer = DapMixOptimizer(
                 opt_type=opt_type,
@@ -453,7 +465,8 @@ def reach_optimize():
                 opt_maxbudget=opt_maxbudget,
                 opt_seq=opt_seq,
                 userName=userName,
-                inputModelDate=modelDate
+                inputModelDate=modelDate,
+                platform_list=platform_list
             )
 
             result = optimizer.get_result()

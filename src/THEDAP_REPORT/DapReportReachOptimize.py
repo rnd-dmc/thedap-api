@@ -7,8 +7,8 @@ import pandas as pd
 
 from THEDAP_REPORT.DapReportStyler import *
 
-def makeReportOpt(result_json, reach_type):
-    if (reach_type == 'reach_max'):
+def DapReportReachOptimize(reportOption, reportOptimize, opt_type, target_pop):
+    if (opt_type == 'reach_max'):
         budget_options = [float(k.replace(',','')) for k in result_json['table_opt_max'][0].keys()]
         freq_xl = pd.DataFrame(result_json['table_freq_max'])
         tbl_xl = pd.concat([pd.DataFrame(result_json['table_opt_max'][0][k]).assign(budget_sum = float(k.replace(',',''))) for k in (result_json['table_opt_max'][0].keys())], ignore_index=True)
@@ -35,7 +35,7 @@ def makeReportOpt(result_json, reach_type):
         ws.row_dimensions[1].height = 24
         ws.sheet_view.showGridLines = False
 
-        maxbudget = option_xl['opt_maxbudget']*1_000_000 if reach_type == 'reach_max' else budget_options[0]
+        maxbudget = option_xl['opt_maxbudget']*1_000_000 if opt_type == 'reach_max' else budget_options[0]
         ##
         ws.cell(row=2, column=2, value="분석일자").style = index_style
         ws.cell(row=2, column=3, value=(datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")).style = title_style
@@ -47,9 +47,9 @@ def makeReportOpt(result_json, reach_type):
         ws.cell(row=4, column=3, value=f"{option_xl['input_gender']}{option_xl['input_agemin']}{option_xl['input_agemax']}").style = title_style
 
         ws.cell(row=5, column=2, value="타겟 모수").style = index_style
-        ws.cell(row=5, column=3, value=result_json['population']).style = title_style
+        ws.cell(row=5, column=3, value=target_pop).style = title_style
         
-        ws.cell(row=6, column=2, value="데이터 기준").style = index_style
+        ws.cell(row=6, column=2, value="분석 모델 버전").style = index_style
         ws.cell(row=6, column=3, value=option_xl['maxdate']).style = title_style
         ##
         colname_dict = {

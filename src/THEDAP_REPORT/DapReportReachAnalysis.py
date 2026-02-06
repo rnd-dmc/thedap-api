@@ -37,7 +37,7 @@ def DapReportReachAnalysis(reportOption, reportResult, target_pop, userGrade):
     ws.cell(row=5, column=2, value="타겟 모수").style = index_style
     ws.cell(row=5, column=3, value=target_pop).style = title_style
 
-    ws.cell(row=6, column=2, value="데이터 기준").style = index_style
+    ws.cell(row=6, column=2, value="분석 모델 버전").style = index_style
     ws.cell(row=6, column=3, value=reportOption['inputModelDate']).style = title_style
     
     ##
@@ -62,7 +62,7 @@ def DapReportReachAnalysis(reportOption, reportResult, target_pop, userGrade):
     ws2.cell(row=5, column=2, value="타겟 모수").style = index_style
     ws2.cell(row=5, column=3, value=target_pop).style = title_style
 
-    ws2.cell(row=6, column=2, value="데이터 기준").style = index_style
+    ws2.cell(row=6, column=2, value="분석 모델 버전").style = index_style
     ws2.cell(row=6, column=3, value=reportOption['inputModelDate']).style = title_style
     
     if userGrade != "B":

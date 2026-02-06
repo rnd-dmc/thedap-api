@@ -8,8 +8,8 @@ from THEDAP_SIMULATION.DapPhase5_v5 import DapPhase5_v5
 
 class DapOutput_v5(DapPhase5_v5):        
         
-    def __init__(self, input_mix, input_age, input_gender, input_weight, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
-        super().__init__(inputModelDate=inputModelDate, userName=userName)
+    def __init__(self, input_mix, input_age, input_gender, input_weight, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list=[]):
+        super().__init__(inputModelDate=inputModelDate, userName=userName, platform_list=platform_list)
         self.target = self.get_target_info(input_gender, input_age)
         self.trans_pop = pd.read_json(self.get_population(pd.read_json(self.get_gender(input_gender))['gender'][0],
                                                      pd.read_json(self.trans_age(input_age))['trans_min'][0],

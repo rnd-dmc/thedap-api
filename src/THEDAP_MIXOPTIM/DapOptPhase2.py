@@ -8,8 +8,8 @@ from THEDAP_MIXOPTIM.DapOptPhase1 import DapOptPhase1
 
 class DapOptPhase2(DapOptPhase1):
     
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
-        super().__init__(inputModelDate=inputModelDate, userName=userName)
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list=[]):
+        super().__init__(inputModelDate=inputModelDate, userName=userName, platform_list=platform_list)
 
     def opt_phase2(self, opt_mix, input_age, input_gender, input_weight, opt_seq, opt_maxbudget, ftol=1e-04):
         opt_mix_cleaned = self.opt_tidy(opt_mix, input_age, input_gender)

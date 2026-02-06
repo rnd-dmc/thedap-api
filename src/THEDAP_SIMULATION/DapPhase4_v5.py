@@ -7,9 +7,8 @@ from THEDAP_SIMULATION.DapPhase3_v5 import DapPhase3_v5
 
 class DapPhase4_v5(DapPhase3_v5):
     
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
-        super().__init__(inputModelDate=inputModelDate, userName=userName)
-
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list=[]):
+        super().__init__(inputModelDate=inputModelDate, userName=userName, platform_list=platform_list)
 
     # 매체별 결과
     def phase4(self, input_mix, input_age, input_gender):

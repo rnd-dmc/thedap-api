@@ -7,9 +7,8 @@ from THEDAP_SIMULATION.DapPhase2_v5 import DapPhase2_v5
 
 class DapPhase3_v5(DapPhase2_v5):
     
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
-        super().__init__(inputModelDate=inputModelDate, userName=userName)
-
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list=[]):
+        super().__init__(inputModelDate=inputModelDate, userName=userName, platform_list=platform_list)
 
     ## 캠페인별 결과
     def phase3(self, input_mix, input_age, input_gender, input_weight):

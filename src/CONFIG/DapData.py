@@ -11,29 +11,47 @@ def getConnection():
     
 class DapData():
 
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list = [], pop_only=False):
         # 'YYYY-MM-DD' -> 'YYYYMMDD'
         self.inputModelDate = datetime.strftime(datetime.strptime(inputModelDate, "%Y-%m-%d"), '%Y%m%d')
         self.inputModelYear = self.inputModelDate[:4]
         self.inputModelMonth = self.inputModelDate[4:6]
         self.inputModelDay = self.inputModelDate[6:8]
+        
+        # 사용자 이름 (커스텀모델 추출용)
         self.userName = None if userName == '' else userName
         
-        self.custom_param_df = None
-        self.population_DB = self.getPopulation()
-        self.parameter_DB = self.getParameter()
-        self.distribution_DB = self.getDistribution()
-        self.parameter_nplus_DB = self.getNPlusParameter()
+        # 플랫폼 목록 (쿼리 속도 감소)
+        if platform_list is None or len(platform_list) == 0:
+            self.platform_query = ""
+        else:
+            # 리스트에 값이 있을 경우에만 WHERE 절 생성
+            platforms = ", ".join([f"'{p}'" for p in platform_list])
+            self.platform_query = f"AND PLATFORM IN ({platforms})"
         
-        # 모든 float type에 대한 반올림 (ROUND(6))
-        fcols_param = self.parameter_DB.select_dtypes('float').columns
-        self.parameter_DB[fcols_param] = self.parameter_DB[fcols_param].round(6)
-        
-        fcols_dist = self.distribution_DB.select_dtypes('float').columns
-        self.distribution_DB[fcols_dist] = self.distribution_DB[fcols_dist].round(6)
-        
-        fcols_param_npl = self.parameter_nplus_DB.select_dtypes('float').columns
-        self.parameter_nplus_DB[fcols_param_npl] = self.parameter_nplus_DB[fcols_param_npl].round(6)
+        # 인구모수만 확인하는 경우
+        self.pop_only = pop_only
+
+        ### SELF PARAMETERS
+        if self.pop_only:
+            self.custom_param_df = None
+            self.population_DB = self.getPopulation()
+        else:
+            self.custom_param_df = None
+            self.population_DB = self.getPopulation()
+            self.parameter_DB = self.getParameter()
+            self.distribution_DB = self.getDistribution()
+            self.parameter_nplus_DB = self.getNPlusParameter()
+            
+            # 모든 float type에 대한 반올림 (ROUND(6))
+            fcols_param = self.parameter_DB.select_dtypes('float').columns
+            self.parameter_DB[fcols_param] = self.parameter_DB[fcols_param].round(6)
+            
+            fcols_dist = self.distribution_DB.select_dtypes('float').columns
+            self.distribution_DB[fcols_dist] = self.distribution_DB[fcols_dist].round(6)
+            
+            fcols_param_npl = self.parameter_nplus_DB.select_dtypes('float').columns
+            self.parameter_nplus_DB[fcols_param_npl] = self.parameter_nplus_DB[fcols_param_npl].round(6)
         
     # 인구모수 DB
     def getPopulation(self):
@@ -84,7 +102,7 @@ class DapData():
                 SELECT 
                     * 
                 FROM DAP_DISTRIBUTION 
-                WHERE BASIS_DT <= '{self.inputModelDate}'
+                WHERE BASIS_DT <= '{self.inputModelDate}' {self.platform_query}
             ),
             
             NEW_PLATFORMS AS (
@@ -94,6 +112,7 @@ class DapData():
                 WHERE PLATFORM NOT IN (
                     SELECT DISTINCT PLATFORM FROM OLD_PLATFORMS
                 )
+                {self.platform_query.replace('WHERE', 'AND') if 'WHERE' in self.platform_query else self.platform_query}
             )
 
             SELECT
@@ -166,7 +185,7 @@ class DapData():
                 SELECT 
                     * 
                 FROM DAP_PARAMETER
-                WHERE BASIS_DT <= '{self.inputModelDate}'
+                WHERE BASIS_DT <= '{self.inputModelDate}' {self.platform_query}
             ),
 
             NEW_PARAMS AS (
@@ -177,6 +196,7 @@ class DapData():
                         DISTINCT PLATFORM, PRODUCT
                     FROM OLD_PARAMS
                 )
+                {self.platform_query.replace('WHERE', 'AND') if 'WHERE' in self.platform_query else self.platform_query}
             )
 
             SELECT

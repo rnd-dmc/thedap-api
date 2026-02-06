@@ -10,8 +10,8 @@ from THEDAP_SIMULATION.DapPhase5_v5 import DapPhase5_v5
 
 class DapSpecPhase1(DapPhase5_v5):
     
-    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = ''):
-        super().__init__(inputModelDate=inputModelDate, userName=userName)
+    def __init__(self, inputModelDate = datetime.strftime(date.today(), "%Y-%m-%d"), userName = '', platform_list=[]):
+        super().__init__(inputModelDate=inputModelDate, userName=userName, platform_list=platform_list)
 
     def spec_tidy(self, spec_mixpair, input_age, input_gender, spec_seq, spec_maxbudget):
         mix_a = pd.DataFrame(pd.DataFrame(spec_mixpair).loc[0, 'mix_a']).assign(campaign='mix_a')
