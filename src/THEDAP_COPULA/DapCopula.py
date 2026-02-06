@@ -116,7 +116,7 @@ class DapCopula:
             df_inter.loc[df_inter['comb'] == k, ['comb', 'reach']] = [f"{k}_ONLY", p_only]
 
         full_union_key = " ⋃ ".join(keys)
-        union_hat = self.get_copula_union(p_list, rho)
+        union_hat = self.getCopulaUnion(p_list, rho)
         df_union.loc[df_union['comb'] == full_union_key, 'reach'] = np.round(union_hat, 6)
 
         return df_union.filter(['comb', 'reach']).to_dict(orient='records'), \

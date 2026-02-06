@@ -229,7 +229,7 @@ def reach_copula():
     
     marginal_probs = data.get("reach_marginal")
     union_obs = data.get("reach_union")
-    
+
     DC = DapCopula(marginal_probs, union_obs)
     u, i = DC.getCopulaProbs(marginal_probs, union_obs)
 
@@ -239,7 +239,45 @@ def reach_copula():
     }
     
     return result
+
+# 매체간 중복/도달 분석결과 다운로드 (report_copula)
+@app.route("/report_copula", methods=["POST"])
+def report_copula():
+    data = request.json
     
+    reportOption = data.get("reportOption")
+    reportCopula = data.get("reportCopula")
+    target_pop = data.get("target_pop")
+    
+    try:
+        
+        report_wb = DapReportCopula(reportOption, reportCopula, target_pop)
+        output = BytesIO()
+        report_wb.save(output)
+        output.seek(0)
+        
+        utc_now = datetime.utcnow()
+        kst_now = utc_now + timedelta(hours=9)
+        reg_date = kst_now.strftime('%y%m%d') 
+        filename = f"매체간 중복&통합 분석결과_({reg_date}).xlsx"
+        quoted_filename = quote(filename)
+        
+        response = send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
+        response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{quoted_filename}"
+        response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
+        
+        return response
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"{str(e)}"
+        }), 500
 
 # 리치커브 분석 (reach_curve)
 @app.route("/reach_curve/", methods=["POST"])
@@ -275,6 +313,40 @@ def reach_curve():
     
     return result
 
+# 리치커브 분석결과 다운로드 (report_curve)
+@app.route("/report_curve", methods=["POST"])
+def report_curve():
+    data = request.json
+    reportOption = data.get("reportOption")
+    reportCurve = data.get("reportCurve")
+    target_pop = data.get("target_pop")
+    
+    try:
+        report_wb = DapReportReachCurve(reportOption, reportCurve, target_pop)
+        output = BytesIO()
+        report_wb.save(output)
+        output.seek(0)
+        
+        utc_now = datetime.utcnow()
+        kst_now = utc_now + timedelta(hours=9)
+        reg_date = kst_now.strftime('%y%m%d') 
+        filename = f"리치커브 분석결과_({reg_date}).xlsx"
+        quoted_filename = quote(filename)
+        
+        response = send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
+        response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{quoted_filename}"
+        response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
+
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"{str(e)}"
+        }), 500
 
 # 미디어믹스 최적화 (reach_optimize)
 @app.route("reach_optimize", methods=["POST"])
@@ -439,7 +511,6 @@ def reach_custom():
             "status": "error",
             "message": f"{str(e)}"
         }), 500
-
 
 # 매체, 상품 조회 (get_media_product)
 @app.route("/get_media_product/", methods=["GET"])

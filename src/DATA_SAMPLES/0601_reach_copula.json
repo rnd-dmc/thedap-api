@@ -1,9 +1,10 @@
 {
   "reach_marginal": {
-    "Youtube": 0.321364,
-    "Instagram": 0.349418,
-    "SMR": 0.082399,
-    "TV": 0.110537
+    "Youtube": 0.001019,
+    "GFA": 0.000104,
+    "SMR": 0.020431,
+    "Kakao": 0.019252,
+    "TV": 0.445124
   },
-  "reach_union": 0.639722
+  "reach_union": 0.462782
 }

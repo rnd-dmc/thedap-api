@@ -5,7 +5,7 @@ import pandas as pd
 
 from THEDAP_REPORT.DapReportStyler import *
 
-def makeReportCopula(result_json):
+def DapReportCopula(reportOption, reportCopula, target_pop):
     wb = Workbook()
 
     # ### 미디어믹스
@@ -17,28 +17,23 @@ def makeReportCopula(result_json):
     ws.row_dimensions[1].height = 24
     ws.sheet_view.showGridLines = False
     
-    option_analysis = result_json['option_analysis']
-    copula_union = pd.DataFrame(result_json['copula_union']).assign(copula_type='매체간 통합')
-    copula_inter = pd.DataFrame(result_json['copula_inter']).assign(copula_type='매체간 단독/중복')
+    copula_union = pd.DataFrame(reportCopula['copula_union']).assign(copula_type='매체간 통합')
+    copula_inter = pd.DataFrame(reportCopula['copula_inter']).assign(copula_type='매체간 단독/중복')
 
     copula_df = pd.concat([copula_union, copula_inter], axis=0, ignore_index=True)[['copula_type', 'comb', 'reach']]
-    sum_budget = result_json['sum_budget']
 
     ##
     ws.cell(row=2, column=2, value="분석일자").style = index_style
     ws.cell(row=2, column=3, value=(datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")).style = title_style
 
-    ws.cell(row=3, column=2, value="총 예산").style = index_style
-    ws.cell(row=3, column=3, value=sum_budget).style = title_style
+    ws.cell(row=3, column=2, value="분석기준 타겟").style = index_style
+    ws.cell(row=3, column=3, value=f"{reportOption['input_gender']}{reportOption['input_age_min']}{reportOption['input_age_max']}").style = title_style
 
-    ws.cell(row=4, column=2, value="분석기준 타겟").style = index_style
-    ws.cell(row=4, column=3, value=f"{option_analysis['input_gender']}{option_analysis['input_agemin']}{option_analysis['input_agemax']}").style = title_style
+    ws.cell(row=4, column=2, value="타겟 모수").style = index_style
+    ws.cell(row=4, column=3, value=target_pop).style = title_style
 
-    ws.cell(row=5, column=2, value="타겟 모수").style = index_style
-    ws.cell(row=5, column=3, value=result_json['population']).style = title_style
-
-    ws.cell(row=6, column=2, value="데이터 기준").style = index_style
-    ws.cell(row=6, column=3, value=option_analysis['maxdate']).style = title_style
+    ws.cell(row=5, column=2, value="데이터 기준").style = index_style
+    ws.cell(row=5, column=3, value=reportOption['inputModelDate']).style = title_style
     
     ##    
     colname_dict = {
