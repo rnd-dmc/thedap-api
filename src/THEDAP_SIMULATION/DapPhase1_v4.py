@@ -18,7 +18,7 @@ class DapPhase1_v4(DapMixClean_v4):
 
         for i in range(mix_cleaned.shape[0]):
             df = self.get_age_range(mix_cleaned['gender'][i], mix_cleaned['min'][i], mix_cleaned['max'][i]). \
-                assign(line=str(i + 1), platform=mix_cleaned['platform'][i], product=mix_cleaned['product'][i],
+                assign(line=f"{i+1:02}", platform=mix_cleaned['platform'][i], product=mix_cleaned['product'][i],
                     e_imp=mix_cleaned['e_imp'][i], impact=mix_cleaned['impact'][i],
                     eimp_weighted=mix_cleaned['eimp_weighted'][i]). \
                 merge(self.distribution_DB.drop(['date', 'month', 'year'], axis=1)). \
@@ -39,7 +39,7 @@ class DapPhase1_v4(DapMixClean_v4):
                 eval('''
                     GRPs = e_imp / population * 100
                     GRPs_weighted = eimp_weighted / population * 100''').fillna(0). \
-                assign(line=str(i + 1)). \
+                assign(line=f"{i+1:02}"). \
                 merge(self.parameter_DB[self.parameter_DB['product'] == 'overall'].drop(['date', 'year'], axis=1).rename(
                 columns={'a': 'a_ovr', 'b': 'b_ovr', 'c': 'c_ovr'}),
                     how="left", on=['platform', 'gender', 'age_min', 'age_max']). \

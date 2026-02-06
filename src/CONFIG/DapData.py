@@ -19,6 +19,7 @@ class DapData():
         self.inputModelDay = self.inputModelDate[6:8]
         self.userName = None if userName == '' else userName
         
+        self.custom_param_df = None
         self.population_DB = self.getPopulation()
         self.parameter_DB = self.getParameter()
         self.distribution_DB = self.getDistribution()
@@ -144,7 +145,7 @@ class DapData():
                     AGE_MAX AS age_max,
                     DISTRIBUTION AS distribution
                 FROM DAP_CUSTOM_DISTRIBUTION
-                WHERE USER_NAME == '{self.userName}'
+                WHERE USER_NAME = '{self.userName}'
                 '''
                 
                 custom_dist_df = pd.read_sql(query, cnx)
@@ -235,14 +236,14 @@ class DapData():
                     B_VAL as b,
                     C_VAL as c
                 FROM DAP_CUSTOM_PARAMETER
-                WHERE USER_NAME == '{self.userName}'
+                WHERE USER_NAME = '{self.userName}'
                 '''
                 
-                custom_param_df = pd.read_sql(query, cnx)
+                self.custom_param_df = pd.read_sql(query, cnx)
                 
-                df = pd.concat([df, custom_param_df], ignore_index=True, axis=0)
+                df = pd.concat([df, self.custom_param_df], ignore_index=True, axis=0)
         
-                    
+                
         return pd.concat([df], ignore_index=True)
 
     # NPlus계수 DB

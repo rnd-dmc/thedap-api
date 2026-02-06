@@ -3,4 +3,4 @@ __pycache__
 config.py
 *.png
 *.ipynb
-*.json
+sample.json

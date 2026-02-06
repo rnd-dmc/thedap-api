@@ -1,0 +1,44 @@
+{
+  // 01. 분석 타겟 설정
+  "input_age_min": 7,
+  "input_age_max": 79,
+  "input_gender": "P",
+
+  // 02. 중복 가중치
+  "input_weight": "high",
+
+  // 03. 분석 모델 버전
+  "inputModelDate": "2026-01-11",
+
+  // 04. 분석 목적
+  "opt_type": "reach_target",
+
+  // 사용자 정보
+  "userName": "admin@sbs.co.kr",
+  "userGrade": "P",
+
+  // 미디어믹스
+  "input_mix": [
+    {
+      "platform": "Digital",
+      "product": "overall",
+      "impact": "",
+      "bid_type": "CPM",
+      "bid_cost": 5000,
+      "bid_rate": "",
+      "min_rat": ""
+    },
+    {
+      "platform": "TV",
+      "product": "overall",
+      "impact": "",
+      "bid_type": "CPRP",
+      "bid_cost": 1200000,
+      "bid_rate": "",
+      "min_rat": ""
+    }
+  ],
+
+  // 분석 조건
+  "opt_target": 0.2
+}

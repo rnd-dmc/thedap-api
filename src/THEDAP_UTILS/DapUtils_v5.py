@@ -36,7 +36,12 @@ class DapUtils_v5(DapData):
             self.parameter_DB['platform'].str.startswith('TV', na=False), 
             'platform'
         ].unique().tolist()
-        return tv_platforms
+        
+        tv_platforms_custom = []
+        if self.custom_param_df is not None and not self.custom_param_df.empty:
+            tv_platforms_custom = self.custom_param_df['platform'].unique().tolist()
+        
+        return list(set(tv_platforms + tv_platforms_custom))
         
     # 중복 가중치
     def trans_duplicate(self, arr, weight):

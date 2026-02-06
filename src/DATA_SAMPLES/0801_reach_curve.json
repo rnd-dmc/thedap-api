@@ -1,0 +1,88 @@
+{
+  "input_mix": [
+    {
+      "campaign": "Digital캠페인",
+      "platform": "Youtube",
+      "product": "트루뷰인스트림",
+      "date_start": "2024-01-01",
+      "date_end": "2024-01-31",
+      "gender": "F",
+      "min": 25,
+      "max": 45,
+      "retargeting": "",
+      "impact": 0.8,
+      "budget": 1000000,
+      "bid_type": "CPM",
+      "bid_cost": 12000,
+      "bid_rate": "",
+      "imp": "",
+      "reach": ""
+    },
+    {
+      "campaign": "Digital캠페인",
+      "platform": "SMR",
+      "product": "overall",
+      "date_start": "2024-01-01",
+      "date_end": "2024-01-31",
+      "gender": "P",
+      "min": 25,
+      "max": 45,
+      "retargeting": "",
+      "impact": 0.5,
+      "budget": 5000000,
+      "bid_type": "E.IMP 직접입력",
+      "bid_cost": "",
+      "bid_rate": "",
+      "imp": 2462332,
+      "reach": ""
+    },
+    {
+      "campaign": "TV캠페인",
+      "platform": "TV",
+      "product": "overall",
+      "date_start": "2024-01-01",
+      "date_end": "2024-01-31",
+      "gender": "F",
+      "min": 25,
+      "max": 45,
+      "retargeting": "",
+      "impact": 1,
+      "budget": 300000000,
+      "bid_type": "CPRP",
+      "bid_cost": 2500000,
+      "bid_rate": "",
+      "imp": "",
+      "reach": ""
+    },
+    {
+      "campaign": "TV캠페인",
+      "platform": "TV",
+      "product": "지상파",
+      "date_start": "2024-01-01",
+      "date_end": "2024-01-31",
+      "gender": "P",
+      "min": 25,
+      "max": 45,
+      "retargeting": "",
+      "impact": 1,
+      "budget": 300000000,
+      "bid_type": "E.GRP 직접입력",
+      "bid_cost": "",
+      "bid_rate": "",
+      "imp": 56,
+      "reach": ""
+    }
+  ],
+  "input_weight": "high",
+  "input_gender": "P",
+  "input_age_min": 7,
+  "input_age_max": 79,
+
+  "input_maxbudget": 1000,
+  "input_seq": 10,
+
+  "userName": "admin@sbs.co.kr",
+  "userGrade": "P",
+
+  "inputModelDate": "2026-01-11"
+}

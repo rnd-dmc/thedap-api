@@ -17,8 +17,8 @@ def make_style(fg_color, font_color, bold, halign, valign, num_format=None):
         alignment=Alignment(horizontal=halign, vertical=valign),
         number_format=num_format or "General"
     )
-    
-index_style = make_style("404040", "FFFFFF", True, "center", "center")
+    a
+index_style = make_style("d9d9d9", "000000", True, "center", "center")
 title_style = make_style("FFFFFF", "000000", True, "center", "center", "#,##0;-#,##0;-")
 text_style = make_style("FFFFFF", "000000", False, "center", "center", "#,##0 ;-#,##0 ;- ")
 integer_style = make_style("FFFFFF", "000000", False, "right", "center", "#,##0 ;-#,##0 ;- ")
@@ -30,8 +30,8 @@ numeric_style = make_style("FFFFFF", "000000", False, "center", "center", "[=0]-
 numeric_style2 = make_style("FFFFFF", "000000", False, "center", "center", "[=0]- ;[<1]0.00% ;#,##0.00 ")
 
 gray_center_bold = {
-    "fill": PatternFill(start_color="404040", end_color="404040", fill_type="solid"),
-    "font": Font(color="FFFFFF", size=10, bold=True),
+    "fill": PatternFill(start_color="d9d9d9", end_color="d9d9d9", fill_type="solid"),
+    "font": Font(color="000000", size=10, bold=True),
     "alignment": Alignment(horizontal="center", vertical="center"),
     "border": Border(
         left=Side(style="thin"),
@@ -42,8 +42,8 @@ gray_center_bold = {
 }
 
 gray_center_bold_small = {
-    "fill": PatternFill(start_color="404040", end_color="404040", fill_type="solid"),
-    "font": Font(color="FFFFFF", size=10, bold=True),
+    "fill": PatternFill(start_color="d9d9d9", end_color="d9d9d9", fill_type="solid"),
+    "font": Font(color="000000", size=10, bold=True),
     "alignment": Alignment(horizontal="center", vertical="center"),
     "border": gray_center_bold["border"],
 }

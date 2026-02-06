@@ -50,8 +50,8 @@ sys.stderr = PrintLogger()
 app = Flask(__name__)
 
 # 믹스 샘플 다운로드
-@app.route("/get_mixsample/", methods=["POST"])
-def get_mixsample():
+@app.route("/mix_sample/", methods=["POST"])
+def mix_sample():
     data = request.json
     userGrade = data.get("userGrade")
     userName = data.get("userName", "")
@@ -81,6 +81,7 @@ def get_mixsample():
             download_name=filename
         )
         response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{quoted_filename}"
+        response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
         
         return response
 
@@ -98,7 +99,7 @@ def target_info():
     gender = data["input_gender"]
     age_min = data["input_age_min"]
     age_max = data["input_age_max"]
-    modelDate = data["inputModelDate"]
+    modelDate = data.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
 
     obj_ = DapUtils_v5(inputModelDate=modelDate)
     input_gender = json.dumps([{"input_gender": gender}])
@@ -141,6 +142,7 @@ def reach_result():
             result = {
                 "result_overall": thedap_output.result_overall(),
                 "result_summary": summary_,
+                "heatmap": thedap_output.heatmap(),
                 "reach_freq": thedap_output.reach_freq()
             }
             
@@ -153,12 +155,72 @@ def reach_result():
             result = {
                 "result_overall": thedap_output.result_overall(),
                 "result_summary": summary_,
+                "heatmap": thedap_output.heatmap(),
                 "reach_freq": thedap_output.reach_freq(),
                 "reach_marginal": {line['platform']:line['target_reach_p'] for line in summary_ if line['line'] == "Platform Total"},
                 "reach_union": [line['target_reach_p'] for line in summary_ if line['line'] == "Total"][0]
             }
 
     return result
+
+# 분석결과 다운로드 (report_analysis)
+@app.route("/report_analysis", methods=["POST"])
+def report_analysis():
+    data = request.json
+    userGrade = data.get("userGrade")
+    reportOption = data.get("reportOption")
+    
+    # 사용자 등급에 따른 분석결과 엑셀 파일 생성
+    try:
+        if not reportOption.get("inputModelDate"):
+            reportOption['inputModelDate'] = datetime.strftime(date.today(), "%Y-%m-%d")
+
+        reportResult = data.get("reportResult")
+        if reportResult.get("heatmap"):
+            heatmap_re = {}
+            for h in reportResult['heatmap']:
+                heatmap_re[h['name']] = [
+                    {
+                        'e_reach_p':h['P']
+                    },
+                    {
+                        'e_reach_n':h['N']
+                    },
+                    {
+                        "e_grps":h['GRP']
+                    }
+                ]
+            reportResult["heatmap"] = [heatmap_re]
+            
+        target_pop = data.get("target_pop")
+        
+        report_wb = DapReportReachAnalysis(reportOption, reportResult, target_pop, userGrade)
+        output = BytesIO()
+        report_wb.save(output)
+        output.seek(0)
+        
+        utc_now = datetime.utcnow()
+        kst_now = utc_now + timedelta(hours=9)
+        reg_date = kst_now.strftime('%y%m%d') 
+        filename = f"통합 Reach 분석결과_({reg_date}).xlsx"
+        quoted_filename = quote(filename)
+        
+        response = send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
+        response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{quoted_filename}"
+        response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
+        
+        return response
+        
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"{str(e)}"
+        }), 500
 
 # 매체간 중복/도달 (reach_copula)
 @app.route("/reach_copula", methods=["POST"])
