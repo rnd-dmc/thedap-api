@@ -9,20 +9,18 @@ from THEDAP_REPORT.DapReportStyler import *
 
 def DapReportReachOptimize(reportOption, reportOptimize, opt_type, target_pop):
     if (opt_type == 'reach_max'):
-        budget_options = [float(k.replace(',','')) for k in result_json['table_opt_max'][0].keys()]
-        freq_xl = pd.DataFrame(result_json['table_freq_max'])
-        tbl_xl = pd.concat([pd.DataFrame(result_json['table_opt_max'][0][k]).assign(budget_sum = float(k.replace(',',''))) for k in (result_json['table_opt_max'][0].keys())], ignore_index=True)
+        budget_options = [float(k.replace(',','')) for k in reportOptimize['table_opt'][0].keys()]
+        freq_xl = pd.DataFrame(reportOptimize['table_freq'])
+        tbl_xl = pd.concat([pd.DataFrame(reportOptimize['table_opt'][0][k]).assign(budget_sum = float(k.replace(',',''))) for k in (reportOptimize['table_opt'][0].keys())], ignore_index=True)
         tbl_xl2 = tbl_xl.query(f'budget_sum == {budget_options[0]}')
-        mix_xl = pd.DataFrame(result_json['opt_mix_max'])
-        option_xl = result_json['option_max']
+        mix_xl = pd.DataFrame(reportOption['input_mix'])
         
     else:
-        budget_options = [float(k.replace(',','')) for k in result_json['table_opt_target'][0].keys()]
-        freq_xl = pd.DataFrame(result_json['table_freq_target'])
-        tbl_xl = pd.concat([pd.DataFrame(result_json['table_opt_target'][0][k]).assign(budget_sum = float(k.replace(',', ''))) for k in (result_json['table_opt_target'][0].keys())], ignore_index=True)
+        budget_options = [float(k.replace(',','')) for k in reportOptimize['table_opt'][0].keys()]
+        freq_xl = pd.DataFrame(reportOptimize['table_freq'])
+        tbl_xl = pd.concat([pd.DataFrame(reportOptimize['table_opt'][0][k]).assign(budget_sum = float(k.replace(',', ''))) for k in (reportOptimize['table_opt'][0].keys())], ignore_index=True)
         tbl_xl2 = tbl_xl.query(f'budget_sum == {budget_options[0]}')
-        mix_xl = pd.DataFrame(result_json['opt_mix_target'])
-        option_xl = result_json['option_target']
+        mix_xl = pd.DataFrame(reportOption['input_mix'])
 
     wb = Workbook()
     try:
@@ -35,7 +33,7 @@ def DapReportReachOptimize(reportOption, reportOptimize, opt_type, target_pop):
         ws.row_dimensions[1].height = 24
         ws.sheet_view.showGridLines = False
 
-        maxbudget = option_xl['opt_maxbudget']*1_000_000 if opt_type == 'reach_max' else budget_options[0]
+        maxbudget = reportOption['opt_maxbudget']*1_000_000 if opt_type == 'reach_max' else budget_options[0]
         ##
         ws.cell(row=2, column=2, value="분석일자").style = index_style
         ws.cell(row=2, column=3, value=(datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")).style = title_style
@@ -44,13 +42,13 @@ def DapReportReachOptimize(reportOption, reportOptimize, opt_type, target_pop):
         ws.cell(row=3, column=3, value=maxbudget).style = title_style
 
         ws.cell(row=4, column=2, value="분석기준 타겟").style = index_style
-        ws.cell(row=4, column=3, value=f"{option_xl['input_gender']}{option_xl['input_agemin']}{option_xl['input_agemax']}").style = title_style
+        ws.cell(row=4, column=3, value=f"{reportOption['input_gender']}{reportOption['input_age_min']}{reportOption['input_age_max']}").style = title_style
 
         ws.cell(row=5, column=2, value="타겟 모수").style = index_style
         ws.cell(row=5, column=3, value=target_pop).style = title_style
         
         ws.cell(row=6, column=2, value="분석 모델 버전").style = index_style
-        ws.cell(row=6, column=3, value=option_xl['maxdate']).style = title_style
+        ws.cell(row=6, column=3, value=reportOption['inputModelDate']).style = title_style
         ##
         colname_dict = {
             'campaign':'캠페인', 'platform':'광고 매체', 'product':'광고 상품', 'date_start':'시작일', 'date_end':'종료일', 'gender':'성별',

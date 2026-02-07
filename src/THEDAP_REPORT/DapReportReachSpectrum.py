@@ -7,7 +7,7 @@ import pandas as pd
 
 from THEDAP_REPORT.DapReportStyler import *
 
-def DapReportReachSpectrum(result_json):
+def DapReportReachSpectrum(reportOption, reportOptimize, target_pop):
 
     wb = Workbook()
 
@@ -19,8 +19,7 @@ def DapReportReachSpectrum(result_json):
     ws.row_dimensions[1].height = 24
     ws.sheet_view.showGridLines = False
 
-    option_spectrum = result_json['option_spectrum']
-    maxbudget = option_spectrum['opt_maxbudget']*1_000_000
+    maxbudget = reportOption['opt_maxbudget']*1_000_000
     ##
     ws.cell(row=2, column=2, value="분석일자").style = index_style
     ws.cell(row=2, column=3, value=(datetime.utcnow() + timedelta(hours=9)).strftime("%Y-%m-%d")).style = title_style
@@ -29,13 +28,13 @@ def DapReportReachSpectrum(result_json):
     ws.cell(row=3, column=3, value=maxbudget).style = title_style
 
     ws.cell(row=4, column=2, value="분석기준 타겟").style = index_style
-    ws.cell(row=4, column=3, value=f"{option_spectrum['input_gender']}{option_spectrum['input_agemin']}{option_spectrum['input_agemax']}").style = title_style
+    ws.cell(row=4, column=3, value=f"{reportOption['input_gender']}{reportOption['input_age_min']}{reportOption['input_age_max']}").style = title_style
 
     ws.cell(row=5, column=2, value="타겟 모수").style = index_style
-    ws.cell(row=5, column=3, value=result_json['population']).style = title_style
+    ws.cell(row=5, column=3, value=target_pop).style = title_style
     
     ws.cell(row=6, column=2, value="분석 모델 버전").style = index_style
-    ws.cell(row=6, column=3, value=option_spectrum['maxdate']).style = title_style
+    ws.cell(row=6, column=3, value=reportOption['inputModelDate']).style = title_style
         
     ##
     colname_dict = {
@@ -44,9 +43,8 @@ def DapReportReachSpectrum(result_json):
         'budget':'예산', 'bid_type':'단가유형', 'bid_cost':'단가', 'bid_rate':'효율', 'imp':'IMP / GRP', 'reach':'Reach', 'alloc_rat':'예산 비중(%)'
     }
 
-    mix_xl = result_json['opt_mix_spectrum']
-    mix_xl_a = pd.DataFrame(mix_xl['mix_a'])
-    mix_xl_b = pd.DataFrame(mix_xl['mix_b'])
+    mix_xl_a = pd.DataFrame(reportOption['input_mixA'])
+    mix_xl_b = pd.DataFrame(reportOption['input_mixB'])
 
     ws.cell(row=8, column=2, value="미디어믹스 A").style = index_style
 
@@ -81,9 +79,9 @@ def DapReportReachSpectrum(result_json):
                 cell.style = percent_style
                 
     ## 스펙트럼
-    spec_xl_p = pd.DataFrame(result_json['table_spec']['reach_p'])
-    spec_xl_n = pd.DataFrame(result_json['table_spec']['reach_n'])
-    spec_xl_s = pd.DataFrame(result_json['table_spec']['reach_scaled'])
+    spec_xl_p = pd.DataFrame(reportOptimize['table_spec']['reach_p'])
+    spec_xl_n = pd.DataFrame(reportOptimize['table_spec']['reach_n'])
+    spec_xl_s = pd.DataFrame(reportOptimize['table_spec']['reach_scaled'])
 
     for col in range(2, spec_xl_p.shape[1] + 2):
         cell = ws.cell(row=14+mix_xl_a.shape[0] + mix_xl_b.shape[0], column=col)
