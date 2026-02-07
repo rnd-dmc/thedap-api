@@ -92,7 +92,6 @@ def mix_sample():
             "message": f"{str(e)}"
         }), 500
 
-
 # 타겟정보(target_info)
 @app.route("/target_info/", methods=["POST"])
 def target_info():
@@ -118,7 +117,6 @@ def target_info():
             "message": f"{str(e)}"
         }), 500
         
-
 # 통합 Reach 분석 (reach_result)
 @app.route("/reach_result/", methods=["POST"])
 def reach_result():
@@ -184,7 +182,7 @@ def reach_result():
     except Exception as e:
         return jsonify({
             "status": "error",
-            "message": f"서버 오류: {str(e)}"
+            "message": f"{str(e)}"
         }), 500 
 
 # 분석결과 다운로드 (report_analysis)
