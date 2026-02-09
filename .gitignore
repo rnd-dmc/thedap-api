@@ -1,6 +1,4 @@
+config.py
 *.xlsx
 __pycache__
-config.py
-*.png
 *.ipynb
-sample.json
