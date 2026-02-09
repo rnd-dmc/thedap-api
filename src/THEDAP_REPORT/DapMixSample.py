@@ -125,7 +125,7 @@ def DapMixSample(ChannelVehicleMap, userGrade):
             '단가': '#,##0',
             '효율': '0.00%',
             'E.IMP': '#,##0',
-            'E.GRP': '#,##0'
+            'E.GRP': '#,##0.00'
         }
 
         for k, col_ in enumerate(main_cols.keys(), start=1):
@@ -299,8 +299,8 @@ def DapMixSample(ChannelVehicleMap, userGrade):
             '단가 유형': '@',
             '단가': '#,##0',
             '효율': '0.00%',
-            'IMP / GRP': '#,##0',
-            'REACH': '#,##0'
+            'IMP / GRP': '#,##0.00',
+            'REACH': '#,##0.00'
         }
 
         for k, col_ in enumerate(main_cols.keys(), start=1):
