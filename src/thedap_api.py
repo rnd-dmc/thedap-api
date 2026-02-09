@@ -50,7 +50,7 @@ sys.stderr = PrintLogger()
 
 app = Flask(__name__)
 
-# 믹스 샘플 다운로드
+# 미디어믹스 양식 다운로드
 @app.route("/mix_sample/", methods=["POST"])
 def mix_sample():
     data = request.json
@@ -72,7 +72,7 @@ def mix_sample():
         utc_now = datetime.utcnow()
         kst_now = utc_now + timedelta(hours=9)
         reg_date = kst_now.strftime('%y%m%d') 
-        filename = f"미디어믹스_샘플_({reg_date}).xlsx"
+        filename = f"미디어믹스_양식_({reg_date}).xlsx"
         quoted_filename = quote(filename)
         
         response = send_file(
@@ -585,9 +585,44 @@ def report_optimize():
         return jsonify({
             "status": "error",
             "message": f"{str(e)}"
-        }), 500     
+        }), 500
 
-# 모델 커스텀
+
+# 커스텀 모델 데이터 양식
+@app.route("/custom_sample/", methods=["POST"])
+def custom_sample():
+    data = request.json
+    
+    try:
+        wb = DapCustomSample()
+        output = BytesIO()
+        wb.save(output)
+        output.seek(0)
+        
+        utc_now = datetime.utcnow()
+        kst_now = utc_now + timedelta(hours=9)
+        reg_date = kst_now.strftime('%y%m%d') 
+        filename = f"커스텀 모델 데이터양식_({reg_date}).xlsx"
+        quoted_filename = quote(filename)
+            
+        response = send_file(
+            output,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            as_attachment=True,
+            download_name=filename
+        )
+        response.headers["Content-Disposition"] = f"attachment; filename*=UTF-8''{quoted_filename}"
+        response.headers["Access-Control-Expose-Headers"] = "Content-Disposition"
+
+        return response 
+    
+    except Exception as e:
+        return jsonify({
+            "status": "error",
+            "message": f"{str(e)}"
+        }), 500
+
+# 커스텀 모델
 @app.route("/reach_custom/", methods=["POST"])
 def reach_custom():
     data = request.json
