@@ -40,7 +40,7 @@ class DapPhase1_v5(DapMixClean_v5):
                 merge(param_npl_db_). \
                 assign(line=mix_cleaned['line'][i])
 
-            df['distribution'].fillna(0., inplace=True)
+            df['distribution'] =df['distribution'].fillna(0.)
             df['isTarget'] = np.where(
                 (df['age_min'] >= trans_min) & (df['age_max'] <= trans_max) & (df['gender'].isin(gender_list)), 1, 0)
             df = df.merge(mix_cleaned.filter(
@@ -303,7 +303,7 @@ class DapPhase1_v5(DapMixClean_v5):
         df['gender'] = df['gender_org']
         df['age_min'] = df['min_org']
         df['age_max'] = df['max_org']
-        df.drop(['gender_org', 'min_org', 'max_org', 'period'], axis=1, inplace=True)
+        df = df.drop(['gender_org', 'min_org', 'max_org', 'period'], axis=1)
         df = self.round_float(df)
 
         return (ph1, df)

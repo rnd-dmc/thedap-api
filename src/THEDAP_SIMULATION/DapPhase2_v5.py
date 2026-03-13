@@ -18,7 +18,7 @@ class DapPhase2_v5(DapPhase1_v5):
         df['agrps'] = np.exp((-(df['a_ovr']) - np.log(df['c_ovr'] / (df['e_reach_p']) - 1)) / df['b_ovr'])
         df['row_n'] = 1
 
-        df.fillna(0, inplace=True)
+        df = df.fillna(0)
         max_reach = df.groupby(['campaign', 'platform', 'gender', 'age_min', 'age_max']).\
             agg(
                 max_reach_n=('e_reach_n', 'max'), max_reach2_n=('e_reach2_n', 'max'),
@@ -42,10 +42,10 @@ class DapPhase2_v5(DapPhase1_v5):
                 'ratio6_grps': 'max', 'ratio7_a': 'min', 'ratio7_af': 'max', 'ratio7_grps': 'max',
                 'ratio8_a': 'min', 'ratio8_af': 'max', 'ratio8_grps': 'max', 'ratio9_a': 'max', 'ratio9_af': 'max',
                 'ratio9_grps': 'max', 'ratio10_a': 'max', 'ratio10_af': 'max', 'ratio10_grps': 'max'}).reset_index()
-        df.rename(columns={'e_reach_n': 'reach_sum', 'e_reach2_n': 'reach2_sum', 'e_reach3_n': 'reach3_sum',
+        df = df.rename(columns={'e_reach_n': 'reach_sum', 'e_reach2_n': 'reach2_sum', 'e_reach3_n': 'reach3_sum',
                         'e_reach4_n': 'reach4_sum', 'e_reach5_n': 'reach5_sum',
                         'e_reach6_n': 'reach6_sum', 'e_reach7_n': 'reach7_sum', 'e_reach8_n': 'reach8_sum',
-                        'e_reach9_n': 'reach9_sum', 'e_reach10_n': 'reach10_sum'}, inplace=True)
+                        'e_reach9_n': 'reach9_sum', 'e_reach10_n': 'reach10_sum'})
         df = df.merge(max_reach, how='left')
 
         df['row_n'] = [True if x == 1 else False for x in df['row_n'].tolist()]

@@ -86,7 +86,7 @@ class DapPhase3_v4(DapPhase2_v4):
             ovr[e_reach_n] = ovr[e_reach_p] * ovr['population']
             ovr[target_reach_n] = ovr[target_reach_p] * ovr['population']
 
-        ovr.fillna(0, inplace=True)
+        ovr = ovr.fillna(0)
         ovr = self.round_float(ovr)
 
         return (ovr)

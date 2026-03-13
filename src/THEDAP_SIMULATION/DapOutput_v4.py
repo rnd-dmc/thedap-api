@@ -77,7 +77,7 @@ class DapOutput_v4(DapPhase3_v4):
         heatmap1['e_grps'] = np.round(heatmap1['e_grps'], 2)
         heatmap1['stand'] = 'Line ' + heatmap1['stand'] + ' 기준'
         heatmap1['age'] = (heatmap1['age_min']) + '-' + (heatmap1['age_max'])
-        heatmap1.drop(['age_min', 'age_max'], axis=1, inplace=True)
+        heatmap1 = heatmap1.drop(['age_min', 'age_max'], axis=1)
         heatmap1 = heatmap1[['stand', 'gender', 'age', 'e_reach_n', 'e_reach_p', 'e_grps']]
 
         heatmap2 = self.heatmap2[['platform', 'gender', 'age_min', 'age_max', 'e_reach_n', 'e_reach_p', 'e_grps']]. \
@@ -86,7 +86,7 @@ class DapOutput_v4(DapPhase3_v4):
         heatmap2['e_grps'] = np.round(heatmap2['e_grps'], 2)
         heatmap2['stand'] = '매체별 - ' + heatmap2['stand'] + ' 기준'
         heatmap2['age'] = (heatmap2['age_min']) + '-' + (heatmap2['age_max'])
-        heatmap2.drop(['age_min', 'age_max'], axis=1, inplace=True)
+        heatmap2 = heatmap2.drop(['age_min', 'age_max'], axis=1)
         heatmap2 = heatmap2[['stand', 'gender', 'age', 'e_reach_n', 'e_reach_p', 'e_grps']]
 
         heatmap3 = self.heatmap3[['gender', 'age_min', 'age_max', 'e_reach_n', 'e_reach_p', 'e_grps']]. \
@@ -94,7 +94,7 @@ class DapOutput_v4(DapPhase3_v4):
         heatmap3['e_reach_n'] = np.round(heatmap3['e_reach_n'])
         heatmap3['e_grps'] = np.round(heatmap3['e_grps'], 2)
         heatmap3['age'] = (heatmap3['age_min']) + '-' + (heatmap3['age_max'])
-        heatmap3.drop(['age_min', 'age_max'], axis=1, inplace=True)
+        heatmap3 = heatmap3.drop(['age_min', 'age_max'], axis=1)
         heatmap3 = heatmap3[['stand', 'gender', 'age', 'e_reach_n', 'e_reach_p', 'e_grps']]
 
         df = pd.concat([heatmap1, heatmap2, heatmap3]).reset_index(drop=True).astype(

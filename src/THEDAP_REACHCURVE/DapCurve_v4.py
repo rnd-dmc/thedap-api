@@ -43,7 +43,7 @@ class DapCurve_v4(DapPhase3_v4):
                                             mix_cleaned['e_imp'] * (mix_cleaned['budget'] / mix_cleaned['budget_origin']),
                                             mix_cleaned['e_imp'])
 
-            mix_cleaned.reset_index(drop=True, inplace=True)
+            mix_cleaned = mix_cleaned.reset_index(drop=True)
 
             data_list = []
             for rownum in range(0, mix_cleaned.shape[0]):

@@ -135,7 +135,7 @@ class DapPhase1_v4(DapMixClean_v4):
             df[e_reach_n] = df[e_reach_p] * df['population']
             df[target_reach_n] = df[target_reach_p] * df['population']
 
-        df.fillna(0, inplace=True)
+        df = df.fillna(0)
         df = self.round_float(df)
         
         return (df)
@@ -194,7 +194,7 @@ class DapPhase1_v4(DapMixClean_v4):
         df['gender'] = df['gender_org']
         df['age_min'] = df['min_org']
         df['age_max'] = df['max_org']
-        df.drop(['gender_org', 'min_org', 'max_org'], axis=1, inplace=True)
+        df = df.drop(['gender_org', 'min_org', 'max_org'], axis=1)
         df = self.round_float(df)
         
         return (ph1, df)

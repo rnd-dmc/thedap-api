@@ -100,7 +100,7 @@ class DapMixClean_v5(DapUtils_v5):
         mix_cleaned['Areach'] = np.where(mix_cleaned['bid_type'].str.contains('기집행'), mix_cleaned['reach'], 0.)
         mix_cleaned['min'] = mix_cleaned['min'].apply(lambda x: self.trans_min_age(x))
         mix_cleaned['max'] = mix_cleaned['max'].apply(lambda x: self.trans_max_age(x))
-        mix_cleaned.drop(['imp', 'reach'], axis=1, inplace=True)
+        mix_cleaned = mix_cleaned.drop(['imp', 'reach'], axis=1)
 
         if 'min_rat' in mix_cleaned.columns:
             mix_cleaned['min_rat'] = mix_cleaned['min_rat'].fillna(.0)
@@ -190,12 +190,13 @@ class DapMixClean_v5(DapUtils_v5):
                 df = df.merge(tv_dist, on=['platform', 'gender', 'age_min', 'age_max'])
 
                 df['dist_sum'] = np.dot(df['distribution'], df['isDemo'])
-                df.eval('''
+                df = df.eval('''
                         dist_rat = distribution / dist_sum
                         Eimp = Eimp * dist_rat 
                         eimp_weighted = Eimp * impact
                         a_imp = Aimp * dist_rat 
-                        aimp_weighted = a_imp * impact''', inplace=True)
+                        aimp_weighted = a_imp * impact
+                    ''')
 
                 df = df.merge(tv_params, on=['platform', 'product', 'gender', 'age_min', 'age_max'])
                 df['Simp_grps'] = df['a_imp'] / df['population'] * 100
@@ -217,9 +218,10 @@ class DapMixClean_v5(DapUtils_v5):
                 df['over_rate'] = np.where(df['Simp_reach_n_sum'] > .0, df['Areach'] / df['Simp_reach_n_sum'], .0)
                 df['over_rate_weighted'] = np.where(df['Simp_reach_n_sum_weighted'] > .0,
                                                     df['Areach'] / df['Simp_reach_n_sum_weighted'], .0)
-                df.eval('''
+                df = df.eval('''
                         Simp_reach_areach = over_rate * Simp_reach_n
-                        Simp_reach_areach_weighted = over_rate_weighted * Simp_reach_n_weighted''', inplace=True)
+                        Simp_reach_areach_weighted = over_rate_weighted * Simp_reach_n_weighted
+                    ''')
 
                 tv_areach.append(np.sum(df['Simp_reach_areach']))
                 tv_areach_org.append(np.mean(df['Areach']))

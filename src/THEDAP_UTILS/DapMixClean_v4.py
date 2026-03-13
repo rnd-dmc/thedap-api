@@ -100,11 +100,10 @@ class DapMixClean_v4(DapUtils_v4):
                                     mix_cleaned['min'])
         mix_cleaned['max'] = np.where((mix_cleaned['platform'].isin(['SMR', 'TV'])), max(self.population_DB['age_max']),
                                     mix_cleaned['max'])
-        mix_cleaned.dropna(subset=['platform'], inplace=True)
-        mix_cleaned.dropna(subset=['e_imp'], inplace=True)
+        mix_cleaned = mix_cleaned.dropna(subset=['platform']).dropna(subset=['e_imp'])
         mix_cleaned = mix_cleaned.reset_index(drop=True)
         mix_cleaned['line'] = [f'{i+1:02}' for i in mix_cleaned.index.to_list()]
-        mix_cleaned.fillna(0, inplace=True)
+        mix_cleaned = mix_cleaned.fillna(0)
 
         mix_cleaned_tv = mix_cleaned.query('platform == "TV"')
         mix_cleaned_ntv = mix_cleaned.query('platform != "TV"')
