@@ -40,7 +40,7 @@ class DapPhase1_v5(DapMixClean_v5):
                 merge(param_npl_db_). \
                 assign(line=mix_cleaned['line'][i])
 
-            df['distribution'] =df['distribution'].fillna(0.)
+            df['distribution'] = df['distribution'].fillna(0.)
             df['isTarget'] = np.where(
                 (df['age_min'] >= trans_min) & (df['age_max'] <= trans_max) & (df['gender'].isin(gender_list)), 1, 0)
             df = df.merge(mix_cleaned.filter(

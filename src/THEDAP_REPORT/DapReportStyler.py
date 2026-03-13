@@ -17,7 +17,7 @@ def make_style(fg_color, font_color, bold, halign, valign, num_format=None):
         alignment=Alignment(horizontal=halign, vertical=valign),
         number_format=num_format or "General"
     )
-    a
+    
 index_style = make_style("d9d9d9", "000000", True, "center", "center")
 title_style = make_style("FFFFFF", "000000", True, "center", "center", "#,##0;-#,##0;-")
 text_style = make_style("FFFFFF", "000000", False, "center", "center", "#,##0 ;-#,##0 ;- ")
