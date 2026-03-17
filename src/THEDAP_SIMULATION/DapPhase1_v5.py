@@ -22,7 +22,12 @@ class DapPhase1_v5(DapMixClean_v5):
         param_db_ = self.parameter_DB.drop(['date', 'year'], axis=1)
         param_ovr_db_ = self.parameter_DB.query('product == "overall"').drop(['product', 'date', 'year'], axis=1).rename(
                 columns={'a': 'a_ovr', 'b': 'b_ovr', 'c': 'c_ovr'})
-        param_npl_db_ = self.parameter_nplus_DB.filter(['gender', 'age_min', 'age_max'] + [x for x in self.parameter_nplus_DB.columns if 'ratio' in x]).drop_duplicates()
+        param_npl_db_ = self.parameter_nplus_DB.\
+            filter(regex='date|gender|age_min|age_max|ratio').\
+            query("date == date.max()").\
+            drop(columns=['date']).\
+            drop_duplicates().\
+            reset_index(drop=True)
         
         tidy_rows = []
         tidy = pd.DataFrame()

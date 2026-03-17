@@ -2,3 +2,4 @@ config.py
 *.xlsx
 __pycache__
 *.ipynb
+DATA_CLEANING/
