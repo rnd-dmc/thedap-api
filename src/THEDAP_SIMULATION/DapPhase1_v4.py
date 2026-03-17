@@ -11,8 +11,12 @@ class DapPhase1_v4(DapMixClean_v4):
     ### 결과 계산에 필요한 함수
     def get_tidy(self, input_mix):
         mix_cleaned = self.get_eimp(self.mix_clean(input_mix)).reset_index(drop=True)
-        param_npl_db_ = self.parameter_nplus_DB.filter(
-            ['gender', 'age_min', 'age_max'] + [x for x in self.parameter_nplus_DB.columns if 'ratio' in x]).drop_duplicates()
+        param_npl_db_ = self.parameter_nplus_DB.\
+            filter(regex='date|gender|age_min|age_max|ratio').\
+            query("date == date.max()").\
+            drop(columns=['date']).\
+            drop_duplicates().\
+            reset_index(drop=True)
 
         tidy = pd.DataFrame()
 
