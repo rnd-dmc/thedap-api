@@ -164,7 +164,7 @@ class DapData():
                     AGE_MAX AS age_max,
                     DISTRIBUTION AS distribution
                 FROM DAP_CUSTOM_DISTRIBUTION
-                WHERE USER_NAME = '{self.userName}'
+                WHERE REG_USER = '{self.userName}'
                 '''
                 
                 custom_dist_df = pd.read_sql(query, cnx)
@@ -256,7 +256,7 @@ class DapData():
                     B_VAL as b,
                     C_VAL as c
                 FROM DAP_CUSTOM_PARAMETER
-                WHERE USER_NAME = '{self.userName}'
+                WHERE REG_USER = '{self.userName}'
                 '''
                 
                 self.custom_param_df = pd.read_sql(query, cnx)
