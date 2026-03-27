@@ -155,16 +155,25 @@ class DapData():
                 
                 query = f'''
                 SELECT
-                    '{self.inputModelYear}-{self.inputModelMonth}-{self.inputModelDay}' as date,
-                    '{self.inputModelYear}' as year,
-                    '{self.inputModelMonth}' as month,
-                    PLATFORM AS platform,
-                    GENDER AS gender,
-                    AGE_MIN AS age_min,
-                    AGE_MAX AS age_max,
-                    DISTRIBUTION AS distribution
-                FROM DAP_CUSTOM_DISTRIBUTION
-                WHERE REG_USER = '{self.userName}'
+                    date, year, month, platform, gender, age_min, age_max, distribution
+                FROM (
+                        SELECT
+                        '{self.inputModelYear}-{self.inputModelMonth}-{self.inputModelDay}' as date,
+                        '{self.inputModelYear}' as year,
+                        '{self.inputModelMonth}' as month,
+                        PLATFORM AS platform,
+                        GENDER AS gender,
+                        AGE_MIN AS age_min,
+                        AGE_MAX AS age_max,
+                        DISTRIBUTION AS distribution,
+                        ROW_NUMBER() OVER (
+                            PARTITION BY MODEL_INDEX, PLATFORM, GENDER, AGE_MIN, AGE_MAX
+                            ORDER BY MOD_DATE DESC, DISTRIBUTION_IDX DESC
+                        ) AS row_num
+                    FROM DAP_CUSTOM_DISTRIBUTION
+                    WHERE REG_USER = '{self.userName}'
+                ) AS t
+                WHERE t.row_num = 1
                 '''
                 
                 custom_dist_df = pd.read_sql(query, cnx)
@@ -243,26 +252,34 @@ class DapData():
         if self.userName:
             with getConnection() as cnx:
                 query = f'''
-                SELECT
-                    '{self.inputModelYear}-{self.inputModelMonth}-{self.inputModelDay}' as date,
-                    '{self.inputModelYear}' as year,
-                    '{self.inputModelMonth}' as month,
-                    PLATFORM AS platform,
-                    PRODUCT AS product,
-                    GENDER AS gender,
-                    AGE_MIN AS age_min,
-                    AGE_MAX AS age_max,
-                    A_VAL as a,
-                    B_VAL as b,
-                    C_VAL as c
-                FROM DAP_CUSTOM_PARAMETER
-                WHERE REG_USER = '{self.userName}'
+                SELECT 
+                    date, year, month, platform, product, gender, age_min, age_max, a, b, c
+                FROM (
+                    SELECT 
+                        '{self.inputModelYear}-{self.inputModelMonth}-{self.inputModelDay}' AS date,
+                        '{self.inputModelYear}' AS year,
+                        '{self.inputModelMonth}' AS month,
+                        PLATFORM AS platform,
+                        PRODUCT AS product,
+                        GENDER AS gender,
+                        AGE_MIN AS age_min,
+                        AGE_MAX AS age_max,
+                        A_VAL AS a,
+                        B_VAL AS b,
+                        C_VAL AS c,
+                        ROW_NUMBER() OVER (
+                            PARTITION BY MODEL_INDEX, PLATFORM, PRODUCT, GENDER, AGE_MIN, AGE_MAX 
+                            ORDER BY MOD_DATE DESC, PARAMETER_IDX DESC
+                        ) AS row_num
+                    FROM DAP_CUSTOM_PARAMETER
+                    WHERE REG_USER = '{self.userName}'
+                ) AS t
+                WHERE t.row_num = 1
                 '''
                 
                 self.custom_param_df = pd.read_sql(query, cnx)
                 
                 df = pd.concat([df, self.custom_param_df], ignore_index=True, axis=0)
-        
                 
         return pd.concat([df], ignore_index=True)
 
