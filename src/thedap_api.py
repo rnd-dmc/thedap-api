@@ -161,6 +161,7 @@ def target_info(data: dict = Body(...)):
         gender = data["input_gender"]
         age_min = data["input_age_min"]
         age_max = data["input_age_max"]
+        # modelDate
         modelDate = data.get("input_modeldate", datetime.strftime(date.today(), "%Y-%m-%d"))
 
         thedap_utils = DapUtils_v5(inputModelDate=modelDate, pop_only=True)
