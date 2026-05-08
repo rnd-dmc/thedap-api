@@ -48,8 +48,10 @@ class DapPhase1_v5(DapMixClean_v5):
             df['distribution'] = df['distribution'].fillna(0.)
             df['isTarget'] = np.where(
                 (df['age_min'] >= trans_min) & (df['age_max'] <= trans_max) & (df['gender'].isin(gender_list)), 1, 0)
+            
+            mix_cleaned['reach_type'] = np.where(mix_cleaned['bid_type'].str.contains('기집행'), 'actual', 'predict')
             df = df.merge(mix_cleaned.filter(
-                ['line', 'impact', 'Eimp', 'eimp_weighted', 'min', 'max', 'Aimp', 'aimp_weighted', 'Areach', 'gender_org',
+                ['line', 'reach_type', 'impact', 'Eimp', 'eimp_weighted', 'min', 'max', 'Aimp', 'aimp_weighted', 'Areach', 'gender_org',
                 'min_org', 'max_org', 'Areach_org', 'retargeting']), how='left')
             df['isDemo_org'] = np.where((df['age_min'] >= df['min_org']) & (df['age_max'] <= df['max_org']) & (
                         (df['gender_org'] == df['gender']) | (df['gender_org'] == "P")), 1, 0)
@@ -79,7 +81,6 @@ class DapPhase1_v5(DapMixClean_v5):
     ## 라인별 결과값
     def phase1(self, input_mix, input_age, input_gender):
         df = self.get_tidy(input_mix, input_age, input_gender)
-        age = pd.read_json(self.trans_age(input_age))
         df['c'] = np.where(df['c'] > 0.9999, 0.9999, df['c'])
         df['c_ovr'] = np.where(df['c_ovr'] > 0.9999, 0.9999, df['c_ovr'])
 
@@ -87,12 +88,18 @@ class DapPhase1_v5(DapMixClean_v5):
         df['Simp_grps'] = df['Simp_areach'] / df['population'] * 100
         df['Simp_areach_weighted'] = df['aimp_weighted'] * df['dist']
         df['Simp_grps_weighted'] = df['Simp_areach_weighted'] / df['population'] * 100
-        
-        df['Simp_reach_p'] = np.where(df['Simp_grps'] > .0,
-                                    df['c'] / (1 + np.exp(-(df['a'] + df['b'] * np.log(df['Simp_grps'])))), .0)
-        df['Simp_reach_p_weighted'] = np.where(df['Simp_grps_weighted'] > .0, df['c'] / (
-                    1 + np.exp(-(df['a'] + df['b'] * np.log(df['Simp_grps_weighted'])))), .0)
-        
+
+        df['Simp_reach_p'] = np.where(
+            df['Simp_grps'] > .0,      
+            df['c'] / (1 + np.exp(-(df['a'] + df['b'] * np.log(df['Simp_grps'])))),
+            .0
+        )
+        df['Simp_reach_p_weighted'] = np.where(
+            df['Simp_grps_weighted'] > .0, 
+            df['c'] / (1 + np.exp(-(df['a'] + df['b'] * np.log(df['Simp_grps_weighted'])))), 
+            .0
+        )
+
         df['Simp_reach_n'] = df['Simp_reach_p'] * df['population']
         df['Simp_reach_n_weighted'] = df['Simp_reach_p_weighted'] * df['population']
         df['Vreach_n'] = df['Areach_org'] * df['dist_org']
@@ -111,14 +118,34 @@ class DapPhase1_v5(DapMixClean_v5):
                 line_pop_sum[g[0]] = np.dot(g[1]['dist_org'] > .0, g[1]['population'])
 
             df['pop_grps'] = df['line'].apply(lambda x: line_pop_sum[x])
-            df['Vreach_p'] = np.where(df['line'].isin(over_c), df['Areach_org'] / df['pop_grps'] * (df['dist_org'] > .0),
-                                    df['Vreach_p'])
+            
+            mask_tv = df['platform'].apply(lambda x: x in self.tv_list)
+            df['Vreach_p'] = np.where(
+                df['line'].isin(over_c) & mask_tv, 
+                df['Areach_org'] / df['pop_grps'],
+                np.where(
+                    df['line'].isin(over_c) & ~mask_tv,
+                    df['Areach_org'] / df['pop_grps']* (df['dist_org'] > .0),
+                    df['Vreach_p']
+                )
+            )
             df['Vreach_n'] = df['Vreach_p'] * df['population']
-            df['Vgrps'] = np.where(df['dist_org'] > .0,
-                                np.exp((-(df['a']) - np.log((df['c'] / df['Vreach_p']) - 1)) / df['b']), 0.)
+            df['Vgrps'] = np.where(
+                df['dist_org'] > .0,
+                np.exp((-(df['a']) - np.log((df['c'] / df['Vreach_p']) - 1)) / df['b']), 
+                0.
+            )
             df['Vgrps_weighted'] = df['Vgrps'] * df['impact']
-            df['Vimp'] = np.where(df['Vgrps'] > .0, df['Vgrps'] * df['population'] / 100, .0)
-            df['Vimp_weighted'] = np.where(df['Vgrps_weighted'] > .0, df['Vgrps_weighted'] * df['population'] / 100, .0)
+            df['Vimp'] = np.where(
+                df['Vgrps'] > .0, 
+                df['Vgrps'] * df['population'] / 100, 
+                .0
+            )
+            df['Vimp_weighted'] = np.where(
+                df['Vgrps_weighted'] > .0, 
+                df['Vgrps_weighted'] * df['population'] / 100, 
+                .0
+            )
 
         df = df.groupby(['campaign', 'line']). \
             agg(
@@ -127,24 +154,34 @@ class DapPhase1_v5(DapMixClean_v5):
             Vimp_sum=('Vimp', lambda x: np.sum(x)),
             Vimp_weighted_sum=('Vimp_weighted', lambda x: np.sum(x))
         ).reset_index().merge(df, how='right')
-
-        df['Vimp'] = np.where(df['isDemo_org'] == 1, df['Vimp'],
-                            df['Vimp_sum'] * df['dist_sum_diff'] / df['dist_org_sum'] * df['dist_diff'])
-        df['Vimp_weighted'] = np.where(df['isDemo_org'] == 1, df['Vimp_weighted'],
-                                    df['Vimp_weighted_sum'] * df['dist_sum_diff'] / df['dist_org_sum'] * df['dist_diff'])
             
-        df['Simp_Eimp'] = df['Eimp'] + df['Vimp']
-        df['Simp_Eimp_weighted'] = df['eimp_weighted'] + df['Vimp_weighted']
+        df['Vimp'] = np.where(df['isDemo_org'] == 1, df['Vimp'],
+            df['Vimp_sum'] * df['dist_sum_diff'] / df['dist_org_sum'] * df['dist_diff'])
+        df['Vimp_weighted'] = np.where(df['isDemo_org'] == 1, df['Vimp_weighted'],
+            df['Vimp_weighted_sum'] * df['dist_sum_diff'] / df['dist_org_sum'] * df['dist_diff'])
 
-        df['simulation_grps'] = np.where(df['retargeting'] > .0, df['Simp_Eimp_weighted'] / df['retargeting'] * 100,
-                                        df['Simp_Eimp_weighted'] / df['population'] * 100)
-        df['simulation_reach_p'] = np.where(df['simulation_grps'] > .0,
-                                            df['c'] / (1 + np.exp(-(df['a'] + df['b'] * np.log(df['simulation_grps'])))),
-                                            .0)
+        mask_actual = df['reach_type'] == "actual"
+        df['Simp_Eimp'] = np.where(mask_actual, df['Simp_areach'], df['Eimp'] + df['Vimp'].fillna(.0))
+        df['Simp_Eimp_weighted'] = np.where(mask_actual, df['Simp_areach_weighted'], df['eimp_weighted'] + df['Vimp_weighted'].fillna(.0))
+
+        df['simulation_grps'] = np.where(
+            df['retargeting'] > .0, 
+            df['Simp_Eimp_weighted'] / df['retargeting'] * 100,
+            df['Simp_Eimp_weighted'] / df['population'] * 100
+        )
+        df['simulation_reach_p'] = np.where(
+            (df['simulation_grps'] > .0) & (~mask_actual),
+            df['c'] / (1 + np.exp(-(df['a'] + df['b'] * np.log(df['simulation_grps'])))),
+            np.where(
+                (df['simulation_grps'] > .0) & mask_actual,
+                df['Vreach_p'],
+                .0
+            )
+        )
         df['simulation_reach_n'] = np.where(df['retargeting'] > .0, df['retargeting'] * df['simulation_reach_p'],
-                                            df['population'] * df['simulation_reach_p'])
+            df['population'] * df['simulation_reach_p'])
         df['simulation_reach_n'] = np.where(df['simulation_reach_n'] > df['Simp_Eimp_weighted'], df['Simp_Eimp_weighted'],
-                                            df['simulation_reach_n'])
+            df['simulation_reach_n'])
 
         df['E_imp_a'] = df['Eimp'] + df['Simp_areach']
         df['E_imp_a_weighted'] = df['eimp_weighted'] + df['Simp_areach_weighted']

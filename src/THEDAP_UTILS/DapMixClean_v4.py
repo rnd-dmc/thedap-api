@@ -61,7 +61,8 @@ class DapMixClean_v4(DapUtils_v4):
 
         # 모든 float type에 대한 반올림 & infinity 처리
         mix_cleaned = self.round_float(mix_cleaned)
-
+        mix_cleaned['line'] = [f'{i+1:02}' for i in mix_cleaned.index.to_list()]
+        
         return mix_cleaned
 
 
@@ -102,7 +103,7 @@ class DapMixClean_v4(DapUtils_v4):
                                     mix_cleaned['max'])
         mix_cleaned = mix_cleaned.dropna(subset=['platform']).dropna(subset=['e_imp'])
         mix_cleaned = mix_cleaned.reset_index(drop=True)
-        mix_cleaned['line'] = [f'{i+1:02}' for i in mix_cleaned.index.to_list()]
+        
         mix_cleaned = mix_cleaned.fillna(0)
 
         mix_cleaned_tv = mix_cleaned.query('platform == "TV"')

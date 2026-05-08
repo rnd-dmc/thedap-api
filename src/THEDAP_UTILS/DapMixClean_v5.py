@@ -109,6 +109,7 @@ class DapMixClean_v5(DapUtils_v5):
 
         # 모든 float type에 대한 반올림 & infinity 처리
         mix_cleaned = self.round_float(mix_cleaned)
+        mix_cleaned['line'] = [f'{i+1:02}' for i in mix_cleaned.index.to_list()]
         
         return mix_cleaned
 
@@ -116,7 +117,6 @@ class DapMixClean_v5(DapUtils_v5):
     # 기대노출량 계산
     def get_eimp(self, mix_cleaned):
 
-        mix_cleaned['line'] = [f'{i+1:02}' for i in mix_cleaned.index.to_list()]
         pop = []
         for g, mn, mx in zip(mix_cleaned['gender'], mix_cleaned['min'], mix_cleaned['max']):
             pop.append(pd.read_json(self.get_population(g, mn, mx))['trans_pop'][0])
@@ -237,6 +237,8 @@ class DapMixClean_v5(DapUtils_v5):
 
         # 모든 float type에 대한 반올림 & infinity 처리
         mix_cleaned = self.round_float(mix_cleaned)
+        round_cols = ['budget', 'bid_cost', 'Eimp', 'Aimp', 'Areach', 'eimp_weighted', 'aimp_weighted', 'Areach_org']
+        mix_cleaned[round_cols] = mix_cleaned[round_cols].astype(float).round(0)
         
         return (mix_cleaned)
 
