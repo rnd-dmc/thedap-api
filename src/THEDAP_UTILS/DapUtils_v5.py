@@ -218,12 +218,13 @@ class DapUtils_v5(DapData):
         except:
             return 30
 
-    def round_float(self, df: pd.DataFrame):
+    def round_float(self, df: pd.DataFrame, replace_only = False):
         df = df.copy()
         fcols = df.select_dtypes(include=['float', 'float64', 'float32']).columns
 
         if len(fcols) > 0:
-            df[fcols] = df[fcols].replace([np.inf, -np.inf], 0)
-            df[fcols] = df[fcols].fillna(0).round(6)
+            df[fcols] = df[fcols].replace([np.inf, -np.inf], .0)
+            if not replace_only:
+                df[fcols] = df[fcols].fillna(.0).round(10)
             
         return df
