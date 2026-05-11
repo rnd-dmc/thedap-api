@@ -15,11 +15,22 @@ class DapOutput_v5(DapPhase5_v5):
                                                      pd.read_json(self.trans_age(input_age))['trans_min'][0],
                                                      pd.read_json(self.trans_age(input_age))['trans_max'][0]))['trans_pop'][
             0]
-        self.heatmap1, self.summary_line = self.summary_each_line(input_mix, input_age, input_gender)
-        self.heatmap2, self.summary_subtotal = self.summary_each_subtotal(input_mix, input_age, input_gender)
-        self.heatmap3, self.summary_campaign = self.summary_each_campaign(input_mix, input_age, input_gender, input_weight)
-        self.heatmap4, self.summary_platform = self.summary_each_platform(input_mix, input_age, input_gender)
-        self.heatmap5, self.summary_tot = self.summary_total(input_mix, input_age, input_gender, input_weight)
+                                                     
+        round_degree = 6
+        summary_jobs = [
+            ("heatmap1", "summary_line", self.summary_each_line, (input_mix, input_age, input_gender)),
+            ("heatmap2", "summary_subtotal", self.summary_each_subtotal, (input_mix, input_age, input_gender)),
+            ("heatmap3", "summary_campaign", self.summary_each_campaign, (input_mix, input_age, input_gender, input_weight)),
+            ("heatmap4", "summary_platform", self.summary_each_platform, (input_mix, input_age, input_gender)),
+            ("heatmap5", "summary_tot", self.summary_total, (input_mix, input_age, input_gender, input_weight)),
+        ]
+
+        for heatmap_name, summary_name, summary_func, summary_args in summary_jobs:
+            heatmap, summary = summary_func(*summary_args)
+
+            setattr(self, heatmap_name, self.round_float(heatmap, degree=round_degree))
+            setattr(self, summary_name, self.round_float(summary, degree=round_degree))
+        
 
     ### 타겟정보
     def target_info(self):
@@ -72,7 +83,7 @@ class DapOutput_v5(DapPhase5_v5):
                 dt[c] = row_values[c]
             df_list.append(dt)
         j = json.loads(json.dumps(df_list, ensure_ascii=False))
-
+        
         return (j)
 
     ### 히트맵
@@ -108,7 +119,7 @@ class DapOutput_v5(DapPhase5_v5):
         df = pd.concat([heatmap1, heatmap4, heatmap5]).reset_index(drop=True).astype(
             {'e_reach_n': 'float', 'e_grps': 'float'})
         df['age'] = df['age'].apply(lambda x: str(x).replace('7-', '07-'))
-
+        
         htmap = []
         dic = {"e_reach_p": "P", "e_reach_n": "N", "e_grps": "GRP"}
         for i, h in enumerate(df['stand'].unique()):
@@ -145,7 +156,7 @@ class DapOutput_v5(DapPhase5_v5):
             {'reach': 'str'})
         df['reach_p_diff'] = (np.abs(df['reach_p'].diff(-1)))
         df['reach_p_diff'][10] = 0
-
+                
         df_list = []
         for r in range(0, df.shape[0]):
             dt = OrderedDict()

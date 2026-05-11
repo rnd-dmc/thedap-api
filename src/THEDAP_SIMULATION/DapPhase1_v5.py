@@ -73,7 +73,7 @@ class DapPhase1_v5(DapMixClean_v5):
 
             tidy_rows.append(df.fillna(.0))
             
-        tidy = self.round_float(pd.concat(tidy_rows, ignore_index=True), replace_only=True)
+        tidy = self.round_float(pd.concat(tidy_rows, ignore_index=True))
 
         return (tidy)
 

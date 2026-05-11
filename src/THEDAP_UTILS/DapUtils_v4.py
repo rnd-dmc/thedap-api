@@ -144,12 +144,12 @@ class DapUtils_v4(DapData):
 
         return m
     
-    def round_float(self, df: pd.DataFrame):
+    def round_float(self, df: pd.DataFrame, degree : int = 10):
         df = df.copy()
         fcols = df.select_dtypes(include=['float', 'float64', 'float32']).columns
 
         if len(fcols) > 0:
             df[fcols] = df[fcols].replace([np.inf, -np.inf], 0)
-            df[fcols] = df[fcols].fillna(0).round(6)
+            df[fcols] = df[fcols].fillna(0).round(degree)
             
         return df
