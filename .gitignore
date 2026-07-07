@@ -5,3 +5,4 @@ __pycache__
 DATA_CLEANING/
 *.zip
 *.csv
+!src/IMG/*.ipynb
