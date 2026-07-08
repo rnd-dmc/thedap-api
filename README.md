@@ -39,7 +39,6 @@ src/
 │   ├── DapMixSample, DapCustomSample                # 입력 양식 생성
 │   └── DapReportReachAnalysis, DapReportCopula, DapReportReachCurve,
 │       DapReportReachOptimize, DapReportReachSpectrum   # 결과 리포트 생성
-├── DATA_SAMPLES/              # 각 API의 실제 요청 샘플 JSON (엔드포인트별 테스트용, 아래 §5 참고)
 ├── DATA_BKUP/, DATA_CLEANING/ # DB 파라미터 백업본 및 정제 스크립트
 └── test.ipynb                 # 각 API 로직을 셀 단위로 직접 호출해보는 로컬 디버깅 노트북
 ```
@@ -84,19 +83,17 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 ## API 엔드포인트
 
-- 각 항목의 요청 예시는 `DATA_SAMPLES/`에 있음.
-
 <br>
 
 ### 공통
 
 <br>
 
-| 엔드포인트 | 설명 | 처리 클래스 | 샘플 |
-|---|---|---|---|
-| `POST /mix_sample/` | 매체/상품 목록 기반 미디어믹스 입력 양식 엑셀 다운로드 | `THEDAP_REPORT.DapMixSample(channelVehicleMap, userGrade)` | `0301_mix_sample.json` |
-| `POST /target_info/` | 성별/연령 조건의 타겟 인구모수 조회 | `DapUtils_v5(pop_only=True).get_target_info(...)` (population DB만 로드, parameter/distribution은 로드 안 함) | `0101_target_info.json` |
-| `GET /get_media_product/` | 등록된 매체·상품 목록 조회 | `CONFIG.DapData.getMediaProduct()` | - |
+| 엔드포인트 | 설명 | 처리 클래스 |
+|---|---|---|
+| `POST /mix_sample/` | 매체/상품 목록 기반 미디어믹스 입력 양식 엑셀 다운로드 | `THEDAP_REPORT.DapMixSample(channelVehicleMap, userGrade)` |
+| `POST /target_info/` | 성별/연령 조건의 타겟 인구모수 조회 | `DapUtils_v5(pop_only=True).get_target_info(...)` (population DB만 로드, parameter/distribution은 로드 안 함) |
+| `GET /get_media_product/` | 등록된 매체·상품 목록 조회 | `CONFIG.DapData.getMediaProduct()` |
 
 <br>
 
@@ -104,10 +101,10 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-| 엔드포인트 | 설명 | 처리 클래스 | 샘플 |
-|---|---|---|---|
-| `POST /reach_result/` | `input_mix`+타겟+가중치로 도달률/GRP/빈도분포 계산 | `userGrade=='B'` → `DapOutput_v4`, 그 외 → `DapOutput_v5` | `0401`(v4), `0402`(v5) |
-| `POST /report_analysis/` | 통합 Reach 분석 결과를 엑셀로 다운로드 | `DapReportReachAnalysis(reportOption, reportResult, target_pop, userGrade)` | `0501`(B), `0502`(P) |
+| 엔드포인트 | 설명 | 처리 클래스 |
+|---|---|---|
+| `POST /reach_result/` | `input_mix`+타겟+가중치로 도달률/GRP/빈도분포 계산 | `userGrade=='B'` → `DapOutput_v4`, 그 외 → `DapOutput_v5` |
+| `POST /report_analysis/` | 통합 Reach 분석 결과를 엑셀로 다운로드 | `DapReportReachAnalysis(reportOption, reportResult, target_pop, userGrade)` |
 
 `/reach_result/` 응답은 `result_overall`, `result_summary`, `heatmap`, `reach_freq` 4종 공통 + (v5만)
 `reach_marginal`(플랫폼별 타겟 도달률), `reach_union`(전체 통합 도달률)을 추가로 내려주며, 이 두 값은
@@ -115,9 +112,9 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-- **주의**: v4용 `input_mix` 라인 스키마(`0401` 샘플: `e_imp`/`e_grp` 필드 사용, `campaign`/`date_start`/`date_end`/`retargeting` 없음)와 
+- **주의**: v4용 `input_mix` 라인 스키마(`e_imp`/`e_grp` 필드 사용, `campaign`/`date_start`/`date_end`/`retargeting` 없음)와 
   
-  v5용 스키마(`0402` 샘플: `campaign`/`date_start`/`date_end`/`retargeting`/`imp`/`reach`
+  v5용 스키마(`campaign`/`date_start`/`date_end`/`retargeting`/`imp`/`reach`
 필드 사용)가 서로 다름 
 
 <br>
@@ -126,10 +123,10 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-| 엔드포인트 | 설명 | 처리 클래스 | 샘플 |
-|---|---|---|---|
-| `POST /reach_copula/` | 플랫폼별 한계 도달률(`reach_marginal`)과 통합 도달률(`reach_union`)로 매체 조합별 합집합/교집합 확률 계산 | `DapCopula` (Gaussian Copula, 상관계수 rho를 통합 도달률에 맞춰 추정) | `0601_reach_copula.json` |
-| `POST /report_copula/` | 위 결과를 엑셀로 다운로드 | `DapReportCopula` | `0701_report_copula.json` |
+| 엔드포인트 | 설명 | 처리 클래스 |
+|---|---|---|
+| `POST /reach_copula/` | 플랫폼별 한계 도달률(`reach_marginal`)과 통합 도달률(`reach_union`)로 매체 조합별 합집합/교집합 확률 계산 | `DapCopula` (Gaussian Copula, 상관계수 rho를 통합 도달률에 맞춰 추정) |
+| `POST /report_copula/` | 위 결과를 엑셀로 다운로드 | `DapReportCopula` |
 
 응답의 `copula_inter`에는 각 매체 조합의 교집합 확률 외에 `"{매체}_ONLY"`(포함-배제 원리로 계산한 단독 도달)
 항목도 함께 포함됨.
@@ -140,10 +137,10 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-| 엔드포인트 | 설명 | 처리 클래스 | 샘플 |
-|---|---|---|---|
-| `POST /reach_curve/` | 0 ~ `input_maxbudget`(억원)을 `input_seq` 구간으로 나눠 구간별 GRP/도달률(1~10회) 계산 | `userGrade=='B'` → `DapCurve_v4()`, 그 외 → `DapCurve_v5(userName, inputModelDate, platform_list)` | `0801_reach_curve.json` |
-| `POST /report_curve/` | 위 결과를 엑셀로 다운로드 | `DapReportReachCurve` | `0901_report_curve.json` |
+| 엔드포인트 | 설명 | 처리 클래스 |
+|---|---|---|
+| `POST /reach_curve/` | 0 ~ `input_maxbudget`(억원)을 `input_seq` 구간으로 나눠 구간별 GRP/도달률(1~10회) 계산 | `userGrade=='B'` → `DapCurve_v4()`, 그 외 → `DapCurve_v5(userName, inputModelDate, platform_list)` |
+| `POST /report_curve/` | 위 결과를 엑셀로 다운로드 | `DapReportReachCurve` |
 
 <br>
 
@@ -153,16 +150,16 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-| opt_type | 설명 | 필요 필드 | 처리 클래스 | 샘플 |
-|---|---|---|---|---|
-| `reach_max` | 예산 상한 내에서 도달 극대화 믹스 탐색 | `input_mix`, `opt_maxbudget`, `opt_seq` | `DapOptPhase3` (← `DapOptPhase1`→`2`→`3`) | `1001_reach_optimize.json` |
-| `reach_target` | 목표 도달률(`opt_target`) 달성을 위한 최소 예산 믹스 탐색 | `input_mix`, `opt_target` | `DapOptPhase3`. 실행 전 `DapUtils_v5.check_coverage()`로 달성 가능 여부 검사 — 불가능하면 `{"isSuc": false}`만 반환 | `1002_reach_optimize.json` |
-| `reach_spectrum` | 두 믹스(`input_mixA`/`input_mixB`, `alloc_rat`로 내부 배분)를 예산 구간별로 비교 | `input_mixA`, `input_mixB`, `opt_maxbudget`, `opt_seq` | `DapSpecPhase1` | `1003_reach_optimize.json` |
+| opt_type | 설명 | 필요 필드 | 처리 클래스 |
+|---|---|---|---|
+| `reach_max` | 예산 상한 내에서 도달 극대화 믹스 탐색 | `input_mix`, `opt_maxbudget`, `opt_seq` | `DapOptPhase3` (← `DapOptPhase1`→`2`→`3`) |
+| `reach_target` | 목표 도달률(`opt_target`) 달성을 위한 최소 예산 믹스 탐색 | `input_mix`, `opt_target` | `DapOptPhase3`. 실행 전 `DapUtils_v5.check_coverage()`로 달성 가능 여부 검사 — 불가능하면 `{"isSuc": false}`만 반환 |
+| `reach_spectrum` | 두 믹스(`input_mixA`/`input_mixB`, `alloc_rat`로 내부 배분)를 예산 구간별로 비교 | `input_mixA`, `input_mixB`, `opt_maxbudget`, `opt_seq` | `DapSpecPhase1` |
 
 <br>
 
 - `POST /reach_optimize/` 응답: `reach_max`/`reach_target`은 `table_viz`(선버스트 트리 구조) + `table_opt`(예산별 최적 믹스 상세) + `table_freq`(예산별 도달빈도), `reach_spectrum`은 `table_plot` + `table_spec`
-- `POST /report_optimize/` (샘플 `1101`/`1102`/`1103`): 최적화 결과를 엑셀로 다운로드. 
+- `POST /report_optimize/`: 최적화 결과를 엑셀로 다운로드. 
 
 <br>
 
@@ -170,10 +167,10 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-| 엔드포인트 | 설명 | 처리 클래스 | 샘플 |
-|---|---|---|---|
-| `POST /custom_sample/` | 커스텀 모델 데이터 업로드 양식 다운로드 | `DapCustomSample()` | - |
-| `POST /reach_custom/` | 업로드 데이터(`grps`/`reach_p` 쌍, 20행 이상 필요)로 도달곡선 파라미터(A/B/C, maxGrps) 추정 | `DapCustomModel(uploadData).getResult()` (`statsmodels` OLS로 로짓 변환 후 회귀) | `1301_reach_custom.json` |
+| 엔드포인트 | 설명 | 처리 클래스 |
+|---|---|---|
+| `POST /custom_sample/` | 커스텀 모델 데이터 업로드 양식 다운로드 | `DapCustomSample()` |
+| `POST /reach_custom/` | 업로드 데이터(`grps`/`reach_p` 쌍, 20행 이상 필요)로 도달곡선 파라미터(A/B/C, maxGrps) 추정 | `DapCustomModel(uploadData).getResult()` (`statsmodels` OLS로 로짓 변환 후 회귀) |
 
 <br>
 
