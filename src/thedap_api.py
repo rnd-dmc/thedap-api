@@ -52,7 +52,21 @@ sys.stderr = PrintLogger()
 #####
 
 
-app = FastAPI()
+tags_metadata = [
+    {"name": "공통", "description": "미디어믹스 양식, 타겟정보, 매체/상품 조회 등 공통 기능"},
+    {"name": "통합 Reach 분석", "description": "미디어믹스 기반 도달률/GRP/빈도분포 시뮬레이션 및 결과 다운로드"},
+    {"name": "매체간 중복/도달", "description": "매체간 중복률(Copula) 분석 및 결과 다운로드"},
+    {"name": "리치커브", "description": "예산 구간별 도달 곡선(Reach Curve) 분석 및 결과 다운로드"},
+    {"name": "미디어믹스 최적화", "description": "도달 극대화 / 도달률 달성 / 도달 스펙트럼 최적화 및 결과 다운로드"},
+    {"name": "커스텀 모델", "description": "사용자 업로드 데이터 기반 커스텀 도달 모델 분석"},
+]
+
+app = FastAPI(
+    title="THEDAP API",
+    description="더답(THEDAP) 미디어믹스 도달/GRP 시뮬레이션 및 최적화 API",
+    version="5.0.0",
+    openapi_tags=tags_metadata,
+)
 
 # 요청/응답 로깅 미들웨어
 @app.middleware("http")
@@ -126,7 +140,12 @@ def _get_reg_date():
 
 
 # 미디어믹스 양식 다운로드
-@app.post("/mix_sample/")
+@app.post(
+    "/mix_sample/",
+    tags=["공통"],
+    summary="미디어믹스 양식 다운로드",
+    description="사용자 등급 및 매체/상품 목록에 따른 미디어믹스 입력 양식 엑셀 파일을 생성하여 다운로드합니다.",
+)
 def mix_sample(data: dict = Body(...)):
     userGrade = data.get("userGrade")
     userName = data.get("userName", "")
@@ -155,7 +174,12 @@ def mix_sample(data: dict = Body(...)):
         )
 
 # 타겟정보(target_info)
-@app.post("/target_info/")
+@app.post(
+    "/target_info/",
+    tags=["공통"],
+    summary="타겟 정보 조회",
+    description="성별/연령 조건에 해당하는 타겟 인구 정보를 조회합니다.",
+)
 def target_info(data: dict = Body(...)):
     try:
         gender = data["input_gender"]
@@ -179,7 +203,12 @@ def target_info(data: dict = Body(...)):
         )
 
 # 통합 Reach 분석 (reach_result)
-@app.post("/reach_result/")
+@app.post(
+    "/reach_result/",
+    tags=["통합 Reach 분석"],
+    summary="통합 Reach 분석",
+    description="미디어믹스, 타겟(성별/연령), 가중치를 입력받아 도달률/GRP/빈도분포 등 통합 Reach 분석 결과를 반환합니다. userGrade에 따라 v4/v5 모델을 사용합니다.",
+)
 def reach_result(data: dict = Body(...)):
     try:
 
@@ -245,7 +274,12 @@ def reach_result(data: dict = Body(...)):
         )
 
 # 분석결과 다운로드 (report_analysis)
-@app.post("/report_analysis/")
+@app.post(
+    "/report_analysis/",
+    tags=["통합 Reach 분석"],
+    summary="통합 Reach 분석결과 다운로드",
+    description="통합 Reach 분석 결과를 엑셀 리포트 파일로 생성하여 다운로드합니다.",
+)
 def report_analysis(data: dict = Body(...)):
     userGrade = data.get("userGrade")
     reportOption = data.get("reportOption")
@@ -291,7 +325,12 @@ def report_analysis(data: dict = Body(...)):
         )
 
 # 매체간 중복/도달 (reach_copula)
-@app.post("/reach_copula/")
+@app.post(
+    "/reach_copula/",
+    tags=["매체간 중복/도달"],
+    summary="매체간 중복/도달 분석",
+    description="매체별 한계 도달률(reach_marginal)과 통합 도달률(reach_union)을 입력받아 매체간 중복(Copula) 확률을 계산합니다.",
+)
 def reach_copula(data: dict = Body(...)):
     try:
         marginal_probs = data.get("reach_marginal")
@@ -316,7 +355,12 @@ def reach_copula(data: dict = Body(...)):
         )
 
 # 매체간 중복/도달 분석결과 다운로드 (report_copula)
-@app.post("/report_copula/")
+@app.post(
+    "/report_copula/",
+    tags=["매체간 중복/도달"],
+    summary="매체간 중복/도달 분석결과 다운로드",
+    description="매체간 중복/도달 분석 결과를 엑셀 리포트 파일로 생성하여 다운로드합니다.",
+)
 def report_copula(data: dict = Body(...)):
     reportOption = data.get("reportOption")
     reportCopula = data.get("reportCopula")
@@ -341,7 +385,12 @@ def report_copula(data: dict = Body(...)):
         )
 
 # 리치커브 분석 (reach_curve)
-@app.post("/reach_curve/")
+@app.post(
+    "/reach_curve/",
+    tags=["리치커브"],
+    summary="리치커브 분석",
+    description="미디어믹스, 타겟, 가중치, 예산 상한(input_maxbudget), 시퀀스(input_seq)를 입력받아 예산 구간별 도달률 변화(리치커브)를 계산합니다.",
+)
 def reach_curve(data: dict = Body(...)):
     try:
 
@@ -388,7 +437,12 @@ def reach_curve(data: dict = Body(...)):
         )
 
 # 리치커브 분석결과 다운로드 (report_curve)
-@app.post("/report_curve/")
+@app.post(
+    "/report_curve/",
+    tags=["리치커브"],
+    summary="리치커브 분석결과 다운로드",
+    description="리치커브 분석 결과를 엑셀 리포트 파일로 생성하여 다운로드합니다.",
+)
 def report_curve(data: dict = Body(...)):
     reportOption = data.get("reportOption")
     reportCurve = data.get("reportCurve")
@@ -412,7 +466,12 @@ def report_curve(data: dict = Body(...)):
         )
 
 # 미디어믹스 최적화 (reach_optimize)
-@app.post("/reach_optimize/")
+@app.post(
+    "/reach_optimize/",
+    tags=["미디어믹스 최적화"],
+    summary="미디어믹스 최적화",
+    description="opt_type(reach_max/reach_target/reach_spectrum)에 따라 도달 극대화, 목표 도달률 달성, 도달 스펙트럼 최적화를 수행합니다.",
+)
 def reach_optimize(data: dict = Body(...)):
     type = data.get("opt_type")
     # 사용자 정보 & 모델버전
@@ -543,7 +602,12 @@ def reach_optimize(data: dict = Body(...)):
         )
 
 # 미디어믹스 최적화 분석결과 다운로드 (report_optimize)
-@app.post("/report_optimize/")
+@app.post(
+    "/report_optimize/",
+    tags=["미디어믹스 최적화"],
+    summary="미디어믹스 최적화 분석결과 다운로드",
+    description="미디어믹스 최적화(도달 극대화/도달률 달성/도달 스펙트럼) 결과를 엑셀 리포트 파일로 생성하여 다운로드합니다.",
+)
 def report_optimize(data: dict = Body(...)):
     try:
         reportOption = data.get("reportOption")
@@ -552,7 +616,7 @@ def report_optimize(data: dict = Body(...)):
         reportOptimize = data.get("reportOptimize")
         target_pop = data.get("target_pop")
 
-        if opt_type in ['reach_max', 'target_reach']:
+        if opt_type in ['reach_max', 'reach_target']:
 
             report_wb = DapReportReachOptimize(
                 reportOption=reportOption,
@@ -587,7 +651,12 @@ def report_optimize(data: dict = Body(...)):
 
 
 # 커스텀 모델 데이터 양식
-@app.post("/custom_sample/")
+@app.post(
+    "/custom_sample/",
+    tags=["커스텀 모델"],
+    summary="커스텀 모델 데이터 양식 다운로드",
+    description="커스텀 모델 분석에 필요한 데이터 업로드 양식 엑셀 파일을 다운로드합니다.",
+)
 def custom_sample(data: dict = Body(...)):
     try:
         wb = DapCustomSample()
@@ -607,7 +676,12 @@ def custom_sample(data: dict = Body(...)):
         )
 
 # 커스텀 모델
-@app.post("/reach_custom/")
+@app.post(
+    "/reach_custom/",
+    tags=["커스텀 모델"],
+    summary="커스텀 모델 분석",
+    description="사용자가 업로드한 데이터(uploadData, 20행 이상)를 기반으로 커스텀 도달 모델을 분석합니다.",
+)
 def reach_custom(data: dict = Body(...)):
     uploadData = data.get('uploadData')
     if not uploadData:
@@ -640,7 +714,12 @@ def reach_custom(data: dict = Body(...)):
         )
 
 # 매체, 상품 조회 (get_media_product)
-@app.get("/get_media_product/")
+@app.get(
+    "/get_media_product/",
+    tags=["공통"],
+    summary="매체/상품 조회",
+    description="등록된 매체(platform) 및 상품(product) 목록을 조회합니다.",
+)
 def get_media_product():
     obj_ = DapData()
     result = obj_.getMediaProduct()

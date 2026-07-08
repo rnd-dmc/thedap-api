@@ -6,3 +6,5 @@ DATA_CLEANING/
 *.zip
 *.csv
 !src/IMG/*.ipynb
+!src/test.ipynb
+*.claude/
