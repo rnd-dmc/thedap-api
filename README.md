@@ -23,7 +23,7 @@ src/
 ├── THEDAP_UTILS/             # 공통 유틸
 │   ├── DapUtils_v4.py / DapUtils_v5.py   # 성별·연령 변환, 타겟 인구, 가중치, round_float, check_coverage 등
 │   ├── DapMixClean_v4.py / DapMixClean_v5.py  # input_mix 원본 → 정제된 노출량(Eimp)/도달(Areach) 계산
-│   └── DapCustomModel.py     # 커스텀 모델(업로드 데이터 기반 로지스틱 회귀) 분석
+│   └── DapCustomModel.py     # 커스텀 모델(업로드한 GRP-도달률 데이터를 통계적으로 분석해 도달곡선을 추정) 분석
 ├── THEDAP_SIMULATION/        # 도달/GRP 시뮬레이션 본체
 │   ├── DapPhase1_v4 → DapPhase2_v4 → DapPhase3_v4 → DapOutput_v4   (BASIC 등급, userGrade == 'B')
 │   └── DapPhase1_v5 → … → DapPhase5_v5 → DapOutput_v5              (STANDARD/PREMIUM 등급, userGrade != 'B')
@@ -32,7 +32,7 @@ src/
 ├── THEDAP_COPULA/
 │   └── DapCopula.py           # 매체간 중복(Copula) 통계 모델
 ├── THEDAP_MIXOPTIM/           # 미디어믹스 최적화
-│   ├── DapMixOptimizer.py     # 퍼사드 (opt_type에 따라 아래 클래스로 분기)
+│   ├── DapMixOptimizer.py     # opt_type 값을 보고 아래 클래스 중 하나로 연결해주는 진입점
 │   ├── DapOptPhase1 → DapOptPhase2 → DapOptPhase3   # reach_max / reach_target
 │   └── DapSpecPhase1.py       # reach_spectrum (믹스 A/B 비교)
 ├── THEDAP_REPORT/             # 분석결과를 엑셀(openpyxl)로 내보내는 함수 모음
@@ -125,10 +125,10 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 | 엔드포인트 | 설명 | 처리 클래스 |
 |---|---|---|
-| `POST /reach_copula/` | 플랫폼별 한계 도달률(`reach_marginal`)과 통합 도달률(`reach_union`)로 매체 조합별 합집합/교집합 확률 계산 | `DapCopula` (Gaussian Copula, 상관계수 rho를 통합 도달률에 맞춰 추정) |
+| `POST /reach_copula/` | 플랫폼별 한계 도달률(`reach_marginal`)과 통합 도달률(`reach_union`)로 매체 조합별 합집합/교집합 확률 계산 | `DapCopula` (각 매체의 개별 도달률만 가지고, 매체끼리 시청자가 얼마나 겹치는지를 통계적으로 추정하는 모델) |
 | `POST /report_copula/` | 위 결과를 엑셀로 다운로드 | `DapReportCopula` |
 
-응답의 `copula_inter`에는 각 매체 조합의 교집합 확률 외에 `"{매체}_ONLY"`(포함-배제 원리로 계산한 단독 도달)
+응답의 `copula_inter`에는 각 매체 조합의 교집합 확률 외에 `"{매체}_ONLY"`(다른 매체 조합들의 교집합 값을 더하고 빼서 계산한, 그 매체에서만 도달한 비율)
 항목도 함께 포함됨.
 
 <br>
@@ -158,7 +158,7 @@ DapData (DB 로딩: 인구/파라미터/분포)
 
 <br>
 
-- `POST /reach_optimize/` 응답: `reach_max`/`reach_target`은 `table_viz`(선버스트 트리 구조) + `table_opt`(예산별 최적 믹스 상세) + `table_freq`(예산별 도달빈도), `reach_spectrum`은 `table_plot` + `table_spec`
+- `POST /reach_optimize/` 응답: `reach_max`/`reach_target`은 `table_viz`(예산이 매체→상품 순으로 어떻게 나뉘는지 보여주는 계층형 원형 차트용 데이터) + `table_opt`(예산별 최적 믹스 상세) + `table_freq`(예산별 도달빈도), `reach_spectrum`은 `table_plot` + `table_spec`
 - `POST /report_optimize/`: 최적화 결과를 엑셀로 다운로드. 
 
 <br>
@@ -170,7 +170,7 @@ DapData (DB 로딩: 인구/파라미터/분포)
 | 엔드포인트 | 설명 | 처리 클래스 |
 |---|---|---|
 | `POST /custom_sample/` | 커스텀 모델 데이터 업로드 양식 다운로드 | `DapCustomSample()` |
-| `POST /reach_custom/` | 업로드 데이터(`grps`/`reach_p` 쌍, 20행 이상 필요)로 도달곡선 파라미터(A/B/C, maxGrps) 추정 | `DapCustomModel(uploadData).getResult()` (`statsmodels` OLS로 로짓 변환 후 회귀) |
+| `POST /reach_custom/` | 업로드 데이터(`grps`/`reach_p` 쌍, 20행 이상 필요)로 도달곡선 파라미터(A/B/C, maxGrps) 추정 | `DapCustomModel(uploadData).getResult()` (업로드된 GRP-도달률 값들에 가장 잘 맞는 곡선을 찾아 그 곡선의 계수 A/B/C를 통계적으로 역산) |
 
 <br>
 
