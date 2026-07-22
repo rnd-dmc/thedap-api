@@ -1,0 +1,9 @@
+{
+  "input_gender": "P",
+  "input_age_min": 7,
+  "input_age_max": 79,
+
+  "inputWeight": "high",
+
+  "inputModelDate": "2026-01-11"
+}

@@ -1,0 +1,3909 @@
+{
+  "userName": "admin@sbs.co.kr",
+  "userGrade": "P",
+  "reportOption": {
+    "input_mix": [
+      {
+        "campaign": "Digital캠페인",
+        "platform": "Youtube",
+        "product": "트루뷰인스트림",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "F",
+        "min": 25,
+        "max": 45,
+        "retargeting": "",
+        "impact": 0.8,
+        "budget": 1000000,
+        "bid_type": "CPM",
+        "bid_cost": 12000,
+        "bid_rate": "",
+        "imp": "",
+        "reach": ""
+      },
+      {
+        "campaign": "Digital캠페인",
+        "platform": "GFA",
+        "product": "모바일 메인_배너",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "F",
+        "min": 25,
+        "max": 45,
+        "retargeting": 300000,
+        "impact": 0.2,
+        "budget": 1000000,
+        "bid_type": "CPC",
+        "bid_cost": 1000,
+        "bid_rate": 0.02,
+        "imp": "",
+        "reach": ""
+      },
+      {
+        "campaign": "Digital캠페인",
+        "platform": "SMR",
+        "product": "overall",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "P",
+        "min": 25,
+        "max": 45,
+        "retargeting": "",
+        "impact": 0.5,
+        "budget": 5000000,
+        "bid_type": "E.IMP 직접입력",
+        "bid_cost": "",
+        "bid_rate": "",
+        "imp": 2462332,
+        "reach": ""
+      },
+      {
+        "campaign": "Digital캠페인",
+        "platform": "Kakao",
+        "product": "overall",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "P",
+        "min": 25,
+        "max": 45,
+        "retargeting": "",
+        "impact": "",
+        "budget": 6000000,
+        "bid_type": "기집행 분석 (IMP)",
+        "bid_cost": "",
+        "bid_rate": "",
+        "imp": 1379671,
+        "reach": 885760
+      },
+      {
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": "overall",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "F",
+        "min": 25,
+        "max": 45,
+        "retargeting": "",
+        "impact": 1,
+        "budget": 300000000,
+        "bid_type": "CPRP",
+        "bid_cost": 2500000,
+        "bid_rate": "",
+        "imp": "",
+        "reach": ""
+      },
+      {
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": "지상파",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "P",
+        "min": 25,
+        "max": 45,
+        "retargeting": "",
+        "impact": 1,
+        "budget": 300000000,
+        "bid_type": "E.GRP 직접입력",
+        "bid_cost": "",
+        "bid_rate": "",
+        "imp": 56,
+        "reach": ""
+      },
+      {
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": "종편",
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "gender": "P",
+        "min": 25,
+        "max": 45,
+        "retargeting": "",
+        "impact": "",
+        "budget": 300000000,
+        "bid_type": "기집행 분석 (GRP)",
+        "bid_cost": "",
+        "bid_rate": "",
+        "imp": 66,
+        "reach": 24
+      }
+    ],
+    "input_weight": "high",
+    "input_gender": "P",
+    "input_age_min": 7,
+    "input_age_max": 79,
+    "inputModelDate": "2026-01-11"
+  },
+  "target": "P779",
+  "target_pop": 46007767,
+  "reportResult": {
+    "result_overall": [
+      {
+        "R1_p": 0.462782,
+        "R3_p": 0.31469,
+        "GRPs": 423.878091,
+        "AF": 9.15934,
+        "R1_n": 21291583.0,
+        "R3_n": 14478184.0
+      }
+    ],
+    "result_summary": [
+      {
+        "line": "01",
+        "campaign": "Digital캠페인",
+        "platform": "Youtube",
+        "product": "트루뷰인스트림",
+        "gender": "F",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 1000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 83333.0,
+        "target_impression_weighted": 66667.0,
+        "target_grps": 0.181129,
+        "target_grps_weighted": 0.144903,
+        "target_reach_n": 46882.0,
+        "target_reach2_n": 13503.0,
+        "target_reach3_n": 4869.0,
+        "target_reach4_n": 2167.0,
+        "target_reach5_n": 1042.0,
+        "target_reach6_n": 557.0,
+        "target_reach7_n": 305.0,
+        "target_reach8_n": 172.0,
+        "target_reach9_n": 100.0,
+        "target_reach10_n": 64.0,
+        "target_reach_p": 0.001019,
+        "target_reach2_p": 0.000294,
+        "target_reach3_p": 0.000106,
+        "target_reach4_p": 4.7e-5,
+        "target_reach5_p": 2.3e-5,
+        "target_reach6_p": 1.2e-5,
+        "target_reach7_p": 7e-6,
+        "target_reach8_p": 4e-6,
+        "target_reach9_p": 2e-6,
+        "target_reach10_p": 1e-6,
+        "target_af": 1.777528,
+        "target_af_weighted": 1.422022,
+        "target_af_day": 0.05734,
+        "target_af_week": 0.401377,
+        "target_af_30": 1.720189,
+        "imp_interval": "17.44일당 1회 노출"
+      },
+      {
+        "line": "Sub Total",
+        "campaign": "Digital캠페인",
+        "platform": "Youtube",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 1000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 83333.0,
+        "target_impression_weighted": 66667.0,
+        "target_grps": 0.181129,
+        "target_grps_weighted": 0.144903,
+        "target_reach_n": 46882.0,
+        "target_reach2_n": 13503.0,
+        "target_reach3_n": 4869.0,
+        "target_reach4_n": 2167.0,
+        "target_reach5_n": 1042.0,
+        "target_reach6_n": 557.0,
+        "target_reach7_n": 305.0,
+        "target_reach8_n": 172.0,
+        "target_reach9_n": 100.0,
+        "target_reach10_n": 64.0,
+        "target_reach_p": 0.001019,
+        "target_reach2_p": 0.000294,
+        "target_reach3_p": 0.000106,
+        "target_reach4_p": 4.7e-5,
+        "target_reach5_p": 2.3e-5,
+        "target_reach6_p": 1.2e-5,
+        "target_reach7_p": 7e-6,
+        "target_reach8_p": 4e-6,
+        "target_reach9_p": 2e-6,
+        "target_reach10_p": 1e-6,
+        "target_af": 1.777528,
+        "target_af_weighted": 1.422022,
+        "target_af_day": 0.05734,
+        "target_af_week": 0.401377,
+        "target_af_30": 1.720189,
+        "imp_interval": "17.44일당 1회 노출"
+      },
+      {
+        "line": "02",
+        "campaign": "Digital캠페인",
+        "platform": "GFA",
+        "product": "모바일 메인_배너",
+        "gender": "F",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 1000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 50000.0,
+        "target_impression_weighted": 10000.0,
+        "target_grps": 0.108677,
+        "target_grps_weighted": 0.021735,
+        "target_reach_n": 4767.0,
+        "target_reach2_n": 1592.0,
+        "target_reach3_n": 621.0,
+        "target_reach4_n": 308.0,
+        "target_reach5_n": 160.0,
+        "target_reach6_n": 93.0,
+        "target_reach7_n": 55.0,
+        "target_reach8_n": 34.0,
+        "target_reach9_n": 21.0,
+        "target_reach10_n": 15.0,
+        "target_reach_p": 0.000104,
+        "target_reach2_p": 3.5e-5,
+        "target_reach3_p": 1.4e-5,
+        "target_reach4_p": 7e-6,
+        "target_reach5_p": 3e-6,
+        "target_reach6_p": 2e-6,
+        "target_reach7_p": 1e-6,
+        "target_reach8_p": 1e-6,
+        "target_reach9_p": 0.0,
+        "target_reach10_p": 0.0,
+        "target_af": 10.489336,
+        "target_af_weighted": 2.097867,
+        "target_af_day": 0.338366,
+        "target_af_week": 2.36856,
+        "target_af_30": 10.15097,
+        "imp_interval": "2.96일당 1회 노출"
+      },
+      {
+        "line": "Sub Total",
+        "campaign": "Digital캠페인",
+        "platform": "GFA",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 1000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 50000.0,
+        "target_impression_weighted": 10000.0,
+        "target_grps": 0.108677,
+        "target_grps_weighted": 0.021735,
+        "target_reach_n": 4767.0,
+        "target_reach2_n": 1592.0,
+        "target_reach3_n": 621.0,
+        "target_reach4_n": 308.0,
+        "target_reach5_n": 160.0,
+        "target_reach6_n": 93.0,
+        "target_reach7_n": 55.0,
+        "target_reach8_n": 34.0,
+        "target_reach9_n": 21.0,
+        "target_reach10_n": 15.0,
+        "target_reach_p": 0.000104,
+        "target_reach2_p": 3.5e-5,
+        "target_reach3_p": 1.4e-5,
+        "target_reach4_p": 7e-6,
+        "target_reach5_p": 3e-6,
+        "target_reach6_p": 2e-6,
+        "target_reach7_p": 1e-6,
+        "target_reach8_p": 1e-6,
+        "target_reach9_p": 0.0,
+        "target_reach10_p": 0.0,
+        "target_af": 10.489336,
+        "target_af_weighted": 2.097867,
+        "target_af_day": 0.338366,
+        "target_af_week": 2.36856,
+        "target_af_30": 10.15097,
+        "imp_interval": "2.96일당 1회 노출"
+      },
+      {
+        "line": "03",
+        "campaign": "Digital캠페인",
+        "platform": "SMR",
+        "product": "overall",
+        "gender": "P",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 5000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 2462332.0,
+        "target_impression_weighted": 1231166.0,
+        "target_grps": 5.351992,
+        "target_grps_weighted": 2.675996,
+        "target_reach_n": 939971.0,
+        "target_reach2_n": 275731.0,
+        "target_reach3_n": 104880.0,
+        "target_reach4_n": 48103.0,
+        "target_reach5_n": 24209.0,
+        "target_reach6_n": 13404.0,
+        "target_reach7_n": 7669.0,
+        "target_reach8_n": 4538.0,
+        "target_reach9_n": 2801.0,
+        "target_reach10_n": 1834.0,
+        "target_reach_p": 0.020431,
+        "target_reach2_p": 0.005993,
+        "target_reach3_p": 0.00228,
+        "target_reach4_p": 0.001046,
+        "target_reach5_p": 0.000526,
+        "target_reach6_p": 0.000291,
+        "target_reach7_p": 0.000167,
+        "target_reach8_p": 9.9e-5,
+        "target_reach9_p": 6.1e-5,
+        "target_reach10_p": 4e-5,
+        "target_af": 2.619584,
+        "target_af_weighted": 1.309792,
+        "target_af_day": 0.084503,
+        "target_af_week": 0.591519,
+        "target_af_30": 2.535081,
+        "imp_interval": "11.83일당 1회 노출"
+      },
+      {
+        "line": "Sub Total",
+        "campaign": "Digital캠페인",
+        "platform": "SMR",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 5000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 2462332.0,
+        "target_impression_weighted": 1231166.0,
+        "target_grps": 5.351992,
+        "target_grps_weighted": 2.675996,
+        "target_reach_n": 939971.0,
+        "target_reach2_n": 275731.0,
+        "target_reach3_n": 104880.0,
+        "target_reach4_n": 48103.0,
+        "target_reach5_n": 24209.0,
+        "target_reach6_n": 13404.0,
+        "target_reach7_n": 7669.0,
+        "target_reach8_n": 4538.0,
+        "target_reach9_n": 2801.0,
+        "target_reach10_n": 1834.0,
+        "target_reach_p": 0.020431,
+        "target_reach2_p": 0.005993,
+        "target_reach3_p": 0.00228,
+        "target_reach4_p": 0.001046,
+        "target_reach5_p": 0.000526,
+        "target_reach6_p": 0.000291,
+        "target_reach7_p": 0.000167,
+        "target_reach8_p": 9.9e-5,
+        "target_reach9_p": 6.1e-5,
+        "target_reach10_p": 4e-5,
+        "target_af": 2.619584,
+        "target_af_weighted": 1.309792,
+        "target_af_day": 0.084503,
+        "target_af_week": 0.591519,
+        "target_af_30": 2.535081,
+        "imp_interval": "11.83일당 1회 노출"
+      },
+      {
+        "line": "04",
+        "campaign": "Digital캠페인",
+        "platform": "Kakao",
+        "product": "overall",
+        "gender": "P",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 6000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 1379670.0,
+        "target_impression_weighted": 1379670.0,
+        "target_grps": 2.998775,
+        "target_grps_weighted": 2.998775,
+        "target_reach_n": 885759.0,
+        "target_reach2_n": 314491.0,
+        "target_reach3_n": 138339.0,
+        "target_reach4_n": 69906.0,
+        "target_reach5_n": 38018.0,
+        "target_reach6_n": 22170.0,
+        "target_reach7_n": 13221.0,
+        "target_reach8_n": 8050.0,
+        "target_reach9_n": 5071.0,
+        "target_reach10_n": 3307.0,
+        "target_reach_p": 0.019252,
+        "target_reach2_p": 0.006836,
+        "target_reach3_p": 0.003007,
+        "target_reach4_p": 0.001519,
+        "target_reach5_p": 0.000826,
+        "target_reach6_p": 0.000482,
+        "target_reach7_p": 0.000287,
+        "target_reach8_p": 0.000175,
+        "target_reach9_p": 0.00011,
+        "target_reach10_p": 7.2e-5,
+        "target_af": 1.557613,
+        "target_af_weighted": 1.557613,
+        "target_af_day": 0.050246,
+        "target_af_week": 0.351719,
+        "target_af_30": 1.507367,
+        "imp_interval": "19.9일당 1회 노출"
+      },
+      {
+        "line": "Sub Total",
+        "campaign": "Digital캠페인",
+        "platform": "Kakao",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 6000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 1379670.0,
+        "target_impression_weighted": 1379670.0,
+        "target_grps": 2.998775,
+        "target_grps_weighted": 2.998775,
+        "target_reach_n": 885759.0,
+        "target_reach2_n": 314491.0,
+        "target_reach3_n": 138339.0,
+        "target_reach4_n": 69906.0,
+        "target_reach5_n": 38018.0,
+        "target_reach6_n": 22170.0,
+        "target_reach7_n": 13221.0,
+        "target_reach8_n": 8050.0,
+        "target_reach9_n": 5071.0,
+        "target_reach10_n": 3307.0,
+        "target_reach_p": 0.019252,
+        "target_reach2_p": 0.006836,
+        "target_reach3_p": 0.003007,
+        "target_reach4_p": 0.001519,
+        "target_reach5_p": 0.000826,
+        "target_reach6_p": 0.000482,
+        "target_reach7_p": 0.000287,
+        "target_reach8_p": 0.000175,
+        "target_reach9_p": 0.00011,
+        "target_reach10_p": 7.2e-5,
+        "target_af": 1.557613,
+        "target_af_weighted": 1.557613,
+        "target_af_day": 0.050246,
+        "target_af_week": 0.351719,
+        "target_af_30": 1.507367,
+        "imp_interval": "19.9일당 1회 노출"
+      },
+      {
+        "line": "Campaign Total",
+        "campaign": "Digital캠페인",
+        "platform": null,
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 13000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 3975335.0,
+        "target_impression_weighted": 2687502.0,
+        "target_grps": 8.640574,
+        "target_grps_weighted": 5.84141,
+        "target_reach_n": 1824226.0,
+        "target_reach2_n": 622824.0,
+        "target_reach3_n": 269134.0,
+        "target_reach4_n": 134519.0,
+        "target_reach5_n": 72866.0,
+        "target_reach6_n": 42396.0,
+        "target_reach7_n": 25298.0,
+        "target_reach8_n": 15434.0,
+        "target_reach9_n": 9767.0,
+        "target_reach10_n": 6368.0,
+        "target_reach_p": 0.03965,
+        "target_reach2_p": 0.013537,
+        "target_reach3_p": 0.00585,
+        "target_reach4_p": 0.002924,
+        "target_reach5_p": 0.001584,
+        "target_reach6_p": 0.000922,
+        "target_reach7_p": 0.00055,
+        "target_reach8_p": 0.000335,
+        "target_reach9_p": 0.000212,
+        "target_reach10_p": 0.000138,
+        "target_af": 2.17919,
+        "target_af_weighted": 1.473229,
+        "target_af_day": 0.070296,
+        "target_af_week": 0.492075,
+        "target_af_30": 2.108893,
+        "imp_interval": "14.23일당 1회 노출"
+      },
+      {
+        "line": "05",
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": "overall",
+        "gender": "F",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 300000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 88922717.0,
+        "target_impression_weighted": 88922717.0,
+        "target_grps": 193.277619,
+        "target_grps_weighted": 193.277619,
+        "target_reach_n": 10988772.0,
+        "target_reach2_n": 8597363.0,
+        "target_reach3_n": 7041163.0,
+        "target_reach4_n": 5959734.0,
+        "target_reach5_n": 5119713.0,
+        "target_reach6_n": 4458057.0,
+        "target_reach7_n": 3916000.0,
+        "target_reach8_n": 3462404.0,
+        "target_reach9_n": 3077164.0,
+        "target_reach10_n": 2754854.0,
+        "target_reach_p": 0.238846,
+        "target_reach2_p": 0.186868,
+        "target_reach3_p": 0.153043,
+        "target_reach4_p": 0.129538,
+        "target_reach5_p": 0.111279,
+        "target_reach6_p": 0.096898,
+        "target_reach7_p": 0.085116,
+        "target_reach8_p": 0.075257,
+        "target_reach9_p": 0.066884,
+        "target_reach10_p": 0.059878,
+        "target_af": 8.092143,
+        "target_af_weighted": 8.092143,
+        "target_af_day": 0.261037,
+        "target_af_week": 1.827258,
+        "target_af_30": 7.831106,
+        "imp_interval": "3.83일당 1회 노출"
+      },
+      {
+        "line": "06",
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": "지상파",
+        "gender": "P",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 300000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 46874225.0,
+        "target_impression_weighted": 46874225.0,
+        "target_grps": 101.883287,
+        "target_grps_weighted": 101.883287,
+        "target_reach_n": 11453565.0,
+        "target_reach2_n": 7338261.0,
+        "target_reach3_n": 5181020.0,
+        "target_reach4_n": 3865836.0,
+        "target_reach5_n": 2977373.0,
+        "target_reach6_n": 2349716.0,
+        "target_reach7_n": 1880240.0,
+        "target_reach8_n": 1519667.0,
+        "target_reach9_n": 1244288.0,
+        "target_reach10_n": 1026050.0,
+        "target_reach_p": 0.248949,
+        "target_reach2_p": 0.1595,
+        "target_reach3_p": 0.112612,
+        "target_reach4_p": 0.084026,
+        "target_reach5_p": 0.064715,
+        "target_reach6_p": 0.051072,
+        "target_reach7_p": 0.040868,
+        "target_reach8_p": 0.033031,
+        "target_reach9_p": 0.027045,
+        "target_reach10_p": 0.022302,
+        "target_af": 4.092545,
+        "target_af_weighted": 4.092545,
+        "target_af_day": 0.132018,
+        "target_af_week": 0.924123,
+        "target_af_30": 3.960527,
+        "imp_interval": "7.57일당 1회 노출"
+      },
+      {
+        "line": "07",
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": "종편",
+        "gender": "P",
+        "age_min": 25,
+        "age_max": 44,
+        "budget": 300000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 55244568.0,
+        "target_impression_weighted": 55244568.0,
+        "target_grps": 120.076611,
+        "target_grps_weighted": 120.076611,
+        "target_reach_n": 15759201.0,
+        "target_reach2_n": 9493094.0,
+        "target_reach3_n": 6450436.0,
+        "target_reach4_n": 4657684.0,
+        "target_reach5_n": 3498452.0,
+        "target_reach6_n": 2700166.0,
+        "target_reach7_n": 2118647.0,
+        "target_reach8_n": 1681541.0,
+        "target_reach9_n": 1356634.0,
+        "target_reach10_n": 1099358.0,
+        "target_reach_p": 0.342533,
+        "target_reach2_p": 0.206337,
+        "target_reach3_p": 0.140203,
+        "target_reach4_p": 0.101237,
+        "target_reach5_p": 0.07604,
+        "target_reach6_p": 0.058689,
+        "target_reach7_p": 0.04605,
+        "target_reach8_p": 0.036549,
+        "target_reach9_p": 0.029487,
+        "target_reach10_p": 0.023895,
+        "target_af": 3.505544,
+        "target_af_weighted": 3.505544,
+        "target_af_day": 0.113082,
+        "target_af_week": 0.791574,
+        "target_af_30": 3.392462,
+        "imp_interval": "8.84일당 1회 노출"
+      },
+      {
+        "line": "Sub Total",
+        "campaign": "TV캠페인",
+        "platform": "TV",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 900000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 191041510.0,
+        "target_impression_weighted": 191041510.0,
+        "target_grps": 415.237518,
+        "target_grps_weighted": 415.237518,
+        "target_reach_n": 20479161.0,
+        "target_reach2_n": 16663626.0,
+        "target_reach3_n": 14095533.0,
+        "target_reach4_n": 12222338.0,
+        "target_reach5_n": 10734766.0,
+        "target_reach6_n": 9522198.0,
+        "target_reach7_n": 8513489.0,
+        "target_reach8_n": 7652665.0,
+        "target_reach9_n": 6910145.0,
+        "target_reach10_n": 6262140.0,
+        "target_reach_p": 0.445124,
+        "target_reach2_p": 0.362192,
+        "target_reach3_p": 0.306373,
+        "target_reach4_p": 0.265658,
+        "target_reach5_p": 0.233325,
+        "target_reach6_p": 0.206969,
+        "target_reach7_p": 0.185045,
+        "target_reach8_p": 0.166334,
+        "target_reach9_p": 0.150195,
+        "target_reach10_p": 0.136111,
+        "target_af": 9.328581,
+        "target_af_weighted": 9.328581,
+        "target_af_day": 0.300922,
+        "target_af_week": 2.106454,
+        "target_af_30": 9.027659,
+        "imp_interval": "3.32일당 1회 노출"
+      },
+      {
+        "line": "Campaign Total",
+        "campaign": "TV캠페인",
+        "platform": null,
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 900000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 191041510.0,
+        "target_impression_weighted": 191041510.0,
+        "target_grps": 415.237518,
+        "target_grps_weighted": 415.237518,
+        "target_reach_n": 20479161.0,
+        "target_reach2_n": 16663626.0,
+        "target_reach3_n": 14095533.0,
+        "target_reach4_n": 12222338.0,
+        "target_reach5_n": 10734766.0,
+        "target_reach6_n": 9522198.0,
+        "target_reach7_n": 8513489.0,
+        "target_reach8_n": 7652665.0,
+        "target_reach9_n": 6910145.0,
+        "target_reach10_n": 6262140.0,
+        "target_reach_p": 0.445124,
+        "target_reach2_p": 0.362192,
+        "target_reach3_p": 0.306373,
+        "target_reach4_p": 0.265658,
+        "target_reach5_p": 0.233325,
+        "target_reach6_p": 0.206969,
+        "target_reach7_p": 0.185045,
+        "target_reach8_p": 0.166334,
+        "target_reach9_p": 0.150195,
+        "target_reach10_p": 0.136111,
+        "target_af": 9.328581,
+        "target_af_weighted": 9.328581,
+        "target_af_day": 0.300922,
+        "target_af_week": 2.106454,
+        "target_af_30": 9.027659,
+        "imp_interval": "3.32일당 1회 노출"
+      },
+      {
+        "line": "Platform Total",
+        "campaign": null,
+        "platform": "Youtube",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 1000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 83333.0,
+        "target_impression_weighted": 66667.0,
+        "target_grps": 0.181129,
+        "target_grps_weighted": 0.144903,
+        "target_reach_n": 46882.0,
+        "target_reach2_n": 13503.0,
+        "target_reach3_n": 4869.0,
+        "target_reach4_n": 2167.0,
+        "target_reach5_n": 1042.0,
+        "target_reach6_n": 557.0,
+        "target_reach7_n": 305.0,
+        "target_reach8_n": 172.0,
+        "target_reach9_n": 100.0,
+        "target_reach10_n": 64.0,
+        "target_reach_p": 0.001019,
+        "target_reach2_p": 0.000294,
+        "target_reach3_p": 0.000106,
+        "target_reach4_p": 4.7e-5,
+        "target_reach5_p": 2.3e-5,
+        "target_reach6_p": 1.2e-5,
+        "target_reach7_p": 7e-6,
+        "target_reach8_p": 4e-6,
+        "target_reach9_p": 2e-6,
+        "target_reach10_p": 1e-6,
+        "target_af": 1.777528,
+        "target_af_weighted": 1.422022,
+        "target_af_day": 0.05734,
+        "target_af_week": 0.401377,
+        "target_af_30": 1.720189,
+        "imp_interval": "17.44일당 1회 노출"
+      },
+      {
+        "line": "Platform Total",
+        "campaign": null,
+        "platform": "GFA",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 1000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 50000.0,
+        "target_impression_weighted": 10000.0,
+        "target_grps": 0.108677,
+        "target_grps_weighted": 0.021735,
+        "target_reach_n": 4767.0,
+        "target_reach2_n": 1592.0,
+        "target_reach3_n": 621.0,
+        "target_reach4_n": 308.0,
+        "target_reach5_n": 160.0,
+        "target_reach6_n": 93.0,
+        "target_reach7_n": 55.0,
+        "target_reach8_n": 34.0,
+        "target_reach9_n": 21.0,
+        "target_reach10_n": 15.0,
+        "target_reach_p": 0.000104,
+        "target_reach2_p": 3.5e-5,
+        "target_reach3_p": 1.4e-5,
+        "target_reach4_p": 7e-6,
+        "target_reach5_p": 3e-6,
+        "target_reach6_p": 2e-6,
+        "target_reach7_p": 1e-6,
+        "target_reach8_p": 1e-6,
+        "target_reach9_p": 0.0,
+        "target_reach10_p": 0.0,
+        "target_af": 10.489336,
+        "target_af_weighted": 2.097867,
+        "target_af_day": 0.338366,
+        "target_af_week": 2.36856,
+        "target_af_30": 10.15097,
+        "imp_interval": "2.96일당 1회 노출"
+      },
+      {
+        "line": "Platform Total",
+        "campaign": null,
+        "platform": "SMR",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 5000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 2462332.0,
+        "target_impression_weighted": 1231166.0,
+        "target_grps": 5.351992,
+        "target_grps_weighted": 2.675996,
+        "target_reach_n": 939971.0,
+        "target_reach2_n": 275731.0,
+        "target_reach3_n": 104880.0,
+        "target_reach4_n": 48103.0,
+        "target_reach5_n": 24209.0,
+        "target_reach6_n": 13404.0,
+        "target_reach7_n": 7669.0,
+        "target_reach8_n": 4538.0,
+        "target_reach9_n": 2801.0,
+        "target_reach10_n": 1834.0,
+        "target_reach_p": 0.020431,
+        "target_reach2_p": 0.005993,
+        "target_reach3_p": 0.00228,
+        "target_reach4_p": 0.001046,
+        "target_reach5_p": 0.000526,
+        "target_reach6_p": 0.000291,
+        "target_reach7_p": 0.000167,
+        "target_reach8_p": 9.9e-5,
+        "target_reach9_p": 6.1e-5,
+        "target_reach10_p": 4e-5,
+        "target_af": 2.619584,
+        "target_af_weighted": 1.309792,
+        "target_af_day": 0.084503,
+        "target_af_week": 0.591519,
+        "target_af_30": 2.535081,
+        "imp_interval": "11.83일당 1회 노출"
+      },
+      {
+        "line": "Platform Total",
+        "campaign": null,
+        "platform": "Kakao",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 6000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 1379670.0,
+        "target_impression_weighted": 1379670.0,
+        "target_grps": 2.998775,
+        "target_grps_weighted": 2.998775,
+        "target_reach_n": 885759.0,
+        "target_reach2_n": 314491.0,
+        "target_reach3_n": 138339.0,
+        "target_reach4_n": 69906.0,
+        "target_reach5_n": 38018.0,
+        "target_reach6_n": 22170.0,
+        "target_reach7_n": 13221.0,
+        "target_reach8_n": 8050.0,
+        "target_reach9_n": 5071.0,
+        "target_reach10_n": 3307.0,
+        "target_reach_p": 0.019252,
+        "target_reach2_p": 0.006836,
+        "target_reach3_p": 0.003007,
+        "target_reach4_p": 0.001519,
+        "target_reach5_p": 0.000826,
+        "target_reach6_p": 0.000482,
+        "target_reach7_p": 0.000287,
+        "target_reach8_p": 0.000175,
+        "target_reach9_p": 0.00011,
+        "target_reach10_p": 7.2e-5,
+        "target_af": 1.557613,
+        "target_af_weighted": 1.557613,
+        "target_af_day": 0.050246,
+        "target_af_week": 0.351719,
+        "target_af_30": 1.507367,
+        "imp_interval": "19.9일당 1회 노출"
+      },
+      {
+        "line": "Platform Total",
+        "campaign": null,
+        "platform": "TV",
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 900000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 191041510.0,
+        "target_impression_weighted": 191041510.0,
+        "target_grps": 415.237518,
+        "target_grps_weighted": 415.237518,
+        "target_reach_n": 20479161.0,
+        "target_reach2_n": 16663626.0,
+        "target_reach3_n": 14095533.0,
+        "target_reach4_n": 12222338.0,
+        "target_reach5_n": 10734766.0,
+        "target_reach6_n": 9522198.0,
+        "target_reach7_n": 8513489.0,
+        "target_reach8_n": 7652665.0,
+        "target_reach9_n": 6910145.0,
+        "target_reach10_n": 6262140.0,
+        "target_reach_p": 0.445124,
+        "target_reach2_p": 0.362192,
+        "target_reach3_p": 0.306373,
+        "target_reach4_p": 0.265658,
+        "target_reach5_p": 0.233325,
+        "target_reach6_p": 0.206969,
+        "target_reach7_p": 0.185045,
+        "target_reach8_p": 0.166334,
+        "target_reach9_p": 0.150195,
+        "target_reach10_p": 0.136111,
+        "target_af": 9.328581,
+        "target_af_weighted": 9.328581,
+        "target_af_day": 0.300922,
+        "target_af_week": 2.106454,
+        "target_af_30": 9.027659,
+        "imp_interval": "3.32일당 1회 노출"
+      },
+      {
+        "line": "Total",
+        "campaign": null,
+        "platform": null,
+        "product": null,
+        "gender": null,
+        "age_min": null,
+        "age_max": null,
+        "budget": 913000000.0,
+        "date_start": "2024-01-01",
+        "date_end": "2024-01-31",
+        "target_impression": 195016845.0,
+        "target_impression_weighted": 193729012.0,
+        "target_grps": 423.878091,
+        "target_grps_weighted": 421.078928,
+        "target_reach_n": 21291583.0,
+        "target_reach2_n": 17197745.0,
+        "target_reach3_n": 14478169.0,
+        "target_reach4_n": 12506879.0,
+        "target_reach5_n": 10952251.0,
+        "target_reach6_n": 9690748.0,
+        "target_reach7_n": 8645238.0,
+        "target_reach8_n": 7756094.0,
+        "target_reach9_n": 6992586.0,
+        "target_reach10_n": 6327033.0,
+        "target_reach_p": 0.462782,
+        "target_reach2_p": 0.373801,
+        "target_reach3_p": 0.31469,
+        "target_reach4_p": 0.271843,
+        "target_reach5_p": 0.238052,
+        "target_reach6_p": 0.210633,
+        "target_reach7_p": 0.187908,
+        "target_reach8_p": 0.168582,
+        "target_reach9_p": 0.151987,
+        "target_reach10_p": 0.137521,
+        "target_af": 9.15934,
+        "target_af_weighted": 9.098854,
+        "target_af_day": 0.295463,
+        "target_af_week": 2.068238,
+        "target_af_30": 8.863877,
+        "imp_interval": "3.38일당 1회 노출"
+      }
+    ],
+    "heatmap": [
+      {
+        "name": "Line 01 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.007943,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 0.007966,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 0.005829,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 0.006136,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 12930.0,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 13544.0,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 9081.0,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 11327.0,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 1.28,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 1.28,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 1.18,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 1.21,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ]
+      },
+      {
+        "name": "Line 02 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.000634,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 0.000743,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 0.000795,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 0.000668,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 1032.0,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 1264.0,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 1238.0,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 1232.0,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.71,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 0.76,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 0.77,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 0.73,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ]
+      },
+      {
+        "name": "Line 03 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.004627,
+            "M": 0.000771
+          },
+          {
+            "age": "13-18",
+            "F": 0.006989,
+            "M": 0.004251
+          },
+          {
+            "age": "19-24",
+            "F": 0.040452,
+            "M": 0.019623
+          },
+          {
+            "age": "25-29",
+            "F": 0.019788,
+            "M": 0.022738
+          },
+          {
+            "age": "30-34",
+            "F": 0.043864,
+            "M": 0.031905
+          },
+          {
+            "age": "35-39",
+            "F": 0.050696,
+            "M": 0.011634
+          },
+          {
+            "age": "40-44",
+            "F": 0.060921,
+            "M": 0.031637
+          },
+          {
+            "age": "45-49",
+            "F": 0.043713,
+            "M": 0.025694
+          },
+          {
+            "age": "50-54",
+            "F": 0.018596,
+            "M": 0.013773
+          },
+          {
+            "age": "55-59",
+            "F": 0.017152,
+            "M": 0.018455
+          },
+          {
+            "age": "60-64",
+            "F": 0.00396,
+            "M": 0.004825
+          },
+          {
+            "age": "65-69",
+            "F": 0.004243,
+            "M": 0.005353
+          },
+          {
+            "age": "70-74",
+            "F": 0.006595,
+            "M": 0.007886
+          },
+          {
+            "age": "75-79",
+            "F": 0.00876,
+            "M": 0.010933
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 5314.0,
+            "M": 917.0
+          },
+          {
+            "age": "13-18",
+            "F": 9352.0,
+            "M": 5933.0
+          },
+          {
+            "age": "19-24",
+            "F": 59713.0,
+            "M": 31530.0
+          },
+          {
+            "age": "25-29",
+            "F": 32211.0,
+            "M": 41766.0
+          },
+          {
+            "age": "30-34",
+            "F": 74574.0,
+            "M": 62324.0
+          },
+          {
+            "age": "35-39",
+            "F": 78977.0,
+            "M": 20156.0
+          },
+          {
+            "age": "40-44",
+            "F": 112465.0,
+            "M": 62616.0
+          },
+          {
+            "age": "45-49",
+            "F": 82093.0,
+            "M": 49564.0
+          },
+          {
+            "age": "50-54",
+            "F": 39651.0,
+            "M": 30090.0
+          },
+          {
+            "age": "55-59",
+            "F": 36454.0,
+            "M": 38321.0
+          },
+          {
+            "age": "60-64",
+            "F": 7815.0,
+            "M": 9266.0
+          },
+          {
+            "age": "65-69",
+            "F": 7794.0,
+            "M": 9121.0
+          },
+          {
+            "age": "70-74",
+            "F": 7655.0,
+            "M": 8590.0
+          },
+          {
+            "age": "75-79",
+            "F": 7558.0,
+            "M": 8152.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.93,
+            "M": 0.15
+          },
+          {
+            "age": "13-18",
+            "F": 1.74,
+            "M": 0.85
+          },
+          {
+            "age": "19-24",
+            "F": 8.16,
+            "M": 3.92
+          },
+          {
+            "age": "25-29",
+            "F": 3.96,
+            "M": 4.55
+          },
+          {
+            "age": "30-34",
+            "F": 12.2,
+            "M": 8.26
+          },
+          {
+            "age": "35-39",
+            "F": 18.5,
+            "M": 6.42
+          },
+          {
+            "age": "40-44",
+            "F": 14.07,
+            "M": 7.4
+          },
+          {
+            "age": "45-49",
+            "F": 9.69,
+            "M": 6.85
+          },
+          {
+            "age": "50-54",
+            "F": 4.84,
+            "M": 4.72
+          },
+          {
+            "age": "55-59",
+            "F": 4.86,
+            "M": 4.97
+          },
+          {
+            "age": "60-64",
+            "F": 1.15,
+            "M": 1.19
+          },
+          {
+            "age": "65-69",
+            "F": 1.24,
+            "M": 1.34
+          },
+          {
+            "age": "70-74",
+            "F": 1.96,
+            "M": 2.09
+          },
+          {
+            "age": "75-79",
+            "F": 2.64,
+            "M": 3.05
+          }
+        ]
+      },
+      {
+        "name": "Line 04 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.06026,
+            "M": 0.062187
+          },
+          {
+            "age": "30-34",
+            "F": 0.062968,
+            "M": 0.061733
+          },
+          {
+            "age": "35-39",
+            "F": 0.063135,
+            "M": 0.063369
+          },
+          {
+            "age": "40-44",
+            "F": 0.061734,
+            "M": 0.062493
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 98092.0,
+            "M": 114229.0
+          },
+          {
+            "age": "30-34",
+            "F": 107054.0,
+            "M": 120591.0
+          },
+          {
+            "age": "35-39",
+            "F": 98356.0,
+            "M": 109785.0
+          },
+          {
+            "age": "40-44",
+            "F": 113965.0,
+            "M": 123688.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 9.39,
+            "M": 9.69
+          },
+          {
+            "age": "30-34",
+            "F": 9.81,
+            "M": 9.62
+          },
+          {
+            "age": "35-39",
+            "F": 9.83,
+            "M": 9.87
+          },
+          {
+            "age": "40-44",
+            "F": 9.62,
+            "M": 9.73
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ]
+      },
+      {
+        "name": "Line 05 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.218085,
+            "M": 0.258059
+          },
+          {
+            "age": "13-18",
+            "F": 0.076441,
+            "M": 0.068852
+          },
+          {
+            "age": "19-24",
+            "F": 0.10802,
+            "M": 0.056283
+          },
+          {
+            "age": "25-29",
+            "F": 0.123645,
+            "M": 0.093958
+          },
+          {
+            "age": "30-34",
+            "F": 0.146421,
+            "M": 0.092253
+          },
+          {
+            "age": "35-39",
+            "F": 0.201837,
+            "M": 0.140834
+          },
+          {
+            "age": "40-44",
+            "F": 0.322629,
+            "M": 0.235871
+          },
+          {
+            "age": "45-49",
+            "F": 0.298076,
+            "M": 0.233974
+          },
+          {
+            "age": "50-54",
+            "F": 0.315142,
+            "M": 0.278521
+          },
+          {
+            "age": "55-59",
+            "F": 0.310362,
+            "M": 0.306347
+          },
+          {
+            "age": "60-64",
+            "F": 0.331789,
+            "M": 0.304881
+          },
+          {
+            "age": "65-69",
+            "F": 0.367403,
+            "M": 0.355
+          },
+          {
+            "age": "70-74",
+            "F": 0.387643,
+            "M": 0.361051
+          },
+          {
+            "age": "75-79",
+            "F": 0.391018,
+            "M": 0.363693
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 250454.0,
+            "M": 307145.0
+          },
+          {
+            "age": "13-18",
+            "F": 102282.0,
+            "M": 96090.0
+          },
+          {
+            "age": "19-24",
+            "F": 159453.0,
+            "M": 90437.0
+          },
+          {
+            "age": "25-29",
+            "F": 201271.0,
+            "M": 172589.0
+          },
+          {
+            "age": "30-34",
+            "F": 248937.0,
+            "M": 180209.0
+          },
+          {
+            "age": "35-39",
+            "F": 314433.0,
+            "M": 243990.0
+          },
+          {
+            "age": "40-44",
+            "F": 595600.0,
+            "M": 466841.0
+          },
+          {
+            "age": "45-49",
+            "F": 559793.0,
+            "M": 451340.0
+          },
+          {
+            "age": "50-54",
+            "F": 671958.0,
+            "M": 608497.0
+          },
+          {
+            "age": "55-59",
+            "F": 659637.0,
+            "M": 636118.0
+          },
+          {
+            "age": "60-64",
+            "F": 654764.0,
+            "M": 585504.0
+          },
+          {
+            "age": "65-69",
+            "F": 674825.0,
+            "M": 604896.0
+          },
+          {
+            "age": "70-74",
+            "F": 449932.0,
+            "M": 393256.0
+          },
+          {
+            "age": "75-79",
+            "F": 337346.0,
+            "M": 271174.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 188.73,
+            "M": 234.03
+          },
+          {
+            "age": "13-18",
+            "F": 31.08,
+            "M": 26.68
+          },
+          {
+            "age": "19-24",
+            "F": 46.46,
+            "M": 27.49
+          },
+          {
+            "age": "25-29",
+            "F": 82.43,
+            "M": 65.08
+          },
+          {
+            "age": "30-34",
+            "F": 78.75,
+            "M": 65.06
+          },
+          {
+            "age": "35-39",
+            "F": 119.46,
+            "M": 79.94
+          },
+          {
+            "age": "40-44",
+            "F": 191.57,
+            "M": 161.27
+          },
+          {
+            "age": "45-49",
+            "F": 191.68,
+            "M": 135.41
+          },
+          {
+            "age": "50-54",
+            "F": 220.35,
+            "M": 204.11
+          },
+          {
+            "age": "55-59",
+            "F": 232.64,
+            "M": 244.12
+          },
+          {
+            "age": "60-64",
+            "F": 287.39,
+            "M": 283.49
+          },
+          {
+            "age": "65-69",
+            "F": 405.91,
+            "M": 380.68
+          },
+          {
+            "age": "70-74",
+            "F": 452.46,
+            "M": 393.66
+          },
+          {
+            "age": "75-79",
+            "F": 460.63,
+            "M": 399.44
+          }
+        ]
+      },
+      {
+        "name": "Line 06 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.20678,
+            "M": 0.258729
+          },
+          {
+            "age": "13-18",
+            "F": 0.067355,
+            "M": 0.066059
+          },
+          {
+            "age": "19-24",
+            "F": 0.085654,
+            "M": 0.055379
+          },
+          {
+            "age": "25-29",
+            "F": 0.118245,
+            "M": 0.102777
+          },
+          {
+            "age": "30-34",
+            "F": 0.13115,
+            "M": 0.104285
+          },
+          {
+            "age": "35-39",
+            "F": 0.177938,
+            "M": 0.116284
+          },
+          {
+            "age": "40-44",
+            "F": 0.285301,
+            "M": 0.237574
+          },
+          {
+            "age": "45-49",
+            "F": 0.287573,
+            "M": 0.230943
+          },
+          {
+            "age": "50-54",
+            "F": 0.322713,
+            "M": 0.274375
+          },
+          {
+            "age": "55-59",
+            "F": 0.335527,
+            "M": 0.327325
+          },
+          {
+            "age": "60-64",
+            "F": 0.368141,
+            "M": 0.350148
+          },
+          {
+            "age": "65-69",
+            "F": 0.423412,
+            "M": 0.414884
+          },
+          {
+            "age": "70-74",
+            "F": 0.444433,
+            "M": 0.421325
+          },
+          {
+            "age": "75-79",
+            "F": 0.447918,
+            "M": 0.424131
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 237471.0,
+            "M": 307942.0
+          },
+          {
+            "age": "13-18",
+            "F": 90124.0,
+            "M": 92192.0
+          },
+          {
+            "age": "19-24",
+            "F": 126438.0,
+            "M": 88984.0
+          },
+          {
+            "age": "25-29",
+            "F": 192481.0,
+            "M": 188788.0
+          },
+          {
+            "age": "30-34",
+            "F": 222974.0,
+            "M": 203713.0
+          },
+          {
+            "age": "35-39",
+            "F": 277202.0,
+            "M": 201457.0
+          },
+          {
+            "age": "40-44",
+            "F": 526689.0,
+            "M": 470212.0
+          },
+          {
+            "age": "45-49",
+            "F": 540067.0,
+            "M": 445493.0
+          },
+          {
+            "age": "50-54",
+            "F": 688100.0,
+            "M": 599439.0
+          },
+          {
+            "age": "55-59",
+            "F": 713122.0,
+            "M": 679677.0
+          },
+          {
+            "age": "60-64",
+            "F": 726502.0,
+            "M": 672436.0
+          },
+          {
+            "age": "65-69",
+            "F": 777698.0,
+            "M": 706935.0
+          },
+          {
+            "age": "70-74",
+            "F": 515848.0,
+            "M": 458906.0
+          },
+          {
+            "age": "75-79",
+            "F": 386436.0,
+            "M": 316237.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 99.49,
+            "M": 123.37
+          },
+          {
+            "age": "13-18",
+            "F": 16.38,
+            "M": 14.07
+          },
+          {
+            "age": "19-24",
+            "F": 24.49,
+            "M": 14.49
+          },
+          {
+            "age": "25-29",
+            "F": 43.45,
+            "M": 34.3
+          },
+          {
+            "age": "30-34",
+            "F": 41.51,
+            "M": 34.3
+          },
+          {
+            "age": "35-39",
+            "F": 62.97,
+            "M": 42.14
+          },
+          {
+            "age": "40-44",
+            "F": 100.98,
+            "M": 85.01
+          },
+          {
+            "age": "45-49",
+            "F": 101.04,
+            "M": 71.38
+          },
+          {
+            "age": "50-54",
+            "F": 116.15,
+            "M": 107.59
+          },
+          {
+            "age": "55-59",
+            "F": 122.63,
+            "M": 128.69
+          },
+          {
+            "age": "60-64",
+            "F": 151.49,
+            "M": 149.44
+          },
+          {
+            "age": "65-69",
+            "F": 213.97,
+            "M": 200.67
+          },
+          {
+            "age": "70-74",
+            "F": 238.51,
+            "M": 207.51
+          },
+          {
+            "age": "75-79",
+            "F": 242.82,
+            "M": 210.56
+          }
+        ]
+      },
+      {
+        "name": "Line 07 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.283863,
+            "M": 0.298707
+          },
+          {
+            "age": "13-18",
+            "F": 0.094883,
+            "M": 0.098426
+          },
+          {
+            "age": "19-24",
+            "F": 0.15029,
+            "M": 0.091389
+          },
+          {
+            "age": "25-29",
+            "F": 0.186215,
+            "M": 0.14702
+          },
+          {
+            "age": "30-34",
+            "F": 0.177915,
+            "M": 0.146989
+          },
+          {
+            "age": "35-39",
+            "F": 0.269885,
+            "M": 0.18059
+          },
+          {
+            "age": "40-44",
+            "F": 0.432786,
+            "M": 0.364322
+          },
+          {
+            "age": "45-49",
+            "F": 0.438879,
+            "M": 0.337688
+          },
+          {
+            "age": "50-54",
+            "F": 0.465577,
+            "M": 0.43505
+          },
+          {
+            "age": "55-59",
+            "F": 0.438202,
+            "M": 0.447174
+          },
+          {
+            "age": "60-64",
+            "F": 0.4797,
+            "M": 0.443277
+          },
+          {
+            "age": "65-69",
+            "F": 0.537074,
+            "M": 0.514657
+          },
+          {
+            "age": "70-74",
+            "F": 0.557414,
+            "M": 0.520878
+          },
+          {
+            "age": "75-79",
+            "F": 0.560736,
+            "M": 0.523572
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 325995.0,
+            "M": 355526.0
+          },
+          {
+            "age": "13-18",
+            "F": 126959.0,
+            "M": 137364.0
+          },
+          {
+            "age": "19-24",
+            "F": 221849.0,
+            "M": 146846.0
+          },
+          {
+            "age": "25-29",
+            "F": 303123.0,
+            "M": 270055.0
+          },
+          {
+            "age": "30-34",
+            "F": 302481.0,
+            "M": 287133.0
+          },
+          {
+            "age": "35-39",
+            "F": 420444.0,
+            "M": 312866.0
+          },
+          {
+            "age": "40-44",
+            "F": 798958.0,
+            "M": 721073.0
+          },
+          {
+            "age": "45-49",
+            "F": 824223.0,
+            "M": 651408.0
+          },
+          {
+            "age": "50-54",
+            "F": 992721.0,
+            "M": 950471.0
+          },
+          {
+            "age": "55-59",
+            "F": 931346.0,
+            "M": 928539.0
+          },
+          {
+            "age": "60-64",
+            "F": 946657.0,
+            "M": 851284.0
+          },
+          {
+            "age": "65-69",
+            "F": 986465.0,
+            "M": 876942.0
+          },
+          {
+            "age": "70-74",
+            "F": 646982.0,
+            "M": 567340.0
+          },
+          {
+            "age": "75-79",
+            "F": 483768.0,
+            "M": 390382.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 117.25,
+            "M": 145.4
+          },
+          {
+            "age": "13-18",
+            "F": 19.31,
+            "M": 16.58
+          },
+          {
+            "age": "19-24",
+            "F": 28.86,
+            "M": 17.08
+          },
+          {
+            "age": "25-29",
+            "F": 51.21,
+            "M": 40.43
+          },
+          {
+            "age": "30-34",
+            "F": 48.93,
+            "M": 40.42
+          },
+          {
+            "age": "35-39",
+            "F": 74.22,
+            "M": 49.66
+          },
+          {
+            "age": "40-44",
+            "F": 119.02,
+            "M": 100.19
+          },
+          {
+            "age": "45-49",
+            "F": 119.09,
+            "M": 84.12
+          },
+          {
+            "age": "50-54",
+            "F": 136.89,
+            "M": 126.8
+          },
+          {
+            "age": "55-59",
+            "F": 144.53,
+            "M": 151.67
+          },
+          {
+            "age": "60-64",
+            "F": 178.55,
+            "M": 176.12
+          },
+          {
+            "age": "65-69",
+            "F": 252.18,
+            "M": 236.5
+          },
+          {
+            "age": "70-74",
+            "F": 281.1,
+            "M": 244.57
+          },
+          {
+            "age": "75-79",
+            "F": 286.17,
+            "M": 248.16
+          }
+        ]
+      },
+      {
+        "name": "매체별 - GFA 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.000634,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 0.000743,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 0.000795,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 0.000668,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 1032.0,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 1264.0,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 1238.0,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 1232.0,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.71,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 0.76,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 0.77,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 0.73,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ]
+      },
+      {
+        "name": "매체별 - Kakao 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.06026,
+            "M": 0.062187
+          },
+          {
+            "age": "30-34",
+            "F": 0.062968,
+            "M": 0.061733
+          },
+          {
+            "age": "35-39",
+            "F": 0.063135,
+            "M": 0.063369
+          },
+          {
+            "age": "40-44",
+            "F": 0.061734,
+            "M": 0.062493
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 98092.0,
+            "M": 114229.0
+          },
+          {
+            "age": "30-34",
+            "F": 107054.0,
+            "M": 120591.0
+          },
+          {
+            "age": "35-39",
+            "F": 98356.0,
+            "M": 109785.0
+          },
+          {
+            "age": "40-44",
+            "F": 113965.0,
+            "M": 123688.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 9.39,
+            "M": 9.69
+          },
+          {
+            "age": "30-34",
+            "F": 9.81,
+            "M": 9.62
+          },
+          {
+            "age": "35-39",
+            "F": 9.83,
+            "M": 9.87
+          },
+          {
+            "age": "40-44",
+            "F": 9.62,
+            "M": 9.73
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ]
+      },
+      {
+        "name": "매체별 - SMR 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.004627,
+            "M": 0.000771
+          },
+          {
+            "age": "13-18",
+            "F": 0.006989,
+            "M": 0.004251
+          },
+          {
+            "age": "19-24",
+            "F": 0.040452,
+            "M": 0.019623
+          },
+          {
+            "age": "25-29",
+            "F": 0.019788,
+            "M": 0.022738
+          },
+          {
+            "age": "30-34",
+            "F": 0.043864,
+            "M": 0.031905
+          },
+          {
+            "age": "35-39",
+            "F": 0.050696,
+            "M": 0.011634
+          },
+          {
+            "age": "40-44",
+            "F": 0.060921,
+            "M": 0.031637
+          },
+          {
+            "age": "45-49",
+            "F": 0.043713,
+            "M": 0.025694
+          },
+          {
+            "age": "50-54",
+            "F": 0.018596,
+            "M": 0.013773
+          },
+          {
+            "age": "55-59",
+            "F": 0.017152,
+            "M": 0.018455
+          },
+          {
+            "age": "60-64",
+            "F": 0.00396,
+            "M": 0.004825
+          },
+          {
+            "age": "65-69",
+            "F": 0.004243,
+            "M": 0.005353
+          },
+          {
+            "age": "70-74",
+            "F": 0.006595,
+            "M": 0.007886
+          },
+          {
+            "age": "75-79",
+            "F": 0.00876,
+            "M": 0.010933
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 5314.0,
+            "M": 917.0
+          },
+          {
+            "age": "13-18",
+            "F": 9352.0,
+            "M": 5933.0
+          },
+          {
+            "age": "19-24",
+            "F": 59713.0,
+            "M": 31530.0
+          },
+          {
+            "age": "25-29",
+            "F": 32211.0,
+            "M": 41766.0
+          },
+          {
+            "age": "30-34",
+            "F": 74574.0,
+            "M": 62324.0
+          },
+          {
+            "age": "35-39",
+            "F": 78977.0,
+            "M": 20156.0
+          },
+          {
+            "age": "40-44",
+            "F": 112465.0,
+            "M": 62616.0
+          },
+          {
+            "age": "45-49",
+            "F": 82093.0,
+            "M": 49564.0
+          },
+          {
+            "age": "50-54",
+            "F": 39651.0,
+            "M": 30090.0
+          },
+          {
+            "age": "55-59",
+            "F": 36454.0,
+            "M": 38321.0
+          },
+          {
+            "age": "60-64",
+            "F": 7815.0,
+            "M": 9266.0
+          },
+          {
+            "age": "65-69",
+            "F": 7794.0,
+            "M": 9121.0
+          },
+          {
+            "age": "70-74",
+            "F": 7655.0,
+            "M": 8590.0
+          },
+          {
+            "age": "75-79",
+            "F": 7558.0,
+            "M": 8152.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.93,
+            "M": 0.15
+          },
+          {
+            "age": "13-18",
+            "F": 1.74,
+            "M": 0.85
+          },
+          {
+            "age": "19-24",
+            "F": 8.16,
+            "M": 3.92
+          },
+          {
+            "age": "25-29",
+            "F": 3.96,
+            "M": 4.55
+          },
+          {
+            "age": "30-34",
+            "F": 12.2,
+            "M": 8.26
+          },
+          {
+            "age": "35-39",
+            "F": 18.5,
+            "M": 6.42
+          },
+          {
+            "age": "40-44",
+            "F": 14.07,
+            "M": 7.4
+          },
+          {
+            "age": "45-49",
+            "F": 9.69,
+            "M": 6.85
+          },
+          {
+            "age": "50-54",
+            "F": 4.84,
+            "M": 4.72
+          },
+          {
+            "age": "55-59",
+            "F": 4.86,
+            "M": 4.97
+          },
+          {
+            "age": "60-64",
+            "F": 1.15,
+            "M": 1.19
+          },
+          {
+            "age": "65-69",
+            "F": 1.24,
+            "M": 1.34
+          },
+          {
+            "age": "70-74",
+            "F": 1.96,
+            "M": 2.09
+          },
+          {
+            "age": "75-79",
+            "F": 2.64,
+            "M": 3.05
+          }
+        ]
+      },
+      {
+        "name": "매체별 - TV 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.362214,
+            "M": 0.400309
+          },
+          {
+            "age": "13-18",
+            "F": 0.144575,
+            "M": 0.143414
+          },
+          {
+            "age": "19-24",
+            "F": 0.21029,
+            "M": 0.120581
+          },
+          {
+            "age": "25-29",
+            "F": 0.243216,
+            "M": 0.193724
+          },
+          {
+            "age": "30-34",
+            "F": 0.26924,
+            "M": 0.196786
+          },
+          {
+            "age": "35-39",
+            "F": 0.368801,
+            "M": 0.252186
+          },
+          {
+            "age": "40-44",
+            "F": 0.568936,
+            "M": 0.453919
+          },
+          {
+            "age": "45-49",
+            "F": 0.570858,
+            "M": 0.458334
+          },
+          {
+            "age": "50-54",
+            "F": 0.597531,
+            "M": 0.546791
+          },
+          {
+            "age": "55-59",
+            "F": 0.595793,
+            "M": 0.585989
+          },
+          {
+            "age": "60-64",
+            "F": 0.62434,
+            "M": 0.576693
+          },
+          {
+            "age": "65-69",
+            "F": 0.66208,
+            "M": 0.644513
+          },
+          {
+            "age": "70-74",
+            "F": 0.679965,
+            "M": 0.650153
+          },
+          {
+            "age": "75-79",
+            "F": 0.682853,
+            "M": 0.652585
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 415975.0,
+            "M": 476453.0
+          },
+          {
+            "age": "13-18",
+            "F": 193449.0,
+            "M": 200149.0
+          },
+          {
+            "age": "19-24",
+            "F": 310418.0,
+            "M": 193753.0
+          },
+          {
+            "age": "25-29",
+            "F": 395912.0,
+            "M": 355845.0
+          },
+          {
+            "age": "30-34",
+            "F": 457745.0,
+            "M": 384407.0
+          },
+          {
+            "age": "35-39",
+            "F": 574541.0,
+            "M": 436903.0
+          },
+          {
+            "age": "40-44",
+            "F": 1050302.0,
+            "M": 898407.0
+          },
+          {
+            "age": "45-49",
+            "F": 1072083.0,
+            "M": 884136.0
+          },
+          {
+            "age": "50-54",
+            "F": 1274078.0,
+            "M": 1194596.0
+          },
+          {
+            "age": "55-59",
+            "F": 1266286.0,
+            "M": 1216783.0
+          },
+          {
+            "age": "60-64",
+            "F": 1232095.0,
+            "M": 1107500.0
+          },
+          {
+            "age": "65-69",
+            "F": 1216069.0,
+            "M": 1098208.0
+          },
+          {
+            "age": "70-74",
+            "F": 789225.0,
+            "M": 708146.0
+          },
+          {
+            "age": "75-79",
+            "F": 589122.0,
+            "M": 486576.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 405.46,
+            "M": 502.8
+          },
+          {
+            "age": "13-18",
+            "F": 66.76,
+            "M": 57.33
+          },
+          {
+            "age": "19-24",
+            "F": 99.81,
+            "M": 59.07
+          },
+          {
+            "age": "25-29",
+            "F": 177.09,
+            "M": 139.81
+          },
+          {
+            "age": "30-34",
+            "F": 169.19,
+            "M": 139.78
+          },
+          {
+            "age": "35-39",
+            "F": 256.65,
+            "M": 171.74
+          },
+          {
+            "age": "40-44",
+            "F": 411.57,
+            "M": 346.46
+          },
+          {
+            "age": "45-49",
+            "F": 411.81,
+            "M": 290.91
+          },
+          {
+            "age": "50-54",
+            "F": 473.39,
+            "M": 438.5
+          },
+          {
+            "age": "55-59",
+            "F": 499.81,
+            "M": 524.48
+          },
+          {
+            "age": "60-64",
+            "F": 617.43,
+            "M": 609.06
+          },
+          {
+            "age": "65-69",
+            "F": 872.06,
+            "M": 817.86
+          },
+          {
+            "age": "70-74",
+            "F": 972.06,
+            "M": 845.74
+          },
+          {
+            "age": "75-79",
+            "F": 989.62,
+            "M": 858.16
+          }
+        ]
+      },
+      {
+        "name": "매체별 - Youtube 기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 0.007943,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 0.007966,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 0.005829,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 0.006136,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 12930.0,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 13544.0,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 9081.0,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 11327.0,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "13-18",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "19-24",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "25-29",
+            "F": 1.28,
+            "M": 0.0
+          },
+          {
+            "age": "30-34",
+            "F": 1.28,
+            "M": 0.0
+          },
+          {
+            "age": "35-39",
+            "F": 1.18,
+            "M": 0.0
+          },
+          {
+            "age": "40-44",
+            "F": 1.21,
+            "M": 0.0
+          },
+          {
+            "age": "45-49",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "50-54",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "55-59",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "60-64",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "65-69",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "70-74",
+            "F": 0.0,
+            "M": 0.0
+          },
+          {
+            "age": "75-79",
+            "F": 0.0,
+            "M": 0.0
+          }
+        ]
+      },
+      {
+        "name": "미디어믹스 전체기준",
+        "P": [
+          {
+            "age": "07-12",
+            "F": 0.364327,
+            "M": 0.400617
+          },
+          {
+            "age": "13-18",
+            "F": 0.150048,
+            "M": 0.146751
+          },
+          {
+            "age": "19-24",
+            "F": 0.237982,
+            "M": 0.136655
+          },
+          {
+            "age": "25-29",
+            "F": 0.297729,
+            "M": 0.252466
+          },
+          {
+            "age": "30-34",
+            "F": 0.334845,
+            "M": 0.260702
+          },
+          {
+            "age": "35-39",
+            "F": 0.419988,
+            "M": 0.298129
+          },
+          {
+            "age": "40-44",
+            "F": 0.586911,
+            "M": 0.483012
+          },
+          {
+            "age": "45-49",
+            "F": 0.57714,
+            "M": 0.466363
+          },
+          {
+            "age": "50-54",
+            "F": 0.599459,
+            "M": 0.549268
+          },
+          {
+            "age": "55-59",
+            "F": 0.597616,
+            "M": 0.588222
+          },
+          {
+            "age": "60-64",
+            "F": 0.624591,
+            "M": 0.577344
+          },
+          {
+            "age": "65-69",
+            "F": 0.662109,
+            "M": 0.644691
+          },
+          {
+            "age": "70-74",
+            "F": 0.679965,
+            "M": 0.650348
+          },
+          {
+            "age": "75-79",
+            "F": 0.682853,
+            "M": 0.652816
+          }
+        ],
+        "N": [
+          {
+            "age": "07-12",
+            "F": 418402.0,
+            "M": 476820.0
+          },
+          {
+            "age": "13-18",
+            "F": 200772.0,
+            "M": 204806.0
+          },
+          {
+            "age": "19-24",
+            "F": 351295.0,
+            "M": 219580.0
+          },
+          {
+            "age": "25-29",
+            "F": 484647.0,
+            "M": 463746.0
+          },
+          {
+            "age": "30-34",
+            "F": 569283.0,
+            "M": 509261.0
+          },
+          {
+            "age": "35-39",
+            "F": 654284.0,
+            "M": 516498.0
+          },
+          {
+            "age": "40-44",
+            "F": 1083486.0,
+            "M": 955987.0
+          },
+          {
+            "age": "45-49",
+            "F": 1083881.0,
+            "M": 899624.0
+          },
+          {
+            "age": "50-54",
+            "F": 1278190.0,
+            "M": 1200008.0
+          },
+          {
+            "age": "55-59",
+            "F": 1270161.0,
+            "M": 1221421.0
+          },
+          {
+            "age": "60-64",
+            "F": 1232590.0,
+            "M": 1108751.0
+          },
+          {
+            "age": "65-69",
+            "F": 1216123.0,
+            "M": 1098510.0
+          },
+          {
+            "age": "70-74",
+            "F": 789226.0,
+            "M": 708359.0
+          },
+          {
+            "age": "75-79",
+            "F": 589123.0,
+            "M": 486748.0
+          }
+        ],
+        "GRP": [
+          {
+            "age": "07-12",
+            "F": 406.39,
+            "M": 502.95
+          },
+          {
+            "age": "13-18",
+            "F": 68.5,
+            "M": 58.18
+          },
+          {
+            "age": "19-24",
+            "F": 107.97,
+            "M": 62.99
+          },
+          {
+            "age": "25-29",
+            "F": 192.41,
+            "M": 154.05
+          },
+          {
+            "age": "30-34",
+            "F": 193.24,
+            "M": 157.66
+          },
+          {
+            "age": "35-39",
+            "F": 286.95,
+            "M": 188.02
+          },
+          {
+            "age": "40-44",
+            "F": 437.2,
+            "M": 363.59
+          },
+          {
+            "age": "45-49",
+            "F": 421.51,
+            "M": 297.75
+          },
+          {
+            "age": "50-54",
+            "F": 478.23,
+            "M": 443.23
+          },
+          {
+            "age": "55-59",
+            "F": 504.67,
+            "M": 529.45
+          },
+          {
+            "age": "60-64",
+            "F": 618.59,
+            "M": 610.24
+          },
+          {
+            "age": "65-69",
+            "F": 873.3,
+            "M": 819.19
+          },
+          {
+            "age": "70-74",
+            "F": 974.02,
+            "M": 847.84
+          },
+          {
+            "age": "75-79",
+            "F": 992.26,
+            "M": 861.22
+          }
+        ]
+      }
+    ],
+    "reach_freq": [
+      {
+        "reach": "0",
+        "reach_p": 1.0,
+        "reach_p_diff": 0.537218
+      },
+      {
+        "reach": "1",
+        "reach_p": 0.462782,
+        "reach_p_diff": 0.08898100000000003
+      },
+      {
+        "reach": "2",
+        "reach_p": 0.373801,
+        "reach_p_diff": 0.05911099999999997
+      },
+      {
+        "reach": "3",
+        "reach_p": 0.31469,
+        "reach_p_diff": 0.042847000000000024
+      },
+      {
+        "reach": "4",
+        "reach_p": 0.271843,
+        "reach_p_diff": 0.03379099999999999
+      },
+      {
+        "reach": "5",
+        "reach_p": 0.238052,
+        "reach_p_diff": 0.027419000000000027
+      },
+      {
+        "reach": "6",
+        "reach_p": 0.210633,
+        "reach_p_diff": 0.022724999999999995
+      },
+      {
+        "reach": "7",
+        "reach_p": 0.187908,
+        "reach_p_diff": 0.019325999999999982
+      },
+      {
+        "reach": "8",
+        "reach_p": 0.168582,
+        "reach_p_diff": 0.016595
+      },
+      {
+        "reach": "9",
+        "reach_p": 0.151987,
+        "reach_p_diff": 0.014466000000000007
+      },
+      {
+        "reach": "10",
+        "reach_p": 0.137521,
+        "reach_p_diff": 0.0
+      }
+    ],
+    "reach_marginal": {
+      "Youtube": 0.001019,
+      "GFA": 0.000104,
+      "SMR": 0.020431,
+      "Kakao": 0.019252,
+      "TV": 0.445124
+    },
+    "reach_union": 0.462782
+  }
+}

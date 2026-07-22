@@ -1,0 +1,69 @@
+{
+  "input_mix": [
+    {
+      "platform": "Youtube",
+      "product": "overall",
+      "gender": "F",
+      "min": 18,
+      "max": 44,
+      "impact": 0.8,
+      "budget": 1000000,
+      "bid_type": "CPM",
+      "bid_cost": 12000,
+      "bid_rate": "",
+      "e_imp": "",
+      "e_grp": ""
+    },
+    {
+      "platform": "Naver",
+      "product": "overall",
+      "gender": "F",
+      "min": 18,
+      "max": 44,
+      "impact": 0.5,
+      "budget": 5000000,
+      "bid_type": "E.IMP 직접입력",
+      "bid_cost": "",
+      "bid_rate": "",
+      "e_imp": 2462332,
+      "e_grp": ""
+    },
+    {
+      "platform": "Kakao",
+      "product": "overall",
+      "gender": "F",
+      "min": 18,
+      "max": 44,
+      "impact": 1,
+      "budget": 300000000,
+      "bid_type": "CPRP",
+      "bid_cost": 2500000,
+      "bid_rate": "",
+      "e_imp": "",
+      "e_grp": ""
+    },
+    {
+      "platform": "GFA",
+      "product": "overall",
+      "gender": "F",
+      "min": 18,
+      "max": 44,
+      "impact": 1,
+      "budget": 300000000,
+      "bid_type": "E.GRP 직접입력",
+      "bid_cost": "",
+      "bid_rate": "",
+      "e_imp": "",
+      "e_grp": 56
+    }
+  ],
+  "input_weight": "high",
+  "input_gender": "P",
+  "input_age_min": 7,
+  "input_age_max": 79,
+
+  "userName": "admin@sbs.co.kr",
+  "userGrade": "B",
+
+  "inputModelDate": "2026-01-11"
+}

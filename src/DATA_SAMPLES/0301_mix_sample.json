@@ -1,0 +1,30 @@
+{
+  "userGrade": "P",
+  "userName": "admin@sbs.co.kr",
+  "userCompany": "디엠씨미디어",
+
+  "list": [
+
+    {
+      "platform": "Digital",
+      "product": "overall"
+    },
+    {
+      "platform": "Facebook",
+      "product": "AUCTION_APP_INSTALLS"
+    },
+    {
+      "platform": "Facebook",
+      "product": "AUCTION_BRAND_AWARENESS"
+    },
+
+    {
+      "platform": "[커스텀] 모델 1",
+      "product": "overall"
+    },
+    {
+      "platform": "[커스텀] 모델 2",
+      "product": "overall"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "input_age_min": 7,
+  "input_age_max": 79,
+  "input_gender": "P",
+
+  "input_weight": "high",
+
+  "inputModelDate": "2026-01-11",
+
+  "opt_type": "reach_target",
+
+  "userName": "admin@sbs.co.kr",
+  "userGrade": "P",
+
+  "input_mix": [
+    {
+      "platform": "Digital",
+      "product": "overall",
+      "impact": "",
+      "bid_type": "CPM",
+      "bid_cost": 5000,
+      "bid_rate": "",
+      "min_rat": ""
+    },
+    {
+      "platform": "TV",
+      "product": "overall",
+      "impact": "",
+      "bid_type": "CPRP",
+      "bid_cost": 1200000,
+      "bid_rate": "",
+      "min_rat": ""
+    }
+  ],
+
+  "opt_target": 0.2
+}

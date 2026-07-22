@@ -1,0 +1,12 @@
+config.py
+*.xlsx
+__pycache__
+*.ipynb
+DATA_CLEANING/
+*.zip
+*.csv
+!src/IMG/*.ipynb
+# !src/test.ipynb
+
+*.claude/
+README.html

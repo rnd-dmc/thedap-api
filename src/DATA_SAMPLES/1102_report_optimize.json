@@ -1,0 +1,143 @@
+{
+  "userGrade": "P",
+  "userName": "admin@sbs.co.kr",
+
+  "reportOption": {
+    "input_age_min": 7,
+    "input_age_max": 79,
+    "input_gender": "P",
+
+    "input_weight": "high",
+
+    "inputModelDate": "2026-01-11",
+
+    "opt_type": "reach_target",
+
+    "userName": "admin@sbs.co.kr",
+    "userGrade": "P",
+
+    "input_mix": [
+      {
+        "platform": "Digital",
+        "product": "overall",
+        "impact": "",
+        "bid_type": "CPM",
+        "bid_cost": 5000,
+        "bid_rate": "",
+        "min_rat": ""
+      },
+      {
+        "platform": "TV",
+        "product": "overall",
+        "impact": "",
+        "bid_type": "CPRP",
+        "bid_cost": 1200000,
+        "bid_rate": "",
+        "min_rat": ""
+      }
+    ],
+
+    "opt_target": 0.2
+  },
+  "target": "P779",
+  "target_pop": 46007767,
+
+  "reportOptimize": {
+    "table_viz": [
+      {
+        "98,590,221": {
+          "Digital": [
+            {
+              "product": "overall",
+              "budget": 76752487.0
+            }
+          ],
+          "TV": [
+            {
+              "product": "overall",
+              "budget": 21837734.0
+            }
+          ]
+        }
+      }
+    ],
+    "table_opt": [
+      {
+        "98,590,221": [
+          {
+            "platform": "Digital",
+            "product": "overall",
+            "alloc_rat": 0.7785,
+            "budget": 76752487.0,
+            "target_grps": 33.365013,
+            "target_reach_p": 0.171671,
+            "target_reach2_p": 0.07468,
+            "target_reach3_p": 0.039094,
+            "target_reach4_p": 0.022634,
+            "target_reach5_p": 0.013957,
+            "target_reach6_p": 0.009043,
+            "target_reach7_p": 0.005985,
+            "target_reach8_p": 0.004026,
+            "target_reach9_p": 0.002788,
+            "target_reach10_p": 0.001958
+          },
+          {
+            "platform": "TV",
+            "product": "overall",
+            "alloc_rat": 0.2215,
+            "budget": 21837734.0,
+            "target_grps": 18.198112,
+            "target_reach_p": 0.049911,
+            "target_reach2_p": 0.028487,
+            "target_reach3_p": 0.018295,
+            "target_reach4_p": 0.01286,
+            "target_reach5_p": 0.009378,
+            "target_reach6_p": 0.007114,
+            "target_reach7_p": 0.005484,
+            "target_reach8_p": 0.004289,
+            "target_reach9_p": 0.0034,
+            "target_reach10_p": 0.002766
+          },
+          {
+            "platform": "Total",
+            "product": "",
+            "alloc_rat": 1.0,
+            "budget": 98590221.0,
+            "target_grps": 51.563125,
+            "target_reach_p": 0.208358,
+            "target_reach2_p": 0.104642,
+            "target_reach3_p": 0.061458,
+            "target_reach4_p": 0.03931,
+            "target_reach5_p": 0.026497,
+            "target_reach6_p": 0.018597,
+            "target_reach7_p": 0.013309,
+            "target_reach8_p": 0.009667,
+            "target_reach9_p": 0.007185,
+            "target_reach10_p": 0.005402
+          }
+        ]
+      }
+    ],
+    "table_freq": [
+      {
+        "platform": "Total",
+        "product": "",
+        "alloc_rat": 1.0,
+        "budget": 98590221.0,
+        "target_grps": 51.563125,
+        "target_grps_weighted": 51.563125,
+        "target_reach_p": 0.208358,
+        "target_reach2_p": 0.104642,
+        "target_reach3_p": 0.061458,
+        "target_reach4_p": 0.03931,
+        "target_reach5_p": 0.026497,
+        "target_reach6_p": 0.018597,
+        "target_reach7_p": 0.013309,
+        "target_reach8_p": 0.009667,
+        "target_reach9_p": 0.007185,
+        "target_reach10_p": 0.005402
+      }
+    ],
+    "isSuc": true
+  }
+}
