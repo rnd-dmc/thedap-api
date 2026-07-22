@@ -66,8 +66,13 @@ class DapPhase4_v5(DapPhase3_v5):
         df['target_reach_n'] = df['e_reach_n'] * df['isTarget']
         df['target_reach_p'] = df['target_reach_n'] / df['population']
         
+<<<<<<< HEAD
         df['af'] = df['eimp_weighted'] / df['e_reach_n']
         df['af_a'] = df['e_imp_a'] / df['e_reach_n']
+=======
+        df['af'] = df['e_imp_a'] / df['e_reach_n']
+        df['af_a'] = df['eimp_weighted'] / df['e_reach_n']
+>>>>>>> e41361f439cff55f3755e4fa69e92a25bc2c82bb
         df['target_af'] = df['target_impression_weighted'] / df['target_reach_n']
         df['target_af_a'] = df['target_impression_a'] / df['target_reach_n']
 
