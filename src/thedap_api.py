@@ -629,8 +629,7 @@ def report_optimize(data: dict = Body(...)):
             report_wb = DapReportReachSpectrum(
                 reportOption=reportOption,
                 reportOptimize=reportOptimize,
-                target_pop=target_pop,
-                opt_type=opt_type
+                target_pop=target_pop
             )
 
         output = BytesIO()
