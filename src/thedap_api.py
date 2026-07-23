@@ -281,32 +281,90 @@ def reach_result(data: dict = Body(...)):
     description="통합 Reach 분석 결과를 엑셀 리포트 파일로 생성하여 다운로드합니다.",
 )
 def report_analysis(data: dict = Body(...)):
-    userGrade = data.get("userGrade")
-    reportOption = data.get("reportOption")
+    raw_report_option = data.get("reportOption")
+    reportOption = dict(raw_report_option) if isinstance(raw_report_option, dict) else None
+    
+    # 하위 호환: reportOption 없이 플랫 구조로 전달된 경우도 허용
+    if reportOption is None:
+        if any(k in data for k in ["input_mix", "input_weight", "input_gender", "input_age_min", "input_age_max"]):
+            reportOption = {
+                "input_mix": data.get("input_mix"),
+                "input_weight": data.get("input_weight"),
+                "input_gender": data.get("input_gender"),
+                "input_age_min": data.get("input_age_min"),
+                "input_age_max": data.get("input_age_max"),
+                "inputModelDate": data.get("inputModelDate"),
+                "userName": data.get("userName", ""),
+            }
 
+    userGrade = data.get("userGrade")
+    if not userGrade and isinstance(reportOption, dict):
+        userGrade = reportOption.get("userGrade")
+
+    if not userGrade or not isinstance(reportOption, dict):
+        return JSONResponse(
+            status_code=400,
+            content={"status": "error", "message": "userGrade and reportOption are required. (userGrade can be top-level or inside reportOption)"}
+        )
+
+    required_keys = ["input_mix", "input_weight", "input_gender", "input_age_min", "input_age_max"]
+    missing_keys = [key for key in required_keys if reportOption.get(key) is None or reportOption.get(key) == ""]
+    if missing_keys:
+        return JSONResponse(
+            status_code=400,
+            content={"status": "error", "message": f"Missing required reportOption keys: {', '.join(missing_keys)}"}
+        )
+        
     # 사용자 등급에 따른 분석결과 엑셀 파일 생성
     try:
         if not reportOption.get("inputModelDate"):
-            reportOption['inputModelDate'] = datetime.strftime(date.today(), "%Y-%m-%d")
+            reportOption["inputModelDate"] = datetime.strftime(date.today(), "%Y-%m-%d")
 
-        reportResult = data.get("reportResult")
+        mix = reportOption["input_mix"]
+        gender = reportOption["input_gender"]
+        age_min = reportOption["input_age_min"]
+        age_max = reportOption["input_age_max"]
+        weight = reportOption["input_weight"]
+        modelDate = reportOption.get("inputModelDate", datetime.strftime(date.today(), "%Y-%m-%d"))
+        userName = reportOption.get("userName", "")
+
+        input_mix = json.dumps(mix, ensure_ascii=False)
+        input_gender = json.dumps([{"input_gender": gender}], ensure_ascii=False)
+        input_age = json.dumps([{"input_age_min": age_min, "input_age_max": age_max}], ensure_ascii=False)
+        input_weight = json.dumps([{"input_weight": weight}], ensure_ascii=False)
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            if userGrade == "B":
+                thedap_output = DapOutput_v4(input_mix, input_age, input_gender, input_weight)
+            else:
+                platform_list = list(set(pd.read_json(input_mix)["platform"]))
+                thedap_output = DapOutput_v5(
+                    input_mix, input_age, input_gender, input_weight,
+                    userName=userName, inputModelDate=modelDate, platform_list=platform_list
+                )
+
+        reportResult = {
+            "result_overall": thedap_output.result_overall(),
+            "result_summary": thedap_output.result_summary(),
+            "heatmap": thedap_output.heatmap(),
+            "reach_freq": thedap_output.reach_freq(),
+        }
+
+        # 보고서 포맷(stand별 metric dict)으로 heatmap 구조 변환
         if reportResult.get("heatmap"):
             heatmap_re = {}
-            for h in reportResult['heatmap']:
-                heatmap_re[h['name']] = [
-                    {
-                        'e_reach_p':h['P']
-                    },
-                    {
-                        'e_reach_n':h['N']
-                    },
-                    {
-                        "e_grps":h['GRP']
-                    }
+            for h in reportResult["heatmap"]:
+                if not isinstance(h, dict) or not h.get("name"):
+                    continue
+                heatmap_re[h["name"]] = [
+                    {"e_reach_p": h.get("P", [])},
+                    {"e_reach_n": h.get("N", [])},
+                    {"e_grps": h.get("GRP", [])}
                 ]
-            reportResult["heatmap"] = [heatmap_re]
+            reportResult["heatmap"] = [heatmap_re] if heatmap_re else []
 
-        target_pop = data.get("target_pop")
+        target_pop = getattr(thedap_output, "trans_pop", 0)
 
         report_wb = DapReportReachAnalysis(reportOption, reportResult, target_pop, userGrade)
         output = BytesIO()
@@ -681,7 +739,7 @@ def custom_sample(data: dict = Body(...)):
     "/reach_custom/",
     tags=["커스텀 모델"],
     summary="커스텀 모델 분석",
-    description="사용자가 업로드한 데이터(uploadData, 20행 이상)를 기반으로 커스텀 도달 모델을 분석합니다.",
+    description="사용자가 업로드한 데이터(uploadData, 행 수가 30개 미만 또는 100개 초과는 RowNumError)를 기반으로 커스텀 도달 모델을 분석합니다.",
 )
 def reach_custom(data: dict = Body(...)):
     uploadData = data.get('uploadData')
@@ -693,8 +751,8 @@ def reach_custom(data: dict = Body(...)):
 
     DCM = DapCustomModel(uploadData=uploadData)
 
-    # 전달받은 데이터의 행 수가 20 미만일 때 -> RowNumError
-    if len(DCM.uploadData) < 20:
+    # 전달받은 데이터의 행 수가 30개 미만 또는 100개 초과일 때 -> RowNumError
+    if len(DCM.uploadData) < 30 or len(DCM.uploadData) > 100:
         return JSONResponse(
             status_code=422,
             content={"status": "fail", "message": "RowNumError"}
